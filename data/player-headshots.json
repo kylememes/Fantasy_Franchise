@@ -1,0 +1,895 @@
+{
+  "source": "ESPN public headshot CDN and official NFL headshots; exact GSIS identity and roster-name matching",
+  "roster_source": "https://github.com/nflverse/nflverse-data/releases/download/rosters/roster_2026.csv",
+  "verified_on": "2026-10-16",
+  "players": [
+    {
+      "external_id": "00-0036171",
+      "name": "Aaron Brewer",
+      "position": "C",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/tyrycew65usjz05doyaz"
+    },
+    {
+      "external_id": "00-0036623",
+      "name": "Creed Humphrey",
+      "position": "C",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/avv8nnqnrgv3os85v9zm"
+    },
+    {
+      "external_id": "00-0039744",
+      "name": "Tanor Bortolini",
+      "position": "C",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/mzueuwtfdulnuvxbdv9i"
+    },
+    {
+      "external_id": "00-0039147",
+      "name": "Christian Gonzalez",
+      "position": "CB",
+      "espn_id": "4686772",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4686772.png"
+    },
+    {
+      "external_id": "00-0039841",
+      "name": "Cooper DeJean",
+      "position": "CB",
+      "espn_id": "4682618",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4682618.png"
+    },
+    {
+      "external_id": "00-0034856",
+      "name": "Denzel Ward",
+      "position": "CB",
+      "espn_id": "3915535",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3915535.png"
+    },
+    {
+      "external_id": "00-0037237",
+      "name": "Derek Stingley Jr.",
+      "position": "CB",
+      "espn_id": "4426434",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4426434.png"
+    },
+    {
+      "external_id": "00-0039169",
+      "name": "Devon Witherspoon",
+      "position": "CB",
+      "espn_id": "4575431",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4575431.png"
+    },
+    {
+      "external_id": "00-0033055",
+      "name": "Jalen Ramsey",
+      "position": "CB",
+      "espn_id": "3045373",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3045373.png"
+    },
+    {
+      "external_id": "00-0036944",
+      "name": "Jaycee Horn",
+      "position": "CB",
+      "espn_id": "4362847",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4362847.png"
+    },
+    {
+      "external_id": "00-0036292",
+      "name": "Jaylon Johnson",
+      "position": "CB",
+      "espn_id": "4243253",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4243253.png"
+    },
+    {
+      "external_id": "00-0038111",
+      "name": "Kyler Gordon",
+      "position": "CB",
+      "espn_id": "4361093",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4361093.png"
+    },
+    {
+      "external_id": "00-0036874",
+      "name": "Pat Surtain II",
+      "position": "CB",
+      "espn_id": "4372012",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4372012.png"
+    },
+    {
+      "external_id": "00-0037190",
+      "name": "Sauce Gardner",
+      "position": "CB",
+      "espn_id": "4427250",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4427250.png"
+    },
+    {
+      "external_id": "00-0037191",
+      "name": "Trent McDuffie",
+      "position": "CB",
+      "espn_id": "4426405",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4426405.png"
+    },
+    {
+      "external_id": "00-0037236",
+      "name": "Aidan Hutchinson",
+      "position": "DE",
+      "espn_id": "4372099",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4372099.png"
+    },
+    {
+      "external_id": "00-0031565",
+      "name": "Danielle Hunter",
+      "position": "DE",
+      "espn_id": "2976560",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/2976560.png"
+    },
+    {
+      "external_id": "00-0036220",
+      "name": "Derrick Brown",
+      "position": "DE",
+      "espn_id": "4035495",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4035495.png"
+    },
+    {
+      "external_id": "00-0034973",
+      "name": "Maxx Crosby",
+      "position": "DE",
+      "espn_id": "3916655",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3916655.png"
+    },
+    {
+      "external_id": "00-0035717",
+      "name": "Nick Bosa",
+      "position": "DE",
+      "espn_id": "4040605",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4040605.png"
+    },
+    {
+      "external_id": "00-0039108",
+      "name": "Will Anderson Jr.",
+      "position": "DE",
+      "espn_id": "4685724",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4685724.png"
+    },
+    {
+      "external_id": "00-0027969",
+      "name": "Cameron Heyward",
+      "position": "DT",
+      "espn_id": "13977",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/13977.png"
+    },
+    {
+      "external_id": "00-0032762",
+      "name": "Chris Jones",
+      "position": "DT",
+      "espn_id": "3044859",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3044859.png"
+    },
+    {
+      "external_id": "00-0032378",
+      "name": "DeForest Buckner",
+      "position": "DT",
+      "espn_id": "2971282",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/2971282.png"
+    },
+    {
+      "external_id": "00-0035683",
+      "name": "Dexter Lawrence",
+      "position": "DT",
+      "espn_id": "4035483",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4035483.png"
+    },
+    {
+      "external_id": "00-0035643",
+      "name": "Jeffery Simmons",
+      "position": "DT",
+      "espn_id": "4035369",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4035369.png"
+    },
+    {
+      "external_id": "00-0036130",
+      "name": "Nnamdi Madubuike",
+      "position": "DT",
+      "espn_id": "4035245",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4035245.png"
+    },
+    {
+      "external_id": "00-0035718",
+      "name": "Quinnen Williams",
+      "position": "DT",
+      "espn_id": "4040982",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4040982.png"
+    },
+    {
+      "external_id": "00-0034773",
+      "name": "Vita Vea",
+      "position": "DT",
+      "espn_id": "3134362",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3134362.png"
+    },
+    {
+      "external_id": "00-0036915",
+      "name": "Jeremiah Owusu-Koramoah",
+      "position": "EDGE",
+      "espn_id": "4258599",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4258599.png"
+    },
+    {
+      "external_id": "00-0036932",
+      "name": "Micah Parsons",
+      "position": "EDGE",
+      "espn_id": "4361423",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4361423.png"
+    },
+    {
+      "external_id": "00-0033868",
+      "name": "Myles Garrett",
+      "position": "EDGE",
+      "espn_id": "3122132",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3122132.png"
+    },
+    {
+      "external_id": "00-0037249",
+      "name": "Nik Bonitto",
+      "position": "EDGE",
+      "espn_id": "4360259",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4360259.png"
+    },
+    {
+      "external_id": "00-0033886",
+      "name": "T.J. Watt",
+      "position": "EDGE",
+      "espn_id": "3045282",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3045282.png"
+    },
+    {
+      "external_id": "00-0033935",
+      "name": "Trey Hendrickson",
+      "position": "EDGE",
+      "espn_id": "3052743",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3052743.png"
+    },
+    {
+      "external_id": "00-0036411",
+      "name": "Antoine Winfield Jr.",
+      "position": "FS",
+      "espn_id": "4034790",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4034790.png"
+    },
+    {
+      "external_id": "00-0037667",
+      "name": "Kerby Joseph",
+      "position": "FS",
+      "espn_id": "4360383",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4360383.png"
+    },
+    {
+      "external_id": "00-0029607",
+      "name": "Demario Davis",
+      "position": "LB",
+      "espn_id": "14958",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/14958.png"
+    },
+    {
+      "external_id": "00-0034815",
+      "name": "Fred Warner",
+      "position": "LB",
+      "espn_id": "3138826",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3138826.png"
+    },
+    {
+      "external_id": "00-0039018",
+      "name": "Jack Campbell",
+      "position": "LB",
+      "espn_id": "4569465",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4569465.png"
+    },
+    {
+      "external_id": "00-0037819",
+      "name": "Leo Chenal",
+      "position": "LB",
+      "espn_id": "4426901",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4426901.png"
+    },
+    {
+      "external_id": "00-0034874",
+      "name": "Roquan Smith",
+      "position": "LB",
+      "espn_id": "3915189",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3915189.png"
+    },
+    {
+      "external_id": "00-0036418",
+      "name": "Zack Baun",
+      "position": "LB",
+      "espn_id": "3917657",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3917657.png"
+    },
+    {
+      "external_id": "00-0035630",
+      "name": "Chris Lindstrom",
+      "position": "LG",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/astznme04kczpjjb02of"
+    },
+    {
+      "external_id": "00-0036339",
+      "name": "Kevin Dotson",
+      "position": "LG",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/bpsw4ieqbgop8jnqalw9"
+    },
+    {
+      "external_id": "00-0039034",
+      "name": "Peter Skoronski",
+      "position": "LG",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/mmsoohfz1vovoavth0ns"
+    },
+    {
+      "external_id": "00-0037001",
+      "name": "Quinn Meinerz",
+      "position": "LG",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/e6erzvgu9dsqzec0gfpk"
+    },
+    {
+      "external_id": "00-0036660",
+      "name": "Trey Smith",
+      "position": "LG",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/skoecv9k14idjai4ok42"
+    },
+    {
+      "external_id": "00-0036386",
+      "name": "Andrew Thomas",
+      "position": "LT",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/yvwuonp6lhw7ougn7q16"
+    },
+    {
+      "external_id": "00-0034429",
+      "name": "Jordan Mailata",
+      "position": "LT",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/al7gzhilxxfwtflukyei"
+    },
+    {
+      "external_id": "00-0030561",
+      "name": "Lane Johnson",
+      "position": "LT",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/xanvacjbb9x1hcslyvsl"
+    },
+    {
+      "external_id": "00-0036880",
+      "name": "Penei Sewell",
+      "position": "LT",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/g1g0qefvafsm8hxjpiyy"
+    },
+    {
+      "external_id": "00-0037009",
+      "name": "Rashawn Slater",
+      "position": "LT",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/tnryoyowiu6amxx3zthf"
+    },
+    {
+      "external_id": "00-0027857",
+      "name": "Trent Williams",
+      "position": "LT",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/esqu9k1my3po3yxxkcjs"
+    },
+    {
+      "external_id": "00-0037834",
+      "name": "Brock Purdy",
+      "position": "QB",
+      "espn_id": "4361741",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4361741.png"
+    },
+    {
+      "external_id": "00-0039918",
+      "name": "Caleb Williams",
+      "position": "QB",
+      "espn_id": "4431611",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4431611.png"
+    },
+    {
+      "external_id": "00-0033077",
+      "name": "Dak Prescott",
+      "position": "QB",
+      "espn_id": "2577417",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/2577417.png"
+    },
+    {
+      "external_id": "00-0039851",
+      "name": "Drake Maye",
+      "position": "QB",
+      "espn_id": "4431452",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4431452.png"
+    },
+    {
+      "external_id": "00-0036442",
+      "name": "Joe Burrow",
+      "position": "QB",
+      "espn_id": "3915511",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3915511.png"
+    },
+    {
+      "external_id": "00-0034857",
+      "name": "Josh Allen",
+      "position": "QB",
+      "espn_id": "3918298",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3918298.png"
+    },
+    {
+      "external_id": "00-0036355",
+      "name": "Justin Herbert",
+      "position": "QB",
+      "espn_id": "4038941",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4038941.png"
+    },
+    {
+      "external_id": "00-0034796",
+      "name": "Lamar Jackson",
+      "position": "QB",
+      "espn_id": "3916387",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3916387.png"
+    },
+    {
+      "external_id": "00-0026498",
+      "name": "Matthew Stafford",
+      "position": "QB",
+      "espn_id": "12483",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/12483.png"
+    },
+    {
+      "external_id": "00-0033873",
+      "name": "Patrick Mahomes",
+      "position": "QB",
+      "espn_id": "3139477",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3139477.png"
+    },
+    {
+      "external_id": "00-0040122",
+      "name": "Ashton Jeanty",
+      "position": "RB",
+      "espn_id": "4890973",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4890973.png"
+    },
+    {
+      "external_id": "00-0038542",
+      "name": "Bijan Robinson",
+      "position": "RB",
+      "espn_id": "4430807",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4430807.png"
+    },
+    {
+      "external_id": "00-0033280",
+      "name": "Christian McCaffrey",
+      "position": "RB",
+      "espn_id": "3117251",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3117251.png"
+    },
+    {
+      "external_id": "00-0039040",
+      "name": "De'Von Achane",
+      "position": "RB",
+      "espn_id": "4429160",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4429160.png"
+    },
+    {
+      "external_id": "00-0032764",
+      "name": "Derrick Henry",
+      "position": "RB",
+      "espn_id": "3043078",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3043078.png"
+    },
+    {
+      "external_id": "00-0039139",
+      "name": "Jahmyr Gibbs",
+      "position": "RB",
+      "espn_id": "4429795",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4429795.png"
+    },
+    {
+      "external_id": "00-0037248",
+      "name": "James Cook",
+      "position": "RB",
+      "espn_id": "4379399",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4379399.png"
+    },
+    {
+      "external_id": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "espn_id": "4242335",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4242335.png"
+    },
+    {
+      "external_id": "00-0038134",
+      "name": "Kenneth Walker III",
+      "position": "RB",
+      "espn_id": "4567048",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4567048.png"
+    },
+    {
+      "external_id": "00-0034844",
+      "name": "Saquon Barkley",
+      "position": "RB",
+      "espn_id": "3929630",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3929630.png"
+    },
+    {
+      "external_id": "00-0032391",
+      "name": "Joe Thuney",
+      "position": "RG",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/fstgjypwv8bcpfaae5mi"
+    },
+    {
+      "external_id": "00-0034342",
+      "name": "Quenton Nelson",
+      "position": "RG",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/oaoklavcn1ucrjt0yrth"
+    },
+    {
+      "external_id": "00-0040123",
+      "name": "Armand Membou",
+      "position": "RT",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/rnpqxfhfzugkwambstdh"
+    },
+    {
+      "external_id": "00-0036616",
+      "name": "Christian Darrisaw",
+      "position": "RT",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/y1llb6xez1t6rvdt0hab"
+    },
+    {
+      "external_id": "00-0033538",
+      "name": "Garett Bolles",
+      "position": "RT",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/xhxwjnd0emn65lfom6z7"
+    },
+    {
+      "external_id": "00-0039897",
+      "name": "Joe Alt",
+      "position": "RT",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/hul7ydlbropij2fjhvvy"
+    },
+    {
+      "external_id": "00-0034759",
+      "name": "Kolton Miller",
+      "position": "RT",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/jaq8p0tiipizksjbt3aa"
+    },
+    {
+      "external_id": "00-0032380",
+      "name": "Laremy Tunsil",
+      "position": "RT",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/gxoga8rszlaaewu5hh0x"
+    },
+    {
+      "external_id": "00-0038540",
+      "name": "Paris Johnson Jr.",
+      "position": "RT",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/fto9oiuqts9esmpl7dxf"
+    },
+    {
+      "external_id": "00-0036406",
+      "name": "Tristan Wirfs",
+      "position": "RT",
+      "espn_id": null,
+      "source": "NFL",
+      "url": "https://static.www.nfl.com/image/upload/f_auto,q_auto/league/j1gwbrodzkkdaqlpyqml"
+    },
+    {
+      "external_id": "00-0039141",
+      "name": "Brian Branch",
+      "position": "SS",
+      "espn_id": "4692025",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4692025.png"
+    },
+    {
+      "external_id": "00-0033890",
+      "name": "Budda Baker",
+      "position": "SS",
+      "espn_id": "3127287",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3127287.png"
+    },
+    {
+      "external_id": "00-0034790",
+      "name": "Derwin James",
+      "position": "SS",
+      "espn_id": "3691739",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3691739.png"
+    },
+    {
+      "external_id": "00-0034675",
+      "name": "Jessie Bates",
+      "position": "SS",
+      "espn_id": "3919512",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3919512.png"
+    },
+    {
+      "external_id": "00-0038038",
+      "name": "Kyle Hamilton",
+      "position": "SS",
+      "espn_id": "4575517",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4575517.png"
+    },
+    {
+      "external_id": "00-0036388",
+      "name": "Xavier McKinney",
+      "position": "SS",
+      "espn_id": "4241470",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4241470.png"
+    },
+    {
+      "external_id": "00-0039338",
+      "name": "Brock Bowers",
+      "position": "TE",
+      "espn_id": "4432665",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4432665.png"
+    },
+    {
+      "external_id": "00-0033288",
+      "name": "George Kittle",
+      "position": "TE",
+      "espn_id": "3040151",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3040151.png"
+    },
+    {
+      "external_id": "00-0034753",
+      "name": "Mark Andrews",
+      "position": "TE",
+      "espn_id": "3116365",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3116365.png"
+    },
+    {
+      "external_id": "00-0030506",
+      "name": "Travis Kelce",
+      "position": "TE",
+      "espn_id": "15847",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/15847.png"
+    },
+    {
+      "external_id": "00-0037744",
+      "name": "Trey McBride",
+      "position": "TE",
+      "espn_id": "4361307",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4361307.png"
+    },
+    {
+      "external_id": "00-0040128",
+      "name": "Tyler Warren",
+      "position": "TE",
+      "espn_id": "4431459",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4431459.png"
+    },
+    {
+      "external_id": "00-0036963",
+      "name": "Amon-Ra St. Brown",
+      "position": "WR",
+      "espn_id": "4374302",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4374302.png"
+    },
+    {
+      "external_id": "00-0036358",
+      "name": "CeeDee Lamb",
+      "position": "WR",
+      "espn_id": "4241389",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4241389.png"
+    },
+    {
+      "external_id": "00-0037239",
+      "name": "Chris Olave",
+      "position": "WR",
+      "espn_id": "4361370",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4361370.png"
+    },
+    {
+      "external_id": "00-0031381",
+      "name": "Davante Adams",
+      "position": "WR",
+      "espn_id": "16800",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/16800.png"
+    },
+    {
+      "external_id": "00-0036912",
+      "name": "DeVonta Smith",
+      "position": "WR",
+      "espn_id": "4241478",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4241478.png"
+    },
+    {
+      "external_id": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "espn_id": "4426502",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4426502.png"
+    },
+    {
+      "external_id": "00-0037740",
+      "name": "Garrett Wilson",
+      "position": "WR",
+      "espn_id": "4569618",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4569618.png"
+    },
+    {
+      "external_id": "00-0036900",
+      "name": "Ja'Marr Chase",
+      "position": "WR",
+      "espn_id": "4362628",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4362628.png"
+    },
+    {
+      "external_id": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "espn_id": "4430878",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4430878.png"
+    },
+    {
+      "external_id": "00-0036322",
+      "name": "Justin Jefferson",
+      "position": "WR",
+      "espn_id": "4262921",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4262921.png"
+    },
+    {
+      "external_id": "00-0031408",
+      "name": "Mike Evans",
+      "position": "WR",
+      "espn_id": "16737",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/16737.png"
+    },
+    {
+      "external_id": "00-0036554",
+      "name": "Nico Collins",
+      "position": "WR",
+      "espn_id": "4258173",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4258173.png"
+    },
+    {
+      "external_id": "00-0039075",
+      "name": "Puka Nacua",
+      "position": "WR",
+      "espn_id": "4426515",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4426515.png"
+    },
+    {
+      "external_id": "00-0035659",
+      "name": "Terry McLaurin",
+      "position": "WR",
+      "espn_id": "3121422",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3121422.png"
+    },
+    {
+      "external_id": "00-0039064",
+      "name": "Zay Flowers",
+      "position": "WR",
+      "espn_id": "4429615",
+      "source": "ESPN",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4429615.png"
+    }
+  ]
+}

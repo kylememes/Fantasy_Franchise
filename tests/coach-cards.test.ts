@@ -5,6 +5,7 @@ import { JSDOM } from "jsdom";
 import { coachedRatings, headCoachBonuses } from "../src/lib/coaches";
 import { cardValues } from "../src/lib/card-details";
 import { playerHeadshot } from "../src/lib/headshots";
+import headshots from "../data/player-headshots.json";
 import type { Player } from "../src/lib/types";
 const qb: Player = {
   id: "qb",
@@ -33,7 +34,7 @@ const qb: Player = {
   stats: { passing_yards: 1234, passing_tds: 12, def_sacks: 3 },
 };
 const andy = headCoachBonuses.find((c) => c.id === "andy-reid")!;
-test("coach packages have position-specific effects, caps, and immutable base ratings; headshots require exact real QB identity", () => {
+test("coach packages have position-specific effects, caps, and immutable base ratings; headshots require exact real player identity", () => {
   assert.equal(headCoachBonuses.length, 32);
   for (const c of headCoachBonuses)
     assert.deepEqual(
@@ -81,7 +82,6 @@ test("coach packages have position-specific effects, caps, and immutable base ra
   );
   assert.match(playerHeadshot(qb)!, /3139477\.png$/);
   for (const p of [
-    { ...qb, position: "WR" },
     { ...qb, development: "Star" },
     { ...qb, is_fictional: true },
     { ...qb, external_id: undefined },
@@ -89,7 +89,49 @@ test("coach packages have position-specific effects, caps, and immutable base ra
   ])
     assert.equal(playerHeadshot(p), null);
 });
-test("player cards show position-first details and real coach deltas; failed or ineligible QB photos revert to silhouettes", async () => {
+test("headshots cover every verified superstar position and remain gated by identity and current tier", () => {
+  assert.equal(
+    new Set(headshots.players.map((p) => p.external_id)).size,
+    headshots.players.length,
+  );
+  for (const photo of headshots.players) {
+    const player = { ...qb, ...photo };
+    for (const development of ["Superstar", "Franchise Superstar"])
+      assert.equal(playerHeadshot({ ...player, development }), photo.url);
+    for (const development of ["Normal", "Star", "Unrevealed"])
+      assert.equal(playerHeadshot({ ...player, development }), null);
+    assert.equal(playerHeadshot({ ...player, is_fictional: true }), null);
+    assert.equal(playerHeadshot({ ...player, name: "Different person" }), null);
+    assert.match(
+      photo.url,
+      /^https:\/\/(a\.espncdn\.com|static\.www\.nfl\.com)\//,
+    );
+  }
+  for (const position of [
+    "QB",
+    "RB",
+    "WR",
+    "TE",
+    "C",
+    "LG",
+    "RG",
+    "LT",
+    "RT",
+    "EDGE",
+    "DE",
+    "DT",
+    "LB",
+    "CB",
+    "FS",
+    "SS",
+  ])
+    assert.ok(
+      headshots.players.some((p) => p.position === position),
+      position,
+    );
+  assert.equal(playerHeadshot({ ...qb, external_id: "unmapped" }), null);
+});
+test("player cards show position-first details and real coach deltas; failed or ineligible photos revert to silhouettes", async () => {
   const dom = new JSDOM("<!doctype html><html><body></body></html>", {
     url: "http://localhost",
   });
@@ -136,6 +178,18 @@ test("player cards show position-first details and real coach deltas; failed or 
     );
     assert.ok(stats.getByText("1,234"));
     assert.equal(stats.queryByText("def sacks"), null);
+    const receiver = headshots.players.find((p) => p.position === "WR")!;
+    view.rerender(
+      React.createElement(PlayerCard, {
+        player: { ...qb, ...receiver },
+        label: "WR",
+      }),
+    );
+    const receiverImage = view.container.querySelector("img.player-headshot")!;
+    assert.equal(receiverImage.getAttribute("src"), receiver.url);
+    fireEvent.error(receiverImage);
+    assert.equal(view.container.querySelector("img.player-headshot"), null);
+    assert.ok(view.container.querySelector("svg.player-silhouette"));
     view.rerender(
       React.createElement(PlayerCard, {
         player: { ...qb, development: "Normal" },

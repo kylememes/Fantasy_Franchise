@@ -517,12 +517,13 @@ export function Lineup({
         <small>Color = development · OVR = current ability</small>
       </div>
       <p className="fineprint">
-        Headshot trial: Superstar and Franchise Superstar quarterbacks only.
-        Other players use silhouettes. Photos: ESPN; uniforms reflect their NFL
-        photo. Development traits and coach specialties are game-assigned. Coach
-        boosts apply to new games and never change base ratings. Card backs show
-        position-specific ratings and NFL roster snapshot statistics. Saved
-        simulated game statistics are available in Game Center.
+        Real Superstar and Franchise Superstar players have headshots across all
+        positions. Other players use silhouettes. Photos: ESPN and NFL; uniforms
+        reflect their NFL photo. Development traits and coach specialties are
+        game-assigned. Coach boosts apply to new games and never change base
+        ratings. Card backs show position-specific ratings and NFL roster
+        snapshot statistics. Saved simulated game statistics are available in
+        Game Center.
       </p>
     </section>
   );
