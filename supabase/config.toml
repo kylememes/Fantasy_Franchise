@@ -1,0 +1,3 @@
+[functions.game-worker]
+# The handler verifies a user session or a private, expiring, single-use cron ticket.
+verify_jwt = false

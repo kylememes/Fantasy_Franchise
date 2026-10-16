@@ -1,0 +1,152 @@
+{
+  "year": 2026,
+  "sources": [
+    {
+      "phase": "preseason",
+      "week": 1,
+      "count": 16,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1",
+      "sha256": "dcf52132bab6ff6d755655ee927f2ac79b79601e67ee5c2ce201a6446bf28e34"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "count": 16,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2",
+      "sha256": "14405c4fe6785aa5bfc0aec525e12f2feb210b963f9aee0e9152615f9ba5f815"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "count": 16,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3",
+      "sha256": "95453e5651912e034e5c4ca3f7167c37442977b37df6b2345879e6eeb409a53b"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "count": 16,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1",
+      "sha256": "b233c1e56d9f929234cf1d1c9bd94e59571cec021bc274ab9a57181bac311db5"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "count": 16,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2",
+      "sha256": "9d1f1539ead023e6c1017d8f3c13d18a58eb1412ffe7be68d9c0cfcc63af1185"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "count": 16,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3",
+      "sha256": "6372c8ae55eb7a3c746805a79d0d3a56739455e8aec7784ae9d6a4e1dd3004e8"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "count": 16,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4",
+      "sha256": "df2794e090db670de8b8725249318733c48f649009cc9c8e56b6def7eadc2d81"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "count": 15,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5",
+      "sha256": "fe8b6f4a530948736bf226eb80b8643ee8a953238552cdf8f0c5159a4430bc08"
+    },
+    {
+      "phase": "regular",
+      "week": 6,
+      "count": 14,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-6",
+      "sha256": "52d0074ecf4d4ff33353f9b64039258586b9f270256c21828198cd8f1c651fa6"
+    },
+    {
+      "phase": "regular",
+      "week": 7,
+      "count": 14,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-7",
+      "sha256": "e0a839193b3830bb77bb4388e0b06dae8efb5ed7096eac6a2f88abae3bd9926b"
+    },
+    {
+      "phase": "regular",
+      "week": 8,
+      "count": 14,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-8",
+      "sha256": "0632c620043be1d7db6eec112f25f097103022ec77c7945c7b305c5d2ec40a4c"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "count": 15,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9",
+      "sha256": "aac4217d92da575f10c230cfd803b839539931ee923bc31ad56be05d528612ec"
+    },
+    {
+      "phase": "regular",
+      "week": 10,
+      "count": 14,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10",
+      "sha256": "1478b24291196808cf316092eb28007eb78f4b734328d9e324bbfea163850ded"
+    },
+    {
+      "phase": "regular",
+      "week": 11,
+      "count": 13,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11",
+      "sha256": "d51e3f3eac40e505ee36cbd252824831f2f6c6ba655e32fef9c3acfd1d9ca354"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "count": 16,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12",
+      "sha256": "3528ca633430db7a95364c380a4c1f5cbd168f0316cd76cd65b561b174f686b2"
+    },
+    {
+      "phase": "regular",
+      "week": 13,
+      "count": 14,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-13",
+      "sha256": "39d0b42d0af7fd2693635b36d452a74387182022024f33e529871643efa05a11"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "count": 15,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14",
+      "sha256": "46d9caadddebf8bb23d78b9c1090785b9deb0bc3506b9ff37ac0d30bcea60686"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "count": 16,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15",
+      "sha256": "e5fdaeb2f26c30d6b87ea53660eab0fac2463fecc7d8e697519ec333260c8adc"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "count": 16,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16",
+      "sha256": "a2450b3f7937875c464110077d81989dd357f1b97abc5d6b5eae78824f1abec2"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "count": 16,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17",
+      "sha256": "9f21a7daea58064d7e03f8cc029e15e9e5921c5a676e452429fa73a530cb9696"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "count": 16,
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18",
+      "sha256": "37fde4b961f56a12551fdc8bbf004372a481509e520a867bc3f6cf2e636e674a"
+    }
+  ]
+}
