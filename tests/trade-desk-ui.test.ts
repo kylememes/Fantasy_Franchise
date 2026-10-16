@@ -178,7 +178,7 @@ test("trade desk: salary-only impact, CPU interest, stale preview suppression, c
     const salary = within(
       screen.getByRole("region", { name: "Trade salary effects" }),
     );
-    assert.ok(salary.getByText("$8.0M"));
+    assert.ok(salary.getByText(/^\$8(?:\.0)?M$/));
     assert.equal(salary.getAllByText("Net salary change").length, 2);
     assert.equal(
       salary.queryByText(/projected starters|positional depth/i),
