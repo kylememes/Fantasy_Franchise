@@ -1,5 +1,5 @@
 /** Pure authoritative football engine. No browser, database, clock or unseeded randomness. */
-export const ENGINE_VERSION = "ff-football-1";
+export const ENGINE_VERSION = "ff-football-2";
 export type FootballPlayer = {
   id: string;
   name: string;
@@ -18,6 +18,7 @@ export type TeamInput = {
     tendencies: Record<string, number>;
   };
   staff?: Record<string, string>;
+  coach_bonus_version?: number;
 };
 export type GameInput = {
   seed: number;
@@ -269,6 +270,10 @@ export function passProbability(
 }
 export function simulateGame(input: GameInput): GameResult {
   if (input.home.id === input.away.id) throw Error("Teams must differ");
+  // New matchups consume all coach specialties; previously frozen inputs retain V1 behavior.
+  const coachRules =
+    input.home.coach_bonus_version === 1 ||
+    input.away.coach_bonus_version === 1;
   const random = generator(input.seed),
     normal = () =>
       (random() + random() + random() + random() + random() + random() - 3) *
@@ -394,21 +399,35 @@ export function simulateGame(input: GameInput): GameResult {
         0.08,
         0.92,
       );
-    const runBlock = mean(
-        ol.map((p) => skill(p, "run_blocking", ["run_block", "blocking"])),
-      ),
+    const runBlock = mean([
+        ...ol.map((p) => skill(p, "run_blocking", ["run_block", "blocking"])),
+        ...(coachRules
+          ? offense
+              .filter((x) => x.p.position === "TE")
+              .map((x) => skill(x.p, "run_blocking", ["run_block", "blocking"]))
+          : []),
+      ]),
       passBlock = mean(
         ol.map((p) => skill(p, "pass_blocking", ["pass_block", "blocking"])),
       ),
       rush = mean(
-        dl.map((p) =>
-          Math.max(
-            skill(p, "power_moves", ["pass_rush"]),
-            skill(p, "finesse_moves", ["pass_rush"]),
-          ),
+        dl.map(
+          (p) =>
+            Math.max(
+              skill(p, "power_moves", ["pass_rush"]),
+              skill(p, "finesse_moves", ["pass_rush"]),
+            ) *
+              (coachRules ? 0.9 : 1) +
+            (coachRules ? skill(p, "strength") * 0.1 : 0),
         ),
       ),
-      shed = mean(dl.map((p) => skill(p, "block_shedding", ["tackling"]))),
+      shed = mean(
+        dl.map(
+          (p) =>
+            skill(p, "block_shedding", ["tackling"]) * (coachRules ? 0.85 : 1) +
+            (coachRules ? skill(p, "strength") * 0.15 : 0),
+        ),
+      ),
       pursuit = mean(defenders.map((p) => skill(p, "pursuit", ["tackling"])));
     let kind = "run",
       description = "",
@@ -550,9 +569,22 @@ export function simulateGame(input: GameInput): GameResult {
           while (ri < weights.length - 1 && (draw -= weights[ri]) > 0) ri++;
           target = receivers[ri].p;
           const corner = corners[ri % corners.length],
-            cov = skill(corner, man ? "man_coverage" : "zone_coverage", [
-              "coverage",
-            ]);
+            cov =
+              skill(corner, man ? "man_coverage" : "zone_coverage", [
+                "coverage",
+              ]) *
+                (coachRules ? 0.8 : 1) +
+              (coachRules
+                ? mean(
+                    defenders
+                      .filter((p) => ["FS", "SS"].includes(p.position))
+                      .map((p) =>
+                        skill(p, man ? "man_coverage" : "zone_coverage", [
+                          "coverage",
+                        ]),
+                      ),
+                  ) * 0.2
+                : 0);
           passDepth =
             random() <
             clamp(
@@ -651,6 +683,10 @@ export function simulateGame(input: GameInput): GameResult {
                 0.71 +
                   (accuracy - 80) * 0.005 +
                   (skill(target, "catching") - 80) * 0.003 +
+                  (coachRules && (passDepth > 18 || separation < 1)
+                    ? (skill(target, "contested_catch", ["catching"]) - 80) *
+                      0.0015
+                    : 0) +
                   separation * 0.026 -
                   pressure *
                     clamp(
@@ -703,16 +739,34 @@ export function simulateGame(input: GameInput): GameResult {
           const option = team.coaching.offense === "Option" && random() < 0.28,
             rpo = random() < tendency(team, "rpo") * 0.12;
           carrier = option ? qb : rb;
-          const vision = skill(carrier, "ball_carrier_vision", [
-              "vision",
-              "awareness",
-            ]),
-            power = skill(carrier, "trucking", ["strength"]),
+          const vision = skill(
+              carrier,
+              coachRules ? "vision" : "ball_carrier_vision",
+              coachRules
+                ? ["ball_carrier_vision", "awareness"]
+                : ["vision", "awareness"],
+            ),
+            power = skill(
+              carrier,
+              coachRules ? "power" : "trucking",
+              coachRules ? ["trucking", "strength"] : ["strength"],
+            ),
             speed = skill(carrier, "speed");
           let average =
             3.6 +
             (runBlock - shed) * 0.075 +
             (vision - pursuit) * 0.036 +
+            (coachRules
+              ? (75 - mean(defenders.map((p) => skill(p, "tackling")))) *
+                  0.025 +
+                (75 -
+                  mean(
+                    defenders
+                      .filter((p) => p.position === "LB")
+                      .map((p) => skill(p, "awareness")),
+                  )) *
+                  0.012
+              : 0) +
             (power - 75) * 0.012 -
             (tendency(def, "run_defense") - 0.5) * 1.2 +
             (rpo ? 0.3 : 0);
@@ -1045,7 +1099,7 @@ export function simulateGame(input: GameInput): GameResult {
   }
   if (plays.length >= 450) throw Error("Simulation exceeded play guard");
   return {
-    engine_version: ENGINE_VERSION,
+    engine_version: coachRules ? ENGINE_VERSION : "ff-football-1",
     plays,
     players: catalog,
     box: { teams: stats, players: ps },

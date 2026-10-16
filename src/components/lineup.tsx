@@ -9,6 +9,9 @@ import {
   fallbackOrders,
 } from "@/lib/lineup";
 import { TeamLogo } from "./identity";
+import { cardValues } from "@/lib/card-details";
+import { coachedRatings, attributeLabel, type HeadCoach } from "@/lib/coaches";
+import { playerHeadshot } from "@/lib/headshots";
 import type { ManagementProps } from "./management";
 
 export function PlayerCard({
@@ -17,12 +20,14 @@ export function PlayerCard({
   selected,
   onClick,
   disabled,
+  headCoach,
 }: {
   player?: Player;
   label: string;
   selected?: boolean;
   onClick?: () => void;
   disabled?: boolean;
+  headCoach?: HeadCoach | null;
 }) {
   const [flipped, setFlipped] = useState(false),
     [backTab, setBackTab] = useState<"ratings" | "statistics">("ratings");
@@ -34,10 +39,21 @@ export function PlayerCard({
   }, [flipped]);
   const tier = developmentTier(player?.development || "Unrevealed");
   const name = player?.name || "Open position";
-  const values =
-    backTab === "ratings"
-      ? Object.entries(player?.attributes || {})
-      : Object.entries(player?.stats || {});
+  const rated = player
+    ? coachedRatings(player, headCoach)
+    : { attributes: {}, boosts: {} };
+  const bonuses = Object.entries(rated.boosts).filter(([, b]) => b.bonus > 0);
+  const values = cardValues(
+    player?.position || "",
+    backTab === "ratings" ? rated.attributes : player?.stats || {},
+    backTab,
+  );
+  if (backTab === "ratings")
+    for (const [key, b] of bonuses)
+      if (!values.some(([k]) => k === key)) values.push([key, b.value]);
+  const photo = playerHeadshot(player);
+  const [failedPhoto, setFailedPhoto] = useState<string | null>(null);
+  const showPhoto = !!photo && failedPhoto !== photo;
   return (
     <div
       className={`player-card flip-card dev-${tier.key} ${selected ? "selected" : ""} ${flipped ? "is-flipped" : ""}`}
@@ -66,16 +82,39 @@ export function PlayerCard({
             </strong>
           </span>
           <span className="portrait-art" aria-hidden="true">
-            <svg
-              className="player-silhouette"
-              viewBox="0 0 360 333"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="M180 12c-43 0-71 32-71 76v21c0 14 6 26 15 36v21l-25 15-40 13c-27 9-42 30-48 58L0 333h360l-11-81c-6-28-21-49-48-58l-40-13-25-15v-21c9-10 15-22 15-36V88c0-44-28-76-71-76Z" />
-            </svg>
+            {showPhoto ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                className="player-headshot"
+                src={photo!}
+                alt=""
+                width={350}
+                height={254}
+                loading="lazy"
+                decoding="async"
+                referrerPolicy="no-referrer"
+                onError={() => setFailedPhoto(photo)}
+              />
+            ) : (
+              <svg
+                className="player-silhouette"
+                viewBox="0 0 360 333"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M180 12c-43 0-71 32-71 76v21c0 14 6 26 15 36v21l-25 15-40 13c-27 9-42 30-48 58L0 333h360l-11-81c-6-28-21-49-48-58l-40-13-25-15v-21c9-10 15-22 15-36V88c0-44-28-76-71-76Z" />
+              </svg>
+            )}
             <b className="portrait-jersey">#{player?.jersey ?? "—"}</b>
           </span>
+          {bonuses.length > 0 && (
+            <span
+              className="card-coach-badge"
+              title={`${headCoach?.name}: ${bonuses.map(([k, b]) => `${attributeLabel(k)} +${b.bonus}`).join(", ")}`}
+            >
+              HC +{Math.max(...bonuses.map(([, b]) => b.bonus))}
+            </span>
+          )}
           <span className="card-name">{name}</span>
           <span className="card-trait">
             {tier.key === "franchise" ? (
@@ -95,6 +134,9 @@ export function PlayerCard({
               {label} · {player?.overall} OVR
             </span>
           </div>
+          {headCoach && bonuses.length > 0 && (
+            <span className="card-coach-name">HC · {headCoach.name}</span>
+          )}
           <div
             className="card-back-tabs"
             role="group"
@@ -133,13 +175,32 @@ export function PlayerCard({
               <dl>
                 {values.map(([key, value]) => (
                   <div key={key}>
-                    <dt>{key.replaceAll("_", " ")}</dt>
-                    <dd>{value.toLocaleString()}</dd>
+                    <dt>{attributeLabel(key)}</dt>
+                    <dd>
+                      {backTab === "ratings" && rated.boosts[key]?.bonus > 0 ? (
+                        <span
+                          className="boosted-rating"
+                          aria-label={`${rated.boosts[key].base} base, plus ${rated.boosts[key].bonus} coaching, ${value} effective`}
+                        >
+                          <s>{rated.boosts[key].base}</s>{" "}
+                          {value.toLocaleString()}{" "}
+                          <em>+{rated.boosts[key].bonus}</em>
+                        </span>
+                      ) : (
+                        value.toLocaleString()
+                      )}
+                    </dd>
                   </div>
                 ))}
               </dl>
             ) : (
-              <p>No statistics recorded.</p>
+              <p>
+                No{" "}
+                {backTab === "ratings"
+                  ? "position ratings"
+                  : "position statistics"}{" "}
+                recorded.
+              </p>
             )}
           </div>
           <button
@@ -282,6 +343,7 @@ export function Lineup({
                     <PlayerCard
                       key={`${slot.label}:${p?.id || "empty"}`}
                       player={p}
+                      headCoach={data.head_coach}
                       label={slot.label}
                       selected={group === slot.group}
                       onClick={() => choose(slot.group)}
@@ -309,6 +371,7 @@ export function Lineup({
                 <div key={id} className="bench-card">
                   <PlayerCard
                     player={byId.get(id)}
+                    headCoach={data.head_coach}
                     label={`${group}${i + 1}`}
                   />
                   <span>{i === 0 ? "FIRST CHOICE" : `DEPTH ${i + 1}`}</span>
@@ -454,10 +517,12 @@ export function Lineup({
         <small>Color = development · OVR = current ability</small>
       </div>
       <p className="fineprint">
-        Decorative player silhouettes, not individual player photographs.
-        Development traits are game-assigned. Card backs show available ratings
-        and NFL roster snapshot statistics. Saved simulated game statistics are
-        available in Game Center.
+        Headshot trial: Superstar and Franchise Superstar quarterbacks only.
+        Other players use silhouettes. Photos: ESPN; uniforms reflect their NFL
+        photo. Development traits and coach specialties are game-assigned. Coach
+        boosts apply to new games and never change base ratings. Card backs show
+        position-specific ratings and NFL roster snapshot statistics. Saved
+        simulated game statistics are available in Game Center.
       </p>
     </section>
   );

@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { PGlite } from "@electric-sql/pglite";
+import { headCoachBonuses, coachedRatings } from "../src/lib/coaches";
 import { readFile } from "node:fs/promises";
 import {
   simulateGame,
@@ -30,8 +31,49 @@ test("season authority: invitations, two-user readiness, frozen inputs, private 
       "20261016034537_uploaded_overall_ratings.sql",
       "20261016112856_lineup_free_agency.sql",
       "20261016132251_season_game_center.sql",
+      "20261016181045_head_coach_bonuses.sql",
     ])
       await db.exec(await readFile("supabase/migrations/" + n, "utf8"));
+    const definitions = await q(
+      "select id,bonuses from coach_catalog where role='HC'",
+    );
+    for (const coach of headCoachBonuses) {
+      assert.deepEqual(
+        definitions.find((r: any) => r.id === coach.id).bonuses,
+        coach.bonuses,
+      );
+      for (const position of new Set(
+        coach.bonuses.flatMap((b) => b.positions),
+      )) {
+        const profile = {
+          position,
+          overall: 80,
+          attributes: {
+            speed: 70,
+            short_accuracy: 98,
+            pass_rush: 95,
+            route_running: 92,
+            ball_carrier_vision: 93,
+          },
+        };
+        const boosted = (
+          await q("select boosted_game_profile($1,$2,$3) p", [
+            profile,
+            coach.bonuses,
+            coach.name,
+          ])
+        )[0].p;
+        assert.deepEqual(
+          boosted.attributes,
+          coachedRatings(profile, coach).attributes,
+          "database and card bonuses must agree",
+        );
+        assert.deepEqual(
+          boosted.coach_boosts,
+          coachedRatings(profile, coach).boosts,
+        );
+      }
+    }
     await identity(owner);
     const lid = (
       await q("select create_league('Season acceptance','BAL') id")
@@ -54,6 +96,15 @@ test("season authority: invitations, two-user readiness, frozen inputs, private 
     assert.equal(s.games.length, 320);
     assert.equal(s.season.status, "setup");
     assert.ok(s.games.every((g: any) => g.status === "scheduled"));
+    assert.equal(
+      s.staff.length,
+      0,
+      "CPU must preserve the human-first hiring window",
+    );
+    await assert.rejects(
+      q("select fill_cpu_head_coaches($1)", [lid]),
+      /permission/,
+    );
     const gid = s.games.find(
       (g: any) => g.phase === "preseason" && g.week === 1 && g.home === "BAL",
     ).id;
@@ -112,6 +163,33 @@ test("season authority: invitations, two-user readiness, frozen inputs, private 
     const job = batch.find((j: any) => j.id === gid);
     assert.ok(job);
     assert.equal(job.input.home.staff.HC, "Andy Reid");
+    const qb = job.input.home.players.find((p: any) => p.position === "QB");
+    await db.exec("reset role");
+    const base = (
+      await q(
+        "select profile from league_players where league_id=$1 and player_id=$2",
+        [lid, qb.id],
+      )
+    )[0].profile;
+    assert.equal(
+      qb.attributes.short_accuracy,
+      Math.min(
+        99,
+        (base.attributes.short_accuracy ??
+          base.attributes.accuracy ??
+          Math.min(90, Math.max(35, base.overall))) + 2,
+      ),
+    );
+    assert.equal(qb.coach_boosts.short_accuracy.bonus, 2);
+    assert.equal(
+      base.coach_boosts,
+      undefined,
+      "stored player ratings must never be modified",
+    );
+    await identity(owner);
+    const mgmt = (await q("select management_snapshot($1) s", [lid]))[0].s;
+    assert.equal(mgmt.head_coach.id, "andy-reid");
+    assert.deepEqual(mgmt.head_coach.bonuses[0].attributes, ["short_accuracy"]);
     // Snapshot stays frozen when future-game settings change.
     await identity(owner);
     await q("select hire_coach($1,'HC','mike-vrabel')", [lid]);
@@ -238,12 +316,48 @@ test("season authority: invitations, two-user readiness, frozen inputs, private 
     );
     s = (await q("select season_snapshot($1) s", [lid]))[0].s;
     assert.equal(s.season.week, 2);
+    assert.equal(s.staff.filter((h: any) => h.role === "HC").length, 32);
+    assert.equal(
+      new Set(
+        s.staff.filter((h: any) => h.role === "HC").map((h: any) => h.coach_id),
+      ).size,
+      32,
+    );
+    assert.equal(
+      s.staff.find((h: any) => h.franchise_id === "BAL" && h.role === "HC")
+        .coach_id,
+      "mike-vrabel",
+    );
+    assert.equal(
+      s.staff.find((h: any) => h.franchise_id === "PHI" && h.role === "HC")
+        .coach_id,
+      "jesse-minter",
+    );
+    const staffBefore = s.staff;
+    await q("select week_control($1,'open','preseason',2)", [lid]);
+    assert.deepEqual(
+      (await q("select season_snapshot($1) s", [lid]))[0].s.staff,
+      staffBefore,
+      "CPU hiring is idempotent",
+    );
     assert.equal(
       s.games.filter(
         (g: any) =>
           g.phase === "preseason" && g.week === 1 && g.status === "final",
       ).length,
       16,
+    );
+    await db.exec("reset role");
+    const weekTwoJobs = await q(
+      "select j.frozen from game_jobs j join season_games g on g.id=j.game_id where g.league_id=$1 and g.phase='preseason' and g.week=2",
+      [lid],
+    );
+    assert.ok(weekTwoJobs.length > 0);
+    assert.ok(
+      weekTwoJobs.every(
+        (j: any) => j.frozen.home.staff.HC && j.frozen.away.staff.HC,
+      ),
+      "CPU hires must precede Week 2 kickoff inputs",
     );
     assert.ok(s.standings.some((t: any) => t.wins || t.losses || t.ties));
   } finally {

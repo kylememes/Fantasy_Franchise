@@ -1,0 +1,610 @@
+[
+  {
+    "id": "aaron-glenn",
+    "name": "Aaron Glenn",
+    "identity": "Secondary",
+    "bonuses": [
+      {
+        "positions": ["CB"],
+        "attributes": ["man_coverage"],
+        "label": "CB man coverage",
+        "amount": 2
+      },
+      {
+        "positions": ["FS", "SS"],
+        "attributes": ["tackling"],
+        "label": "Safeties tackling",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "andy-reid",
+    "name": "Andy Reid",
+    "identity": "Passing",
+    "bonuses": [
+      {
+        "positions": ["QB"],
+        "attributes": ["short_accuracy"],
+        "label": "QB short accuracy",
+        "amount": 2
+      },
+      {
+        "positions": ["TE"],
+        "attributes": ["catching"],
+        "label": "TE catching",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "ben-johnson",
+    "name": "Ben Johnson",
+    "identity": "Running",
+    "bonuses": [
+      {
+        "positions": ["LT", "LG", "C", "RG", "RT"],
+        "attributes": ["run_blocking"],
+        "label": "OL run blocking",
+        "amount": 2
+      },
+      {
+        "positions": ["QB"],
+        "attributes": ["medium_accuracy"],
+        "label": "QB medium accuracy",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "brian-schottenheimer",
+    "name": "Brian Schottenheimer",
+    "identity": "Running",
+    "bonuses": [
+      {
+        "positions": ["RB"],
+        "attributes": ["vision"],
+        "label": "RB ballcarrier vision",
+        "amount": 2
+      },
+      {
+        "positions": ["QB"],
+        "attributes": ["short_accuracy"],
+        "label": "QB short accuracy",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "dan-campbell",
+    "name": "Dan Campbell",
+    "identity": "Running",
+    "bonuses": [
+      {
+        "positions": ["LT", "LG", "C", "RG", "RT"],
+        "attributes": ["run_blocking"],
+        "label": "OL run blocking",
+        "amount": 2
+      },
+      {
+        "positions": ["RB"],
+        "attributes": ["carrying"],
+        "label": "RB carrying",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "dan-quinn",
+    "name": "Dan Quinn",
+    "identity": "Front",
+    "bonuses": [
+      {
+        "positions": ["EDGE", "DE"],
+        "attributes": ["power_moves", "finesse_moves"],
+        "label": "Edge pass rush",
+        "amount": 2
+      },
+      {
+        "positions": ["CB"],
+        "attributes": ["zone_coverage"],
+        "label": "CB zone coverage",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "dave-canales",
+    "name": "Dave Canales",
+    "identity": "Passing",
+    "bonuses": [
+      {
+        "positions": ["QB"],
+        "attributes": ["pressure_response"],
+        "label": "QB pressure response",
+        "amount": 2
+      },
+      {
+        "positions": ["WR"],
+        "attributes": ["short_route"],
+        "label": "WR short routes",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "demeco-ryans",
+    "name": "DeMeco Ryans",
+    "identity": "Front",
+    "bonuses": [
+      {
+        "positions": ["LB"],
+        "attributes": ["tackling"],
+        "label": "LB tackling",
+        "amount": 2
+      },
+      {
+        "positions": ["EDGE", "DE", "DT"],
+        "attributes": ["block_shedding"],
+        "label": "DL block shedding",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "jeff-hafley",
+    "name": "Jeff Hafley",
+    "identity": "Secondary",
+    "bonuses": [
+      {
+        "positions": ["CB"],
+        "attributes": ["zone_coverage"],
+        "label": "CB zone coverage",
+        "amount": 2
+      },
+      {
+        "positions": ["FS", "SS"],
+        "attributes": ["pursuit"],
+        "label": "Safeties pursuit",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "jesse-minter",
+    "name": "Jesse Minter",
+    "identity": "Secondary",
+    "bonuses": [
+      {
+        "positions": ["FS", "SS"],
+        "attributes": ["zone_coverage"],
+        "label": "Safeties zone coverage",
+        "amount": 2
+      },
+      {
+        "positions": ["LB"],
+        "attributes": ["awareness"],
+        "label": "LB awareness",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "jim-harbaugh",
+    "name": "Jim Harbaugh",
+    "identity": "Running",
+    "bonuses": [
+      {
+        "positions": ["LT", "LG", "C", "RG", "RT"],
+        "attributes": ["run_blocking"],
+        "label": "OL run blocking",
+        "amount": 2
+      },
+      {
+        "positions": ["EDGE", "DE", "DT"],
+        "attributes": ["strength"],
+        "label": "DL strength",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "joe-brady",
+    "name": "Joe Brady",
+    "identity": "Passing",
+    "bonuses": [
+      {
+        "positions": ["QB"],
+        "attributes": ["medium_accuracy"],
+        "label": "QB medium accuracy",
+        "amount": 2
+      },
+      {
+        "positions": ["WR"],
+        "attributes": ["catching"],
+        "label": "WR catching",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "john-harbaugh",
+    "name": "John Harbaugh",
+    "identity": "Balanced",
+    "bonuses": [
+      {
+        "positions": ["K"],
+        "attributes": ["kick_accuracy"],
+        "label": "K kicking accuracy",
+        "amount": 2
+      },
+      {
+        "positions": ["LB"],
+        "attributes": ["tackling"],
+        "label": "LB tackling",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "kellen-moore",
+    "name": "Kellen Moore",
+    "identity": "Passing",
+    "bonuses": [
+      {
+        "positions": ["QB"],
+        "attributes": ["deep_accuracy"],
+        "label": "QB deep accuracy",
+        "amount": 2
+      },
+      {
+        "positions": ["WR"],
+        "attributes": ["medium_route"],
+        "label": "WR medium routes",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "kevin-o-connell",
+    "name": "Kevin O'Connell",
+    "identity": "Passing",
+    "bonuses": [
+      {
+        "positions": ["QB"],
+        "attributes": ["pressure_response"],
+        "label": "QB pressure response",
+        "amount": 2
+      },
+      {
+        "positions": ["WR"],
+        "attributes": ["catching"],
+        "label": "WR catching",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "kevin-stefanski",
+    "name": "Kevin Stefanski",
+    "identity": "Running",
+    "bonuses": [
+      {
+        "positions": ["RB"],
+        "attributes": ["vision"],
+        "label": "RB ballcarrier vision",
+        "amount": 2
+      },
+      {
+        "positions": ["LT", "LG", "C", "RG", "RT"],
+        "attributes": ["pass_blocking"],
+        "label": "OL pass blocking",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "klint-kubiak",
+    "name": "Klint Kubiak",
+    "identity": "Running",
+    "bonuses": [
+      {
+        "positions": ["LT", "LG", "C", "RG", "RT"],
+        "attributes": ["run_blocking"],
+        "label": "OL run blocking",
+        "amount": 2
+      },
+      {
+        "positions": ["RB"],
+        "attributes": ["catching"],
+        "label": "RB receiving",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "kyle-shanahan",
+    "name": "Kyle Shanahan",
+    "identity": "Running",
+    "bonuses": [
+      {
+        "positions": ["RB"],
+        "attributes": ["vision"],
+        "label": "RB ballcarrier vision",
+        "amount": 2
+      },
+      {
+        "positions": ["TE"],
+        "attributes": ["run_blocking"],
+        "label": "TE run blocking",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "liam-coen",
+    "name": "Liam Coen",
+    "identity": "Passing",
+    "bonuses": [
+      {
+        "positions": ["QB"],
+        "attributes": ["short_accuracy"],
+        "label": "QB short accuracy",
+        "amount": 2
+      },
+      {
+        "positions": ["RB"],
+        "attributes": ["carrying"],
+        "label": "RB carrying",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "matt-lafleur",
+    "name": "Matt LaFleur",
+    "identity": "Passing",
+    "bonuses": [
+      {
+        "positions": ["QB"],
+        "attributes": ["medium_accuracy"],
+        "label": "QB medium accuracy",
+        "amount": 2
+      },
+      {
+        "positions": ["RB"],
+        "attributes": ["vision"],
+        "label": "RB ballcarrier vision",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "mike-lafleur",
+    "name": "Mike LaFleur",
+    "identity": "Passing",
+    "bonuses": [
+      {
+        "positions": ["WR"],
+        "attributes": ["medium_route"],
+        "label": "WR medium routes",
+        "amount": 2
+      },
+      {
+        "positions": ["QB"],
+        "attributes": ["short_accuracy"],
+        "label": "QB short accuracy",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "mike-macdonald",
+    "name": "Mike Macdonald",
+    "identity": "Secondary",
+    "bonuses": [
+      {
+        "positions": ["FS", "SS"],
+        "attributes": ["zone_coverage"],
+        "label": "Safeties zone coverage",
+        "amount": 2
+      },
+      {
+        "positions": ["EDGE", "DE"],
+        "attributes": ["power_moves", "finesse_moves"],
+        "label": "Edge pass rush",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "mike-mccarthy",
+    "name": "Mike McCarthy",
+    "identity": "Passing",
+    "bonuses": [
+      {
+        "positions": ["QB"],
+        "attributes": ["short_accuracy"],
+        "label": "QB short accuracy",
+        "amount": 2
+      },
+      {
+        "positions": ["WR"],
+        "attributes": ["release"],
+        "label": "WR release",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "mike-vrabel",
+    "name": "Mike Vrabel",
+    "identity": "Front",
+    "bonuses": [
+      {
+        "positions": ["LB"],
+        "attributes": ["tackling"],
+        "label": "LB tackling",
+        "amount": 2
+      },
+      {
+        "positions": ["EDGE", "DE", "DT"],
+        "attributes": ["block_shedding"],
+        "label": "DL block shedding",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "nick-sirianni",
+    "name": "Nick Sirianni",
+    "identity": "Passing",
+    "bonuses": [
+      {
+        "positions": ["LT", "LG", "C", "RG", "RT"],
+        "attributes": ["pass_blocking"],
+        "label": "OL pass blocking",
+        "amount": 2
+      },
+      {
+        "positions": ["WR"],
+        "attributes": ["release"],
+        "label": "WR release",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "robert-saleh",
+    "name": "Robert Saleh",
+    "identity": "Front",
+    "bonuses": [
+      {
+        "positions": ["EDGE", "DE", "DT"],
+        "attributes": ["block_shedding"],
+        "label": "DL block shedding",
+        "amount": 2
+      },
+      {
+        "positions": ["CB"],
+        "attributes": ["zone_coverage"],
+        "label": "CB zone coverage",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "sean-mcvay",
+    "name": "Sean McVay",
+    "identity": "Passing",
+    "bonuses": [
+      {
+        "positions": ["WR"],
+        "attributes": ["medium_route"],
+        "label": "WR medium routes",
+        "amount": 2
+      },
+      {
+        "positions": ["QB"],
+        "attributes": ["pressure_response"],
+        "label": "QB pressure response",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "sean-payton",
+    "name": "Sean Payton",
+    "identity": "Passing",
+    "bonuses": [
+      {
+        "positions": ["QB"],
+        "attributes": ["short_accuracy"],
+        "label": "QB short accuracy",
+        "amount": 2
+      },
+      {
+        "positions": ["RB"],
+        "attributes": ["catching"],
+        "label": "RB receiving",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "shane-steichen",
+    "name": "Shane Steichen",
+    "identity": "Passing",
+    "bonuses": [
+      {
+        "positions": ["QB"],
+        "attributes": ["pressure_response"],
+        "label": "QB pressure response",
+        "amount": 2
+      },
+      {
+        "positions": ["RB"],
+        "attributes": ["vision"],
+        "label": "RB ballcarrier vision",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "todd-bowles",
+    "name": "Todd Bowles",
+    "identity": "Front",
+    "bonuses": [
+      {
+        "positions": ["EDGE", "DE"],
+        "attributes": ["power_moves", "finesse_moves"],
+        "label": "Edge pass rush",
+        "amount": 2
+      },
+      {
+        "positions": ["CB"],
+        "attributes": ["man_coverage"],
+        "label": "CB man coverage",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "todd-monken",
+    "name": "Todd Monken",
+    "identity": "Passing",
+    "bonuses": [
+      {
+        "positions": ["QB"],
+        "attributes": ["medium_accuracy"],
+        "label": "QB medium accuracy",
+        "amount": 2
+      },
+      {
+        "positions": ["TE"],
+        "attributes": ["catching"],
+        "label": "TE catching",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "zac-taylor",
+    "name": "Zac Taylor",
+    "identity": "Passing",
+    "bonuses": [
+      {
+        "positions": ["QB"],
+        "attributes": ["deep_accuracy"],
+        "label": "QB deep accuracy",
+        "amount": 2
+      },
+      {
+        "positions": ["WR"],
+        "attributes": ["contested_catch"],
+        "label": "WR contested catching",
+        "amount": 1
+      }
+    ]
+  }
+]
