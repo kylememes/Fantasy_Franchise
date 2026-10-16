@@ -82,23 +82,23 @@ test("coach packages have position-specific effects, caps, and immutable base ra
   );
   assert.match(playerHeadshot(qb)!, /3139477\.png$/);
   for (const p of [
-    { ...qb, development: "Star" },
+    { ...qb, development: "Normal" },
     { ...qb, is_fictional: true },
     { ...qb, external_id: undefined },
     { ...qb, name: "Different person" },
   ])
     assert.equal(playerHeadshot(p), null);
 });
-test("headshots cover every verified superstar position and remain gated by identity and current tier", () => {
+test("headshots cover every verified star position and remain gated by identity and current tier", () => {
   assert.equal(
     new Set(headshots.players.map((p) => p.external_id)).size,
     headshots.players.length,
   );
   for (const photo of headshots.players) {
     const player = { ...qb, ...photo };
-    for (const development of ["Superstar", "Franchise Superstar"])
+    for (const development of ["Star", "Superstar", "Franchise Superstar"])
       assert.equal(playerHeadshot({ ...player, development }), photo.url);
-    for (const development of ["Normal", "Star", "Unrevealed"])
+    for (const development of ["Normal", "Unrevealed"])
       assert.equal(playerHeadshot({ ...player, development }), null);
     assert.equal(playerHeadshot({ ...player, is_fictional: true }), null);
     assert.equal(playerHeadshot({ ...player, name: "Different person" }), null);
@@ -110,6 +110,7 @@ test("headshots cover every verified superstar position and remain gated by iden
   for (const position of [
     "QB",
     "RB",
+    "FB",
     "WR",
     "TE",
     "C",
@@ -124,6 +125,8 @@ test("headshots cover every verified superstar position and remain gated by iden
     "CB",
     "FS",
     "SS",
+    "K",
+    "P",
   ])
     assert.ok(
       headshots.players.some((p) => p.position === position),
@@ -178,10 +181,10 @@ test("player cards show position-first details and real coach deltas; failed or 
     );
     assert.ok(stats.getByText("1,234"));
     assert.equal(stats.queryByText("def sacks"), null);
-    const receiver = headshots.players.find((p) => p.position === "WR")!;
+    const receiver = headshots.players.find((p) => p.name === "Keenan Allen")!;
     view.rerender(
       React.createElement(PlayerCard, {
-        player: { ...qb, ...receiver },
+        player: { ...qb, ...receiver, development: "Star" },
         label: "WR",
       }),
     );
