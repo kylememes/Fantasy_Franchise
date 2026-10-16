@@ -8,7 +8,8 @@ const byIdentity = new Map(
 export function playerHeadshot(player?: Player): string | null {
   if (!player || player.is_fictional || !player.external_id) return null;
   const tier = developmentTier(player.development).key;
-  if (tier !== "superstar" && tier !== "franchise") return null;
+  if (tier !== "star" && tier !== "superstar" && tier !== "franchise")
+    return null;
   const photo = byIdentity.get(player.external_id);
   return photo?.name === player.name ? photo.url : null;
 }

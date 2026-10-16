@@ -8,9 +8,9 @@ The database computes effective game attributes from the source profile, exact p
 
 New frozen inputs carry coach_bonus_version 1 and use football engine V2. Inputs frozen before this update keep V1 behavior; a deterministic regression test verifies an existing input's exact result hash. The worker's commit function validates engine version against frozen inputs.
 
-## Superstar player headshots
+## Star player headshots
 
-All 111 current real players tagged Superstar or Franchise Superstar are matched by exact nflverse GSIS ID and roster name across positions. ESPN IDs identify 87 photos; official NFL roster headshot URLs cover the remaining 24 offensive linemen. Card eligibility is checked on every render: eligible development tiers only, never fictional players. Lower tiers, missing identities and failed image loads use the existing silhouette. Photo lookup uses a shared identity index.
+All 604 current real players tagged Star, Superstar or Franchise Superstar are matched across positions: 493 Stars plus the previous 111 Superstars and Franchise Superstars. ESPN provides 469 photos; official NFL roster headshot URLs cover the remaining 135 players. Matching uses exact nflverse GSIS ID and roster name, with six documented supplemental ESPN roster matches verified by name and birth date. The Wayne Matthews II/III source-name discrepancy is additionally corroborated by Michigan State college and Chicago team. Card eligibility is checked on every render: eligible development tiers only, never fictional players. Normal and unrevealed tiers, missing identities and failed image loads use the existing silhouette. Photo lookup uses a shared identity index.
 
 Images are displayed from ESPN's public headshot CDN or the official NFL image CDN, loaded lazily without sending the league URL as a referrer. No image files are copied into this repository. data/player-headshots.json records identities, photo providers, public image URLs and the roster metadata source. Every URL was checked for a successful image response on the recorded verification date. This records provenance and technical availability; it does not claim that nflverse's data license grants rights to third-party photographs. The source can be disabled or replaced independently of player identity and ratings.
 
