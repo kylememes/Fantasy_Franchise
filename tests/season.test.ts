@@ -32,7 +32,7 @@ test("season authority: invitations, two-user readiness, frozen inputs, private 
       "20261016112856_lineup_free_agency.sql",
       "20261016132251_season_game_center.sql",
       "20261016181045_head_coach_bonuses.sql",
-      "20261016223254_vertical_gameplay.sql",
+      "20261016230002_vertical_gameplay.sql",
     ])
       await db.exec(await readFile("supabase/migrations/" + n, "utf8"));
     const definitions = await q(
