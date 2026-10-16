@@ -36,6 +36,12 @@ test(
           "utf8",
         ),
       );
+      await pool.query(
+        await readFile(
+          "supabase/migrations/20261016120721_premium_position_drafting.sql",
+          "utf8",
+        ),
+      );
       async function request(sql: string, args: unknown[] = [], actor = user) {
         const c = await pool.connect();
         try {

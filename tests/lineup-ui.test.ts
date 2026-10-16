@@ -47,6 +47,7 @@ test("lineup promotions retain edits on refresh/failure; all units and trade/rel
     source: "Fixture",
     history: "",
     attributes_source: "worksheet",
+    stats: { passing_yards: 1234 },
   };
   const players = [
     p,
@@ -111,19 +112,52 @@ test("lineup promotions retain edits on refresh/failure; all units and trade/rel
   assert.equal(
     screen
       .getByLabelText(/QB: Starting Quarterback/)
+      .closest(".player-card")!
       .classList.contains("dev-franchise"),
     true,
   );
-  fireEvent.click(screen.getByRole("button", { name: "Defense" }));
-  assert.equal(screen.getAllByLabelText(/Edit depth chart/).length, 11);
+  const field = () =>
+    within(
+      screen.getByLabelText(
+        `${screen.getByRole("button", { name: "Offense" }).getAttribute("aria-pressed") === "true" ? "Offense" : screen.getByRole("button", { name: "Defense" }).getAttribute("aria-pressed") === "true" ? "Defense" : "Special teams"} starting lineup`,
+      ),
+    );
   fireEvent.click(
-    screen.getByRole("button", { name: "Special teams" }),
+    field().getByRole("button", { name: /QB: Starting Quarterback/ }),
   );
-  assert.equal(screen.getAllByLabelText(/Edit depth chart/).length, 4);
+  assert.ok(
+    field().getByRole("region", { name: "Starting Quarterback ratings" }),
+  );
+  fireEvent.click(field().getByRole("button", { name: "Stats" }));
+  assert.ok(
+    field().getByRole("region", { name: "Starting Quarterback statistics" }),
+  );
+  assert.ok(field().getByText("1,234"));
+  fireEvent.click(
+    field().getByRole("button", { name: "Show front of Starting Quarterback" }),
+  );
+  assert.equal(calls.length, 0, "Flipping cards does not mutate lineup");
+  fireEvent.click(screen.getByRole("button", { name: "Defense" }));
+  assert.equal(
+    field().getAllByLabelText(/Flip for ratings and statistics/).length,
+    11,
+  );
+  fireEvent.click(screen.getByRole("button", { name: "Special teams" }));
+  assert.equal(
+    field().getAllByLabelText(/Flip for ratings and statistics/).length,
+    4,
+  );
   fireEvent.click(screen.getByRole("button", { name: "Offense" }));
-  assert.equal(screen.getAllByLabelText(/Edit depth chart/).length, 11);
+  assert.equal(
+    field().getAllByLabelText(/Flip for ratings and statistics/).length,
+    11,
+  );
   fireEvent.click(
     screen.getByRole("button", { name: "Promote Backup Quarterback to first" }),
+  );
+  assert.ok(
+    field().getByRole("button", { name: /QB: Backup Quarterback/ }),
+    "Pending depth order updates field immediately",
   );
   view.rerender(React.createElement(Lineup, { ...props, data: { ...data } }));
   assert.equal(
@@ -164,6 +198,18 @@ test("lineup promotions retain edits on refresh/failure; all units and trade/rel
   assert.equal(calls.length, 1);
   let dialog = screen.getByRole("dialog");
   assert.ok(within(dialog).getByText(/1 year/));
+  fireEvent.click(
+    within(dialog).getByRole("button", { name: /WR: Free Agent Receiver/ }),
+  );
+  const detailsButton = within(dialog).getByRole("button", { name: "Ratings" });
+  const goBack = within(dialog).getByRole("button", { name: "Go back" });
+  goBack.focus();
+  fireEvent.keyDown(dialog, { key: "Tab" });
+  assert.equal(
+    document.activeElement,
+    detailsButton,
+    "Modal focus wraps to the visible card face",
+  );
   await act(async () => {
     fireEvent.click(
       within(dialog).getByRole("button", { name: "Confirm signing" }),

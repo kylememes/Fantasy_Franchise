@@ -679,7 +679,12 @@ export default function FranchiseApp() {
               <p>Loading your league…</p>
             ) : (
               <>
-                <div className="league-heading">
+                <div
+                  className={
+                    "league-heading" +
+                    (view === "Roster" ? " roster-heading" : "")
+                  }
+                >
                   <div>
                     <span className="eyebrow">
                       {snapshot.league.name}{" "}
