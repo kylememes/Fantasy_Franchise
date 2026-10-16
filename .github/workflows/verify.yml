@@ -1,4 +1,4 @@
-name: Verify Phase 1
+name: Verify franchise app
 on:
   push:
   pull_request:
@@ -31,7 +31,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run typecheck
-      - run: npm test
+      - run: node --import tsx --test --test-concurrency=2 tests/*.test.ts
         env:
           TEST_DATABASE_URL: postgres://postgres:test-only@localhost:5432/franchise_test
       - run: npm run build
