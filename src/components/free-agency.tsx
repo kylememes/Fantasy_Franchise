@@ -251,7 +251,7 @@ export function FreeAgency({
               if (e.key === "Tab") {
                 const buttons = [
                   ...e.currentTarget.querySelectorAll<HTMLButtonElement>(
-                    "button:not(:disabled)",
+                    'button:not(:disabled):not([tabindex="-1"])',
                   ),
                 ];
                 const first = buttons[0],

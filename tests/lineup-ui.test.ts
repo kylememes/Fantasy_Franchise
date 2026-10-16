@@ -198,6 +198,18 @@ test("lineup promotions retain edits on refresh/failure; all units and trade/rel
   assert.equal(calls.length, 1);
   let dialog = screen.getByRole("dialog");
   assert.ok(within(dialog).getByText(/1 year/));
+  fireEvent.click(
+    within(dialog).getByRole("button", { name: /WR: Free Agent Receiver/ }),
+  );
+  const detailsButton = within(dialog).getByRole("button", { name: "Ratings" });
+  const goBack = within(dialog).getByRole("button", { name: "Go back" });
+  goBack.focus();
+  fireEvent.keyDown(dialog, { key: "Tab" });
+  assert.equal(
+    document.activeElement,
+    detailsButton,
+    "Modal focus wraps to the visible card face",
+  );
   await act(async () => {
     fireEvent.click(
       within(dialog).getByRole("button", { name: "Confirm signing" }),
