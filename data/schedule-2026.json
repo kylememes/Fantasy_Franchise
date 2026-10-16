@@ -1,0 +1,2886 @@
+{
+  "year": 2026,
+  "hall_of_fame_included": false,
+  "games": [
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "DET",
+      "home": "CIN",
+      "kickoff": "2026-08-13T23:00:00.000Z",
+      "source_game_id": "c66df6a7-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "GB",
+      "home": "PIT",
+      "kickoff": "2026-08-13T23:00:00.000Z",
+      "source_game_id": "c66dfc69-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "IND",
+      "home": "NE",
+      "kickoff": "2026-08-13T23:30:00.000Z",
+      "source_game_id": "c66dfe7a-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "LAC",
+      "home": "HOU",
+      "kickoff": "2026-08-14T00:00:00.000Z",
+      "source_game_id": "c66e0006-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "ARI",
+      "home": "LV",
+      "kickoff": "2026-08-14T00:00:00.000Z",
+      "source_game_id": "c66e0191-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "TEN",
+      "home": "SF",
+      "kickoff": "2026-08-14T01:00:00.000Z",
+      "source_game_id": "c66e0345-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "DEN",
+      "home": "ATL",
+      "kickoff": "2026-08-14T23:00:00.000Z",
+      "source_game_id": "c66e04a7-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "TB",
+      "home": "NYJ",
+      "kickoff": "2026-08-14T23:00:00.000Z",
+      "source_game_id": "c66e0617-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "MIA",
+      "home": "WAS",
+      "kickoff": "2026-08-14T23:00:00.000Z",
+      "source_game_id": "c66e0778-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "CAR",
+      "home": "BUF",
+      "kickoff": "2026-08-15T17:00:00.000Z",
+      "source_game_id": "c6e8525d-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "CLE",
+      "home": "CHI",
+      "kickoff": "2026-08-15T17:00:00.000Z",
+      "source_game_id": "c6e85e19-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "MIN",
+      "home": "NYG",
+      "kickoff": "2026-08-15T17:00:00.000Z",
+      "source_game_id": "c6e86329-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "LAR",
+      "home": "KC",
+      "kickoff": "2026-08-15T20:00:00.000Z",
+      "source_game_id": "c6e8671a-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "JAX",
+      "home": "NO",
+      "kickoff": "2026-08-15T20:00:00.000Z",
+      "source_game_id": "c6e86ad0-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "PHI",
+      "home": "BAL",
+      "kickoff": "2026-08-15T23:00:00.000Z",
+      "source_game_id": "c6e87008-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 1,
+      "away": "DAL",
+      "home": "SEA",
+      "kickoff": "2026-08-16T00:00:00.000Z",
+      "source_game_id": "c6e875cc-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-1"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "LV",
+      "home": "HOU",
+      "kickoff": "2026-08-21T00:00:00.000Z",
+      "source_game_id": "c6e87a3d-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "SF",
+      "home": "LAC",
+      "kickoff": "2026-08-21T02:00:00.000Z",
+      "source_game_id": "c6e87f75-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "NYJ",
+      "home": "PIT",
+      "kickoff": "2026-08-21T23:00:00.000Z",
+      "source_game_id": "c6e883ae-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "CAR",
+      "home": "JAX",
+      "kickoff": "2026-08-21T23:30:00.000Z",
+      "source_game_id": "c71ae5b9-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "GB",
+      "home": "DEN",
+      "kickoff": "2026-08-22T01:00:00.000Z",
+      "source_game_id": "c71af19d-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "WAS",
+      "home": "DET",
+      "kickoff": "2026-08-22T16:00:00.000Z",
+      "source_game_id": "c71af76f-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "BUF",
+      "home": "CLE",
+      "kickoff": "2026-08-22T17:00:00.000Z",
+      "source_game_id": "c71afea1-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "ATL",
+      "home": "IND",
+      "kickoff": "2026-08-22T17:00:00.000Z",
+      "source_game_id": "c71b02b9-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "BAL",
+      "home": "MIN",
+      "kickoff": "2026-08-22T17:00:00.000Z",
+      "source_game_id": "c71b06f8-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "NO",
+      "home": "LAR",
+      "kickoff": "2026-08-22T20:00:00.000Z",
+      "source_game_id": "c71b0a90-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "NYG",
+      "home": "MIA",
+      "kickoff": "2026-08-22T20:00:00.000Z",
+      "source_game_id": "c71b0f1e-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "CHI",
+      "home": "CIN",
+      "kickoff": "2026-08-22T23:00:00.000Z",
+      "source_game_id": "c71b1303-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "PHI",
+      "home": "NE",
+      "kickoff": "2026-08-22T23:00:00.000Z",
+      "source_game_id": "c71b1722-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "KC",
+      "home": "TB",
+      "kickoff": "2026-08-22T23:30:00.000Z",
+      "source_game_id": "c74e12b2-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "DAL",
+      "home": "ARI",
+      "kickoff": "2026-08-23T02:00:00.000Z",
+      "source_game_id": "c74e1c92-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 2,
+      "away": "SEA",
+      "home": "TEN",
+      "kickoff": "2026-08-24T00:00:00.000Z",
+      "source_game_id": "c74e206e-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-2"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "PIT",
+      "home": "BUF",
+      "kickoff": "2026-08-27T23:00:00.000Z",
+      "source_game_id": "c74e245a-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "NE",
+      "home": "CLE",
+      "kickoff": "2026-08-28T00:00:00.000Z",
+      "source_game_id": "c74e27bf-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "SF",
+      "home": "LV",
+      "kickoff": "2026-08-28T00:00:00.000Z",
+      "source_game_id": "c74e2b5b-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "LAR",
+      "home": "LAC",
+      "kickoff": "2026-08-28T02:00:00.000Z",
+      "source_game_id": "c74e2ea2-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "WAS",
+      "home": "BAL",
+      "kickoff": "2026-08-28T22:00:00.000Z",
+      "source_game_id": "c74e31f8-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "HOU",
+      "home": "CAR",
+      "kickoff": "2026-08-28T23:00:00.000Z",
+      "source_game_id": "c74e353f-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "ATL",
+      "home": "MIA",
+      "kickoff": "2026-08-28T23:00:00.000Z",
+      "source_game_id": "c74e3a0b-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "TB",
+      "home": "JAX",
+      "kickoff": "2026-08-28T23:30:00.000Z",
+      "source_game_id": "c77f0e1f-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "NYG",
+      "home": "NYJ",
+      "kickoff": "2026-08-28T23:30:00.000Z",
+      "source_game_id": "c77f1834-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "NO",
+      "home": "DAL",
+      "kickoff": "2026-08-29T00:00:00.000Z",
+      "source_game_id": "c77f1c49-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "SEA",
+      "home": "KC",
+      "kickoff": "2026-08-29T00:00:00.000Z",
+      "source_game_id": "c77f1fc8-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "CIN",
+      "home": "PHI",
+      "kickoff": "2026-08-29T00:00:00.000Z",
+      "source_game_id": "c77f22f6-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "ARI",
+      "home": "GB",
+      "kickoff": "2026-08-29T00:00:00.000Z",
+      "source_game_id": "c77f2a44-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "MIN",
+      "home": "DEN",
+      "kickoff": "2026-08-29T01:00:00.000Z",
+      "source_game_id": "c77f26f1-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "DET",
+      "home": "IND",
+      "kickoff": "2026-08-29T17:00:00.000Z",
+      "source_game_id": "c77f2d5f-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "preseason",
+      "week": 3,
+      "away": "CHI",
+      "home": "TEN",
+      "kickoff": "2026-08-29T22:00:00.000Z",
+      "source_game_id": "c77f307e-5f68-11f1-b1d0-bb70a4640075",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/preseason-week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "NE",
+      "home": "SEA",
+      "kickoff": "2026-09-10T00:20:00.000Z",
+      "source_game_id": "a8fb0d78-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "SF",
+      "home": "LAR",
+      "kickoff": "2026-09-11T00:35:00.000Z",
+      "source_game_id": "a8fc08da-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "CHI",
+      "home": "CAR",
+      "kickoff": "2026-09-13T17:00:00.000Z",
+      "source_game_id": "a8fc0e5c-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "TB",
+      "home": "CIN",
+      "kickoff": "2026-09-13T17:00:00.000Z",
+      "source_game_id": "a8fc106b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "NO",
+      "home": "DET",
+      "kickoff": "2026-09-13T17:00:00.000Z",
+      "source_game_id": "a8fc1203-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "BUF",
+      "home": "HOU",
+      "kickoff": "2026-09-13T17:00:00.000Z",
+      "source_game_id": "a8fc1393-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "BAL",
+      "home": "IND",
+      "kickoff": "2026-09-13T17:00:00.000Z",
+      "source_game_id": "a8fc15bd-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "CLE",
+      "home": "JAX",
+      "kickoff": "2026-09-13T17:00:00.000Z",
+      "source_game_id": "a8fc1728-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "ATL",
+      "home": "PIT",
+      "kickoff": "2026-09-13T17:00:00.000Z",
+      "source_game_id": "a8fc1864-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "NYJ",
+      "home": "TEN",
+      "kickoff": "2026-09-13T17:00:00.000Z",
+      "source_game_id": "a8fc1998-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "ARI",
+      "home": "LAC",
+      "kickoff": "2026-09-13T20:25:00.000Z",
+      "source_game_id": "a9a87603-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "MIA",
+      "home": "LV",
+      "kickoff": "2026-09-13T20:25:00.000Z",
+      "source_game_id": "a9a881ca-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "GB",
+      "home": "MIN",
+      "kickoff": "2026-09-13T20:25:00.000Z",
+      "source_game_id": "a9a88631-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "WAS",
+      "home": "PHI",
+      "kickoff": "2026-09-13T20:25:00.000Z",
+      "source_game_id": "a9a889dd-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "DAL",
+      "home": "NYG",
+      "kickoff": "2026-09-14T00:20:00.000Z",
+      "source_game_id": "a9a88d52-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 1,
+      "away": "DEN",
+      "home": "KC",
+      "kickoff": "2026-09-15T00:15:00.000Z",
+      "source_game_id": "a9a890ed-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-1"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "DET",
+      "home": "BUF",
+      "kickoff": "2026-09-18T00:15:00.000Z",
+      "source_game_id": "a9a8944e-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "CAR",
+      "home": "ATL",
+      "kickoff": "2026-09-20T17:00:00.000Z",
+      "source_game_id": "a9a89841-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "NO",
+      "home": "BAL",
+      "kickoff": "2026-09-20T17:00:00.000Z",
+      "source_game_id": "a9a89baa-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "MIN",
+      "home": "CHI",
+      "kickoff": "2026-09-20T17:00:00.000Z",
+      "source_game_id": "a9a89edd-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "CIN",
+      "home": "HOU",
+      "kickoff": "2026-09-20T17:00:00.000Z",
+      "source_game_id": "a9e0c7c0-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "PIT",
+      "home": "NE",
+      "kickoff": "2026-09-20T17:00:00.000Z",
+      "source_game_id": "a9e0d18f-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "GB",
+      "home": "NYJ",
+      "kickoff": "2026-09-20T17:00:00.000Z",
+      "source_game_id": "a9e0d5a5-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "CLE",
+      "home": "TB",
+      "kickoff": "2026-09-20T17:00:00.000Z",
+      "source_game_id": "a9e0d930-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "PHI",
+      "home": "TEN",
+      "kickoff": "2026-09-20T17:00:00.000Z",
+      "source_game_id": "a9e0dc7c-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "JAX",
+      "home": "DEN",
+      "kickoff": "2026-09-20T20:05:00.000Z",
+      "source_game_id": "a9e0dff8-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "LV",
+      "home": "LAC",
+      "kickoff": "2026-09-20T20:05:00.000Z",
+      "source_game_id": "a9e0e3dd-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "SEA",
+      "home": "ARI",
+      "kickoff": "2026-09-20T20:25:00.000Z",
+      "source_game_id": "a9e0e78e-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "WAS",
+      "home": "DAL",
+      "kickoff": "2026-09-20T20:25:00.000Z",
+      "source_game_id": "a9e0eb90-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "MIA",
+      "home": "SF",
+      "kickoff": "2026-09-20T20:25:00.000Z",
+      "source_game_id": "a9e0ef5d-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "IND",
+      "home": "KC",
+      "kickoff": "2026-09-21T00:20:00.000Z",
+      "source_game_id": "aa048ee1-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 2,
+      "away": "NYG",
+      "home": "LAR",
+      "kickoff": "2026-09-22T00:15:00.000Z",
+      "source_game_id": "aa04989c-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-2"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "ATL",
+      "home": "GB",
+      "kickoff": "2026-09-25T00:15:00.000Z",
+      "source_game_id": "aa049c95-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "LAC",
+      "home": "BUF",
+      "kickoff": "2026-09-27T17:00:00.000Z",
+      "source_game_id": "aa04a02f-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "CAR",
+      "home": "CLE",
+      "kickoff": "2026-09-27T17:00:00.000Z",
+      "source_game_id": "aa04a395-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "NYJ",
+      "home": "DET",
+      "kickoff": "2026-09-27T17:00:00.000Z",
+      "source_game_id": "aa04a6ca-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "HOU",
+      "home": "IND",
+      "kickoff": "2026-09-27T17:00:00.000Z",
+      "source_game_id": "aa04aa26-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "NE",
+      "home": "JAX",
+      "kickoff": "2026-09-27T17:00:00.000Z",
+      "source_game_id": "aa04ad75-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "KC",
+      "home": "MIA",
+      "kickoff": "2026-09-27T17:00:00.000Z",
+      "source_game_id": "aa04b0d8-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "TEN",
+      "home": "NYG",
+      "kickoff": "2026-09-27T17:00:00.000Z",
+      "source_game_id": "aa04b4d9-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "CIN",
+      "home": "PIT",
+      "kickoff": "2026-09-27T17:00:00.000Z",
+      "source_game_id": "aa29b6b0-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "SEA",
+      "home": "WAS",
+      "kickoff": "2026-09-27T17:00:00.000Z",
+      "source_game_id": "aa29c0fa-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "ARI",
+      "home": "SF",
+      "kickoff": "2026-09-27T20:05:00.000Z",
+      "source_game_id": "aa29c59c-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "MIN",
+      "home": "TB",
+      "kickoff": "2026-09-27T20:05:00.000Z",
+      "source_game_id": "aa29c929-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "LV",
+      "home": "NO",
+      "kickoff": "2026-09-27T20:25:00.000Z",
+      "source_game_id": "aa29d062-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "BAL",
+      "home": "DAL",
+      "kickoff": "2026-09-27T20:25:00.000Z",
+      "source_game_id": "aa29cd02-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "LAR",
+      "home": "DEN",
+      "kickoff": "2026-09-28T00:20:00.000Z",
+      "source_game_id": "aa29d387-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 3,
+      "away": "PHI",
+      "home": "CHI",
+      "kickoff": "2026-09-29T00:15:00.000Z",
+      "source_game_id": "aa29d6db-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-3"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "PIT",
+      "home": "CLE",
+      "kickoff": "2026-10-02T00:15:00.000Z",
+      "source_game_id": "aa29da01-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "IND",
+      "home": "WAS",
+      "kickoff": "2026-10-04T13:30:00.000Z",
+      "source_game_id": "aa29dd21-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "TEN",
+      "home": "BAL",
+      "kickoff": "2026-10-04T17:00:00.000Z",
+      "source_game_id": "aa4b4811-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "NE",
+      "home": "BUF",
+      "kickoff": "2026-10-04T17:00:00.000Z",
+      "source_game_id": "aa4b51c9-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "NYJ",
+      "home": "CHI",
+      "kickoff": "2026-10-04T17:00:00.000Z",
+      "source_game_id": "aa4b55ce-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "JAX",
+      "home": "CIN",
+      "kickoff": "2026-10-04T17:00:00.000Z",
+      "source_game_id": "aa4b5943-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "DAL",
+      "home": "HOU",
+      "kickoff": "2026-10-04T17:00:00.000Z",
+      "source_game_id": "aa4b5c96-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "ARI",
+      "home": "NYG",
+      "kickoff": "2026-10-04T17:00:00.000Z",
+      "source_game_id": "aa4b607b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "LAR",
+      "home": "PHI",
+      "kickoff": "2026-10-04T17:00:00.000Z",
+      "source_game_id": "aa4b63de-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "GB",
+      "home": "TB",
+      "kickoff": "2026-10-04T17:00:00.000Z",
+      "source_game_id": "aa4b671b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "MIA",
+      "home": "MIN",
+      "kickoff": "2026-10-04T20:05:00.000Z",
+      "source_game_id": "aa4b6a4b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "KC",
+      "home": "LV",
+      "kickoff": "2026-10-04T20:25:00.000Z",
+      "source_game_id": "aa4b6d71-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "LAC",
+      "home": "SEA",
+      "kickoff": "2026-10-04T20:25:00.000Z",
+      "source_game_id": "aa6b4255-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "DEN",
+      "home": "SF",
+      "kickoff": "2026-10-04T20:25:00.000Z",
+      "source_game_id": "aa6b4cf4-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "DET",
+      "home": "CAR",
+      "kickoff": "2026-10-05T00:20:00.000Z",
+      "source_game_id": "aa6b512d-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 4,
+      "away": "ATL",
+      "home": "NO",
+      "kickoff": "2026-10-06T00:15:00.000Z",
+      "source_game_id": "aa6b5517-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-4"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "away": "TB",
+      "home": "DAL",
+      "kickoff": "2026-10-09T00:15:00.000Z",
+      "source_game_id": "aa6b58bf-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "away": "PHI",
+      "home": "JAX",
+      "kickoff": "2026-10-11T13:30:00.000Z",
+      "source_game_id": "aa6b5c2b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "away": "CIN",
+      "home": "MIA",
+      "kickoff": "2026-10-11T17:00:00.000Z",
+      "source_game_id": "aa6b5f66-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "away": "LV",
+      "home": "NE",
+      "kickoff": "2026-10-11T17:00:00.000Z",
+      "source_game_id": "aa6b6286-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "away": "MIN",
+      "home": "NO",
+      "kickoff": "2026-10-11T17:00:00.000Z",
+      "source_game_id": "aa6b65b1-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "away": "CLE",
+      "home": "NYJ",
+      "kickoff": "2026-10-11T17:00:00.000Z",
+      "source_game_id": "aa6b69bb-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "away": "IND",
+      "home": "PIT",
+      "kickoff": "2026-10-11T17:00:00.000Z",
+      "source_game_id": "aa94ac06-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "away": "HOU",
+      "home": "TEN",
+      "kickoff": "2026-10-11T17:00:00.000Z",
+      "source_game_id": "aa94b527-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "away": "NYG",
+      "home": "WAS",
+      "kickoff": "2026-10-11T17:00:00.000Z",
+      "source_game_id": "aa94b906-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "away": "CHI",
+      "home": "GB",
+      "kickoff": "2026-10-11T17:00:00.000Z",
+      "source_game_id": "aa94c2ef-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "away": "DEN",
+      "home": "LAC",
+      "kickoff": "2026-10-11T20:05:00.000Z",
+      "source_game_id": "aa94bc51-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "away": "DET",
+      "home": "ARI",
+      "kickoff": "2026-10-11T20:25:00.000Z",
+      "source_game_id": "aa94bfce-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "away": "SF",
+      "home": "SEA",
+      "kickoff": "2026-10-11T20:25:00.000Z",
+      "source_game_id": "aa94c647-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "away": "BAL",
+      "home": "ATL",
+      "kickoff": "2026-10-12T00:20:00.000Z",
+      "source_game_id": "aa94c94d-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+    },
+    {
+      "phase": "regular",
+      "week": 5,
+      "away": "BUF",
+      "home": "LAR",
+      "kickoff": "2026-10-13T00:15:00.000Z",
+      "source_game_id": "aa94ccd3-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-5"
+    },
+    {
+      "phase": "regular",
+      "week": 6,
+      "away": "SEA",
+      "home": "DEN",
+      "kickoff": "2026-10-16T00:15:00.000Z",
+      "source_game_id": "aa94cffe-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-6"
+    },
+    {
+      "phase": "regular",
+      "week": 6,
+      "away": "HOU",
+      "home": "JAX",
+      "kickoff": "2026-10-18T13:30:00.000Z",
+      "source_game_id": "aab56e82-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-6"
+    },
+    {
+      "phase": "regular",
+      "week": 6,
+      "away": "CHI",
+      "home": "ATL",
+      "kickoff": "2026-10-18T17:00:00.000Z",
+      "source_game_id": "aab577eb-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-6"
+    },
+    {
+      "phase": "regular",
+      "week": 6,
+      "away": "BAL",
+      "home": "CLE",
+      "kickoff": "2026-10-18T17:00:00.000Z",
+      "source_game_id": "aab57bb8-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-6"
+    },
+    {
+      "phase": "regular",
+      "week": 6,
+      "away": "TEN",
+      "home": "IND",
+      "kickoff": "2026-10-18T17:00:00.000Z",
+      "source_game_id": "aab57f15-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-6"
+    },
+    {
+      "phase": "regular",
+      "week": 6,
+      "away": "NYJ",
+      "home": "NE",
+      "kickoff": "2026-10-18T17:00:00.000Z",
+      "source_game_id": "aab58261-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-6"
+    },
+    {
+      "phase": "regular",
+      "week": 6,
+      "away": "NO",
+      "home": "NYG",
+      "kickoff": "2026-10-18T17:00:00.000Z",
+      "source_game_id": "aab5857e-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-6"
+    },
+    {
+      "phase": "regular",
+      "week": 6,
+      "away": "CAR",
+      "home": "PHI",
+      "kickoff": "2026-10-18T17:00:00.000Z",
+      "source_game_id": "aab588fe-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-6"
+    },
+    {
+      "phase": "regular",
+      "week": 6,
+      "away": "PIT",
+      "home": "TB",
+      "kickoff": "2026-10-18T17:00:00.000Z",
+      "source_game_id": "aab58c4b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-6"
+    },
+    {
+      "phase": "regular",
+      "week": 6,
+      "away": "ARI",
+      "home": "LAR",
+      "kickoff": "2026-10-18T20:05:00.000Z",
+      "source_game_id": "aab58f7e-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-6"
+    },
+    {
+      "phase": "regular",
+      "week": 6,
+      "away": "LAC",
+      "home": "KC",
+      "kickoff": "2026-10-18T20:25:00.000Z",
+      "source_game_id": "aab59281-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-6"
+    },
+    {
+      "phase": "regular",
+      "week": 6,
+      "away": "BUF",
+      "home": "LV",
+      "kickoff": "2026-10-18T20:25:00.000Z",
+      "source_game_id": "aad57852-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-6"
+    },
+    {
+      "phase": "regular",
+      "week": 6,
+      "away": "DAL",
+      "home": "GB",
+      "kickoff": "2026-10-19T00:20:00.000Z",
+      "source_game_id": "aad58264-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-6"
+    },
+    {
+      "phase": "regular",
+      "week": 6,
+      "away": "WAS",
+      "home": "SF",
+      "kickoff": "2026-10-20T00:15:00.000Z",
+      "source_game_id": "aad58635-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-6"
+    },
+    {
+      "phase": "regular",
+      "week": 7,
+      "away": "NE",
+      "home": "CHI",
+      "kickoff": "2026-10-23T00:15:00.000Z",
+      "source_game_id": "aad58a18-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-7"
+    },
+    {
+      "phase": "regular",
+      "week": 7,
+      "away": "PIT",
+      "home": "NO",
+      "kickoff": "2026-10-25T13:30:00.000Z",
+      "source_game_id": "aad58d7d-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-7"
+    },
+    {
+      "phase": "regular",
+      "week": 7,
+      "away": "SF",
+      "home": "ATL",
+      "kickoff": "2026-10-25T17:00:00.000Z",
+      "source_game_id": "aad59092-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-7"
+    },
+    {
+      "phase": "regular",
+      "week": 7,
+      "away": "CIN",
+      "home": "BAL",
+      "kickoff": "2026-10-25T17:00:00.000Z",
+      "source_game_id": "aad594ee-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-7"
+    },
+    {
+      "phase": "regular",
+      "week": 7,
+      "away": "TB",
+      "home": "CAR",
+      "kickoff": "2026-10-25T17:00:00.000Z",
+      "source_game_id": "aad59a67-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-7"
+    },
+    {
+      "phase": "regular",
+      "week": 7,
+      "away": "NYG",
+      "home": "HOU",
+      "kickoff": "2026-10-25T17:00:00.000Z",
+      "source_game_id": "aad59e95-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-7"
+    },
+    {
+      "phase": "regular",
+      "week": 7,
+      "away": "IND",
+      "home": "MIN",
+      "kickoff": "2026-10-25T17:00:00.000Z",
+      "source_game_id": "aad5a2ac-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-7"
+    },
+    {
+      "phase": "regular",
+      "week": 7,
+      "away": "MIA",
+      "home": "NYJ",
+      "kickoff": "2026-10-25T17:00:00.000Z",
+      "source_game_id": "aaf6ec9e-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-7"
+    },
+    {
+      "phase": "regular",
+      "week": 7,
+      "away": "CLE",
+      "home": "TEN",
+      "kickoff": "2026-10-25T17:00:00.000Z",
+      "source_game_id": "aaf6f621-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-7"
+    },
+    {
+      "phase": "regular",
+      "week": 7,
+      "away": "DEN",
+      "home": "ARI",
+      "kickoff": "2026-10-25T20:05:00.000Z",
+      "source_game_id": "aaf6fa3b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-7"
+    },
+    {
+      "phase": "regular",
+      "week": 7,
+      "away": "GB",
+      "home": "DET",
+      "kickoff": "2026-10-25T20:25:00.000Z",
+      "source_game_id": "aaf6fda2-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-7"
+    },
+    {
+      "phase": "regular",
+      "week": 7,
+      "away": "LAR",
+      "home": "LV",
+      "kickoff": "2026-10-25T20:25:00.000Z",
+      "source_game_id": "aaf700e5-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-7"
+    },
+    {
+      "phase": "regular",
+      "week": 7,
+      "away": "KC",
+      "home": "SEA",
+      "kickoff": "2026-10-26T00:20:00.000Z",
+      "source_game_id": "aaf7040e-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-7"
+    },
+    {
+      "phase": "regular",
+      "week": 7,
+      "away": "DAL",
+      "home": "PHI",
+      "kickoff": "2026-10-27T00:15:00.000Z",
+      "source_game_id": "aaf70733-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-7"
+    },
+    {
+      "phase": "regular",
+      "week": 8,
+      "away": "CAR",
+      "home": "GB",
+      "kickoff": "2026-10-30T00:15:00.000Z",
+      "source_game_id": "aaf70a66-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-8"
+    },
+    {
+      "phase": "regular",
+      "week": 8,
+      "away": "BAL",
+      "home": "BUF",
+      "kickoff": "2026-11-01T18:00:00.000Z",
+      "source_game_id": "aaf70dac-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-8"
+    },
+    {
+      "phase": "regular",
+      "week": 8,
+      "away": "TEN",
+      "home": "CIN",
+      "kickoff": "2026-11-01T18:00:00.000Z",
+      "source_game_id": "aaf71176-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-8"
+    },
+    {
+      "phase": "regular",
+      "week": 8,
+      "away": "ARI",
+      "home": "DAL",
+      "kickoff": "2026-11-01T18:00:00.000Z",
+      "source_game_id": "ab16512c-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-8"
+    },
+    {
+      "phase": "regular",
+      "week": 8,
+      "away": "MIN",
+      "home": "DET",
+      "kickoff": "2026-11-01T18:00:00.000Z",
+      "source_game_id": "ab165aa8-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-8"
+    },
+    {
+      "phase": "regular",
+      "week": 8,
+      "away": "IND",
+      "home": "JAX",
+      "kickoff": "2026-11-01T18:00:00.000Z",
+      "source_game_id": "ab165e6a-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-8"
+    },
+    {
+      "phase": "regular",
+      "week": 8,
+      "away": "LV",
+      "home": "NYJ",
+      "kickoff": "2026-11-01T18:00:00.000Z",
+      "source_game_id": "ab1661ac-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-8"
+    },
+    {
+      "phase": "regular",
+      "week": 8,
+      "away": "CLE",
+      "home": "PIT",
+      "kickoff": "2026-11-01T18:00:00.000Z",
+      "source_game_id": "ab1664ca-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-8"
+    },
+    {
+      "phase": "regular",
+      "week": 8,
+      "away": "ATL",
+      "home": "TB",
+      "kickoff": "2026-11-01T18:00:00.000Z",
+      "source_game_id": "ab1667cd-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-8"
+    },
+    {
+      "phase": "regular",
+      "week": 8,
+      "away": "LAC",
+      "home": "LAR",
+      "kickoff": "2026-11-01T21:05:00.000Z",
+      "source_game_id": "ab166ac0-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-8"
+    },
+    {
+      "phase": "regular",
+      "week": 8,
+      "away": "KC",
+      "home": "DEN",
+      "kickoff": "2026-11-01T21:25:00.000Z",
+      "source_game_id": "ab166dc7-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-8"
+    },
+    {
+      "phase": "regular",
+      "week": 8,
+      "away": "NE",
+      "home": "MIA",
+      "kickoff": "2026-11-01T21:25:00.000Z",
+      "source_game_id": "ab1670ad-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-8"
+    },
+    {
+      "phase": "regular",
+      "week": 8,
+      "away": "PHI",
+      "home": "WAS",
+      "kickoff": "2026-11-02T01:20:00.000Z",
+      "source_game_id": "ab167386-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-8"
+    },
+    {
+      "phase": "regular",
+      "week": 8,
+      "away": "CHI",
+      "home": "SEA",
+      "kickoff": "2026-11-03T01:15:00.000Z",
+      "source_game_id": "ab37feaa-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-8"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "away": "JAX",
+      "home": "BAL",
+      "kickoff": "2026-11-06T01:15:00.000Z",
+      "source_game_id": "ab380826-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "away": "CIN",
+      "home": "ATL",
+      "kickoff": "2026-11-08T14:30:00.000Z",
+      "source_game_id": "ab380bc7-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "away": "DEN",
+      "home": "CAR",
+      "kickoff": "2026-11-08T18:00:00.000Z",
+      "source_game_id": "ab380efd-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "away": "DAL",
+      "home": "IND",
+      "kickoff": "2026-11-08T18:00:00.000Z",
+      "source_game_id": "ab38123a-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "away": "NYJ",
+      "home": "KC",
+      "kickoff": "2026-11-08T18:00:00.000Z",
+      "source_game_id": "ab381724-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "away": "DET",
+      "home": "MIA",
+      "kickoff": "2026-11-08T18:00:00.000Z",
+      "source_game_id": "ab381a59-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "away": "CLE",
+      "home": "NO",
+      "kickoff": "2026-11-08T18:00:00.000Z",
+      "source_game_id": "ab381d58-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "away": "NYG",
+      "home": "PHI",
+      "kickoff": "2026-11-08T18:00:00.000Z",
+      "source_game_id": "ab38203e-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "away": "LAR",
+      "home": "WAS",
+      "kickoff": "2026-11-08T18:00:00.000Z",
+      "source_game_id": "ab382331-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "away": "HOU",
+      "home": "LAC",
+      "kickoff": "2026-11-08T21:05:00.000Z",
+      "source_game_id": "ab580cb7-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "away": "LV",
+      "home": "SF",
+      "kickoff": "2026-11-08T21:05:00.000Z",
+      "source_game_id": "ab581766-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "away": "GB",
+      "home": "NE",
+      "kickoff": "2026-11-08T21:25:00.000Z",
+      "source_game_id": "ab581b93-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "away": "ARI",
+      "home": "SEA",
+      "kickoff": "2026-11-08T21:25:00.000Z",
+      "source_game_id": "ab581f17-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "away": "TB",
+      "home": "CHI",
+      "kickoff": "2026-11-09T01:20:00.000Z",
+      "source_game_id": "ab582247-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9"
+    },
+    {
+      "phase": "regular",
+      "week": 9,
+      "away": "BUF",
+      "home": "MIN",
+      "kickoff": "2026-11-10T01:15:00.000Z",
+      "source_game_id": "ab5825a7-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-9"
+    },
+    {
+      "phase": "regular",
+      "week": 10,
+      "away": "WAS",
+      "home": "NYG",
+      "kickoff": "2026-11-13T01:15:00.000Z",
+      "source_game_id": "ab5828d9-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+    },
+    {
+      "phase": "regular",
+      "week": 10,
+      "away": "NE",
+      "home": "DET",
+      "kickoff": "2026-11-15T14:30:00.000Z",
+      "source_game_id": "ab582c2f-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+    },
+    {
+      "phase": "regular",
+      "week": 10,
+      "away": "KC",
+      "home": "ATL",
+      "kickoff": "2026-11-15T18:00:00.000Z",
+      "source_game_id": "ab582f5b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+    },
+    {
+      "phase": "regular",
+      "week": 10,
+      "away": "HOU",
+      "home": "CLE",
+      "kickoff": "2026-11-15T18:00:00.000Z",
+      "source_game_id": "ab583279-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+    },
+    {
+      "phase": "regular",
+      "week": 10,
+      "away": "MIN",
+      "home": "GB",
+      "kickoff": "2026-11-15T18:00:00.000Z",
+      "source_game_id": "ab788967-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+    },
+    {
+      "phase": "regular",
+      "week": 10,
+      "away": "MIA",
+      "home": "IND",
+      "kickoff": "2026-11-15T18:00:00.000Z",
+      "source_game_id": "ab789365-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+    },
+    {
+      "phase": "regular",
+      "week": 10,
+      "away": "CAR",
+      "home": "NO",
+      "kickoff": "2026-11-15T18:00:00.000Z",
+      "source_game_id": "ab789769-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+    },
+    {
+      "phase": "regular",
+      "week": 10,
+      "away": "BUF",
+      "home": "NYJ",
+      "kickoff": "2026-11-15T18:00:00.000Z",
+      "source_game_id": "ab789ac9-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+    },
+    {
+      "phase": "regular",
+      "week": 10,
+      "away": "JAX",
+      "home": "TEN",
+      "kickoff": "2026-11-15T18:00:00.000Z",
+      "source_game_id": "ab789e15-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+    },
+    {
+      "phase": "regular",
+      "week": 10,
+      "away": "LAR",
+      "home": "ARI",
+      "kickoff": "2026-11-15T21:05:00.000Z",
+      "source_game_id": "ab78a133-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+    },
+    {
+      "phase": "regular",
+      "week": 10,
+      "away": "SEA",
+      "home": "LV",
+      "kickoff": "2026-11-15T21:05:00.000Z",
+      "source_game_id": "ab78a43c-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+    },
+    {
+      "phase": "regular",
+      "week": 10,
+      "away": "SF",
+      "home": "DAL",
+      "kickoff": "2026-11-15T21:25:00.000Z",
+      "source_game_id": "ab78a748-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+    },
+    {
+      "phase": "regular",
+      "week": 10,
+      "away": "PIT",
+      "home": "CIN",
+      "kickoff": "2026-11-16T01:20:00.000Z",
+      "source_game_id": "ab78aa48-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+    },
+    {
+      "phase": "regular",
+      "week": 10,
+      "away": "LAC",
+      "home": "BAL",
+      "kickoff": "2026-11-17T01:15:00.000Z",
+      "source_game_id": "ab78ad5a-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-10"
+    },
+    {
+      "phase": "regular",
+      "week": 11,
+      "away": "IND",
+      "home": "HOU",
+      "kickoff": "2026-11-20T01:15:00.000Z",
+      "source_game_id": "ab997d97-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+    },
+    {
+      "phase": "regular",
+      "week": 11,
+      "away": "MIA",
+      "home": "BUF",
+      "kickoff": "2026-11-22T18:00:00.000Z",
+      "source_game_id": "ab998769-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+    },
+    {
+      "phase": "regular",
+      "week": 11,
+      "away": "BAL",
+      "home": "CAR",
+      "kickoff": "2026-11-22T18:00:00.000Z",
+      "source_game_id": "ab998b7f-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+    },
+    {
+      "phase": "regular",
+      "week": 11,
+      "away": "NO",
+      "home": "CHI",
+      "kickoff": "2026-11-22T18:00:00.000Z",
+      "source_game_id": "ab998f5e-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+    },
+    {
+      "phase": "regular",
+      "week": 11,
+      "away": "TEN",
+      "home": "DAL",
+      "kickoff": "2026-11-22T18:00:00.000Z",
+      "source_game_id": "ab99929a-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+    },
+    {
+      "phase": "regular",
+      "week": 11,
+      "away": "TB",
+      "home": "DET",
+      "kickoff": "2026-11-22T18:00:00.000Z",
+      "source_game_id": "ab999586-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+    },
+    {
+      "phase": "regular",
+      "week": 11,
+      "away": "ARI",
+      "home": "KC",
+      "kickoff": "2026-11-22T18:00:00.000Z",
+      "source_game_id": "ab999891-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+    },
+    {
+      "phase": "regular",
+      "week": 11,
+      "away": "JAX",
+      "home": "NYG",
+      "kickoff": "2026-11-22T18:00:00.000Z",
+      "source_game_id": "ab999b80-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+    },
+    {
+      "phase": "regular",
+      "week": 11,
+      "away": "NYJ",
+      "home": "LAC",
+      "kickoff": "2026-11-22T21:05:00.000Z",
+      "source_game_id": "ab999e6f-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+    },
+    {
+      "phase": "regular",
+      "week": 11,
+      "away": "LV",
+      "home": "DEN",
+      "kickoff": "2026-11-22T21:25:00.000Z",
+      "source_game_id": "ab99a17b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+    },
+    {
+      "phase": "regular",
+      "week": 11,
+      "away": "PIT",
+      "home": "PHI",
+      "kickoff": "2026-11-22T21:25:00.000Z",
+      "source_game_id": "abbf1908-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+    },
+    {
+      "phase": "regular",
+      "week": 11,
+      "away": "MIN",
+      "home": "SF",
+      "kickoff": "2026-11-23T01:20:00.000Z",
+      "source_game_id": "abbf2213-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+    },
+    {
+      "phase": "regular",
+      "week": 11,
+      "away": "CIN",
+      "home": "WAS",
+      "kickoff": "2026-11-24T01:15:00.000Z",
+      "source_game_id": "abbf25b8-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-11"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "GB",
+      "home": "LAR",
+      "kickoff": "2026-11-26T01:00:00.000Z",
+      "source_game_id": "abbf28ed-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "CHI",
+      "home": "DET",
+      "kickoff": "2026-11-26T18:00:00.000Z",
+      "source_game_id": "abbf2c16-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "PHI",
+      "home": "DAL",
+      "kickoff": "2026-11-26T21:30:00.000Z",
+      "source_game_id": "abbf2f12-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "KC",
+      "home": "BUF",
+      "kickoff": "2026-11-27T01:20:00.000Z",
+      "source_game_id": "abbf321b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "DEN",
+      "home": "PIT",
+      "kickoff": "2026-11-27T20:00:00.000Z",
+      "source_game_id": "abbf352d-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "NO",
+      "home": "CIN",
+      "kickoff": "2026-11-29T18:00:00.000Z",
+      "source_game_id": "abbf3917-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "LV",
+      "home": "CLE",
+      "kickoff": "2026-11-29T18:00:00.000Z",
+      "source_game_id": "abbf3c97-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "BAL",
+      "home": "HOU",
+      "kickoff": "2026-11-29T18:00:00.000Z",
+      "source_game_id": "abdfc3c2-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "NYG",
+      "home": "IND",
+      "kickoff": "2026-11-29T18:00:00.000Z",
+      "source_game_id": "abdfccbb-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "NYJ",
+      "home": "MIA",
+      "kickoff": "2026-11-29T18:00:00.000Z",
+      "source_game_id": "abdfd040-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "ATL",
+      "home": "MIN",
+      "kickoff": "2026-11-29T18:00:00.000Z",
+      "source_game_id": "abdfd363-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "TEN",
+      "home": "JAX",
+      "kickoff": "2026-11-29T21:05:00.000Z",
+      "source_game_id": "abdfd663-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "WAS",
+      "home": "ARI",
+      "kickoff": "2026-11-29T21:25:00.000Z",
+      "source_game_id": "abdfd959-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "SEA",
+      "home": "SF",
+      "kickoff": "2026-11-29T21:25:00.000Z",
+      "source_game_id": "abdfdd00-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "NE",
+      "home": "LAC",
+      "kickoff": "2026-11-30T01:20:00.000Z",
+      "source_game_id": "abdfe0ab-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 12,
+      "away": "CAR",
+      "home": "TB",
+      "kickoff": "2026-12-01T01:15:00.000Z",
+      "source_game_id": "abdfe629-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-12"
+    },
+    {
+      "phase": "regular",
+      "week": 13,
+      "away": "KC",
+      "home": "LAR",
+      "kickoff": "2026-12-04T01:15:00.000Z",
+      "source_game_id": "abdfe9fb-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-13"
+    },
+    {
+      "phase": "regular",
+      "week": 13,
+      "away": "DET",
+      "home": "ATL",
+      "kickoff": "2026-12-06T18:00:00.000Z",
+      "source_game_id": "ac014f46-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-13"
+    },
+    {
+      "phase": "regular",
+      "week": 13,
+      "away": "JAX",
+      "home": "CHI",
+      "kickoff": "2026-12-06T18:00:00.000Z",
+      "source_game_id": "ac015881-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-13"
+    },
+    {
+      "phase": "regular",
+      "week": 13,
+      "away": "CIN",
+      "home": "CLE",
+      "kickoff": "2026-12-06T18:00:00.000Z",
+      "source_game_id": "ac015cdc-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-13"
+    },
+    {
+      "phase": "regular",
+      "week": 13,
+      "away": "GB",
+      "home": "NO",
+      "kickoff": "2026-12-06T18:00:00.000Z",
+      "source_game_id": "ac01603b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-13"
+    },
+    {
+      "phase": "regular",
+      "week": 13,
+      "away": "SF",
+      "home": "NYG",
+      "kickoff": "2026-12-06T18:00:00.000Z",
+      "source_game_id": "ac016348-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-13"
+    },
+    {
+      "phase": "regular",
+      "week": 13,
+      "away": "LAC",
+      "home": "TB",
+      "kickoff": "2026-12-06T18:00:00.000Z",
+      "source_game_id": "ac01664b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-13"
+    },
+    {
+      "phase": "regular",
+      "week": 13,
+      "away": "WAS",
+      "home": "TEN",
+      "kickoff": "2026-12-06T18:00:00.000Z",
+      "source_game_id": "ac016953-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-13"
+    },
+    {
+      "phase": "regular",
+      "week": 13,
+      "away": "PHI",
+      "home": "ARI",
+      "kickoff": "2026-12-06T21:05:00.000Z",
+      "source_game_id": "ac016c40-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-13"
+    },
+    {
+      "phase": "regular",
+      "week": 13,
+      "away": "MIA",
+      "home": "DEN",
+      "kickoff": "2026-12-06T21:05:00.000Z",
+      "source_game_id": "ac016f2b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-13"
+    },
+    {
+      "phase": "regular",
+      "week": 13,
+      "away": "CAR",
+      "home": "MIN",
+      "kickoff": "2026-12-06T21:25:00.000Z",
+      "source_game_id": "ac017212-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-13"
+    },
+    {
+      "phase": "regular",
+      "week": 13,
+      "away": "BUF",
+      "home": "NE",
+      "kickoff": "2026-12-06T21:25:00.000Z",
+      "source_game_id": "ac207191-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-13"
+    },
+    {
+      "phase": "regular",
+      "week": 13,
+      "away": "HOU",
+      "home": "PIT",
+      "kickoff": "2026-12-07T01:20:00.000Z",
+      "source_game_id": "ac207ad3-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-13"
+    },
+    {
+      "phase": "regular",
+      "week": 13,
+      "away": "DAL",
+      "home": "SEA",
+      "kickoff": "2026-12-08T01:15:00.000Z",
+      "source_game_id": "ac207eae-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-13"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "away": "MIN",
+      "home": "NE",
+      "kickoff": "2026-12-11T01:15:00.000Z",
+      "source_game_id": "ac208212-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "away": "TB",
+      "home": "BAL",
+      "kickoff": "2026-12-13T18:00:00.000Z",
+      "source_game_id": "ac208548-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "away": "NO",
+      "home": "CAR",
+      "kickoff": "2026-12-13T18:00:00.000Z",
+      "source_game_id": "ac208883-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "away": "ATL",
+      "home": "CLE",
+      "kickoff": "2026-12-13T18:00:00.000Z",
+      "source_game_id": "ac208bad-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "away": "TEN",
+      "home": "DET",
+      "kickoff": "2026-12-13T18:00:00.000Z",
+      "source_game_id": "ac208ebc-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "away": "CHI",
+      "home": "MIA",
+      "kickoff": "2026-12-13T18:00:00.000Z",
+      "source_game_id": "ac2091af-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "away": "DEN",
+      "home": "NYJ",
+      "kickoff": "2026-12-13T18:00:00.000Z",
+      "source_game_id": "ac2094c8-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "away": "IND",
+      "home": "PHI",
+      "kickoff": "2026-12-13T18:00:00.000Z",
+      "source_game_id": "ac411814-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "away": "HOU",
+      "home": "WAS",
+      "kickoff": "2026-12-13T18:00:00.000Z",
+      "source_game_id": "ac4122e2-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "away": "LAC",
+      "home": "LV",
+      "kickoff": "2026-12-13T21:05:00.000Z",
+      "source_game_id": "ac4128a9-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "away": "KC",
+      "home": "CIN",
+      "kickoff": "2026-12-13T21:25:00.000Z",
+      "source_game_id": "ac412c64-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "away": "NYG",
+      "home": "SEA",
+      "kickoff": "2026-12-13T21:25:00.000Z",
+      "source_game_id": "ac413167-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "away": "LAR",
+      "home": "SF",
+      "kickoff": "2026-12-13T21:25:00.000Z",
+      "source_game_id": "ac4134f5-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "away": "BUF",
+      "home": "GB",
+      "kickoff": "2026-12-14T01:20:00.000Z",
+      "source_game_id": "ac41381d-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14"
+    },
+    {
+      "phase": "regular",
+      "week": 14,
+      "away": "PIT",
+      "home": "JAX",
+      "kickoff": "2026-12-15T01:15:00.000Z",
+      "source_game_id": "ac413b2b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-14"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "SF",
+      "home": "LAC",
+      "kickoff": "2026-12-18T01:15:00.000Z",
+      "source_game_id": "ac413e34-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "SEA",
+      "home": "PHI",
+      "kickoff": "2026-12-19T22:00:00.000Z",
+      "source_game_id": "ac414151-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "CHI",
+      "home": "BUF",
+      "kickoff": "2026-12-20T01:20:00.000Z",
+      "source_game_id": "ac603d57-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "CIN",
+      "home": "CAR",
+      "kickoff": "2026-12-20T18:00:00.000Z",
+      "source_game_id": "ac6046a8-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "MIA",
+      "home": "GB",
+      "kickoff": "2026-12-20T18:00:00.000Z",
+      "source_game_id": "ac604a6e-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "JAX",
+      "home": "HOU",
+      "kickoff": "2026-12-20T18:00:00.000Z",
+      "source_game_id": "ac604e37-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "CLE",
+      "home": "NYG",
+      "kickoff": "2026-12-20T18:00:00.000Z",
+      "source_game_id": "ac6051b9-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "BAL",
+      "home": "PIT",
+      "kickoff": "2026-12-20T18:00:00.000Z",
+      "source_game_id": "ac60550d-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "NO",
+      "home": "TB",
+      "kickoff": "2026-12-20T18:00:00.000Z",
+      "source_game_id": "ac60584b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "IND",
+      "home": "TEN",
+      "kickoff": "2026-12-20T18:00:00.000Z",
+      "source_game_id": "ac605b63-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "ATL",
+      "home": "WAS",
+      "kickoff": "2026-12-20T18:00:00.000Z",
+      "source_game_id": "ac605e66-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "NYJ",
+      "home": "ARI",
+      "kickoff": "2026-12-20T21:05:00.000Z",
+      "source_game_id": "ac60617b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "DAL",
+      "home": "LAR",
+      "kickoff": "2026-12-20T21:25:00.000Z",
+      "source_game_id": "ac7f5336-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "DEN",
+      "home": "LV",
+      "kickoff": "2026-12-20T21:25:00.000Z",
+      "source_game_id": "ac7f60fe-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "DET",
+      "home": "MIN",
+      "kickoff": "2026-12-21T01:20:00.000Z",
+      "source_game_id": "ac7f6703-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 15,
+      "away": "NE",
+      "home": "KC",
+      "kickoff": "2026-12-22T01:15:00.000Z",
+      "source_game_id": "ac7f6aff-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-15"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "HOU",
+      "home": "PHI",
+      "kickoff": "2026-12-25T01:15:00.000Z",
+      "source_game_id": "ac7f6e6e-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "GB",
+      "home": "CHI",
+      "kickoff": "2026-12-25T18:00:00.000Z",
+      "source_game_id": "ac7f71a4-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "BUF",
+      "home": "DEN",
+      "kickoff": "2026-12-25T21:30:00.000Z",
+      "source_game_id": "ac7f74ca-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "LAR",
+      "home": "SEA",
+      "kickoff": "2026-12-26T01:15:00.000Z",
+      "source_game_id": "ac7f77ed-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "CLE",
+      "home": "BAL",
+      "kickoff": "2026-12-27T18:00:00.000Z",
+      "source_game_id": "ac9e36ff-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "LAC",
+      "home": "MIA",
+      "kickoff": "2026-12-27T18:00:00.000Z",
+      "source_game_id": "ac9e3acb-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "ARI",
+      "home": "NO",
+      "kickoff": "2026-12-27T18:00:00.000Z",
+      "source_game_id": "ac9e3e14-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "NE",
+      "home": "NYJ",
+      "kickoff": "2026-12-27T18:00:00.000Z",
+      "source_game_id": "ac9e4134-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "TEN",
+      "home": "LV",
+      "kickoff": "2026-12-27T21:05:00.000Z",
+      "source_game_id": "ac9e442c-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "SF",
+      "home": "KC",
+      "kickoff": "2026-12-27T21:25:00.000Z",
+      "source_game_id": "ac9e473f-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "JAX",
+      "home": "DAL",
+      "kickoff": "2026-12-28T01:20:00.000Z",
+      "source_game_id": "ac9e4a3a-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "NYG",
+      "home": "DET",
+      "kickoff": "2026-12-29T01:15:00.000Z",
+      "source_game_id": "ac9e4d51-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "TB",
+      "home": "ATL",
+      "kickoff": null,
+      "source_game_id": "ac7f7b15-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "CIN",
+      "home": "IND",
+      "kickoff": null,
+      "source_game_id": "ac7f7ddf-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "WAS",
+      "home": "MIN",
+      "kickoff": null,
+      "source_game_id": "ac9e2a00-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 16,
+      "away": "CAR",
+      "home": "PIT",
+      "kickoff": null,
+      "source_game_id": "ac9e330f-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-16"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "BAL",
+      "home": "CIN",
+      "kickoff": "2027-01-01T01:15:00.000Z",
+      "source_game_id": "acc1d288-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "NO",
+      "home": "ATL",
+      "kickoff": "2027-01-03T18:00:00.000Z",
+      "source_game_id": "acc1e9f7-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "SEA",
+      "home": "CAR",
+      "kickoff": "2027-01-03T18:00:00.000Z",
+      "source_game_id": "acc1ed66-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "IND",
+      "home": "CLE",
+      "kickoff": "2027-01-03T18:00:00.000Z",
+      "source_game_id": "acc1f09a-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "NYG",
+      "home": "DAL",
+      "kickoff": "2027-01-03T18:00:00.000Z",
+      "source_game_id": "acc1f3c0-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "BUF",
+      "home": "MIA",
+      "kickoff": "2027-01-03T18:00:00.000Z",
+      "source_game_id": "acc1f6d4-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "MIN",
+      "home": "NYJ",
+      "kickoff": "2027-01-03T18:00:00.000Z",
+      "source_game_id": "ace0969b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "PIT",
+      "home": "TEN",
+      "kickoff": "2027-01-03T18:00:00.000Z",
+      "source_game_id": "ace0a08e-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "LV",
+      "home": "ARI",
+      "kickoff": "2027-01-03T21:05:00.000Z",
+      "source_game_id": "ace0a457-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "DET",
+      "home": "CHI",
+      "kickoff": "2027-01-03T21:25:00.000Z",
+      "source_game_id": "ace0a7e7-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "PHI",
+      "home": "SF",
+      "kickoff": "2027-01-04T01:20:00.000Z",
+      "source_game_id": "ace0ab32-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "HOU",
+      "home": "GB",
+      "kickoff": "2027-01-05T01:15:00.000Z",
+      "source_game_id": "ace0ae7b-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "WAS",
+      "home": "JAX",
+      "kickoff": null,
+      "source_game_id": "acc1dc59-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "KC",
+      "home": "LAC",
+      "kickoff": null,
+      "source_game_id": "acc1e08e-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "DEN",
+      "home": "NE",
+      "kickoff": null,
+      "source_game_id": "acc1e3de-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 17,
+      "away": "LAR",
+      "home": "TB",
+      "kickoff": null,
+      "source_game_id": "acc1e702-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-17"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "SF",
+      "home": "ARI",
+      "kickoff": null,
+      "source_game_id": "ace0b1ad-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "PIT",
+      "home": "BAL",
+      "kickoff": null,
+      "source_game_id": "ace0b48a-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "NYJ",
+      "home": "BUF",
+      "kickoff": null,
+      "source_game_id": "ace0b74f-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "ATL",
+      "home": "CAR",
+      "kickoff": null,
+      "source_game_id": "ace0ba82-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "CLE",
+      "home": "CIN",
+      "kickoff": null,
+      "source_game_id": "acff782d-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "LAC",
+      "home": "DEN",
+      "kickoff": null,
+      "source_game_id": "acff8054-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "DET",
+      "home": "GB",
+      "kickoff": null,
+      "source_game_id": "acff837c-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "TEN",
+      "home": "HOU",
+      "kickoff": null,
+      "source_game_id": "acff8654-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "JAX",
+      "home": "IND",
+      "kickoff": null,
+      "source_game_id": "acff8914-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "LV",
+      "home": "KC",
+      "kickoff": null,
+      "source_game_id": "acff8bba-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "SEA",
+      "home": "LAR",
+      "kickoff": null,
+      "source_game_id": "acff8e70-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "CHI",
+      "home": "MIN",
+      "kickoff": null,
+      "source_game_id": "acff9123-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "MIA",
+      "home": "NE",
+      "kickoff": null,
+      "source_game_id": "acff93c4-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "TB",
+      "home": "NO",
+      "kickoff": null,
+      "source_game_id": "acff9659-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "PHI",
+      "home": "NYG",
+      "kickoff": null,
+      "source_game_id": "ad1f1cde-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    },
+    {
+      "phase": "regular",
+      "week": 18,
+      "away": "DAL",
+      "home": "WAS",
+      "kickoff": null,
+      "source_game_id": "ad1f2595-4feb-11f1-abca-2c54536568a9",
+      "source_url": "https://www.nfl.com/schedules/2026/by-week/week-18"
+    }
+  ]
+}

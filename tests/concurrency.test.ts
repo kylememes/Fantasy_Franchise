@@ -4,6 +4,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import pg from "pg";
+import { simulateGame } from "../supabase/functions/_shared/simulation";
 const url = process.env.TEST_DATABASE_URL;
 test(
   "PostgreSQL: simultaneous picks and pause lock ordering",
@@ -246,6 +247,98 @@ test(
           )
         ).rows[0].n,
         1,
+      );
+
+      // Real PostgreSQL connections race readiness, worker claims, and advancement.
+      await pool.query(
+        "create role service_role; grant usage on schema public,auth to service_role",
+      );
+      await pool.query(
+        await readFile(
+          "supabase/migrations/20261016132251_season_game_center.sql",
+          "utf8",
+        ),
+      );
+      const seasonLeague = (
+        await request("select create_league('Season races','BAL') id")
+      ).rows[0].id;
+      await pool.query("insert into memberships values($1,$2,'PHI')", [
+        seasonLeague,
+        friend,
+      ]);
+      await pool.query(
+        `with ranked as(select p.player_id,lim.maximum,row_number() over(partition by profile->>'position' order by player_id) rn from league_players p join position_limits lim on lim.position=p.profile->>'position' where league_id=$1) update league_players p set franchise_id=l.draft_order[((r.rn-1)/r.maximum)::int+1] from ranked r,leagues l where p.league_id=$1 and p.player_id=r.player_id and l.id=$1 and r.rn<=r.maximum*32`,
+        [seasonLeague],
+      );
+      await pool.query(
+        "update leagues set state='completed',next_pick=1696 where id=$1",
+        [seasonLeague],
+      );
+      await request("select season_snapshot($1)", [seasonLeague]);
+      await request("select week_control($1,'open','preseason',1)", [
+        seasonLeague,
+      ]);
+      const humanGame = (
+        await pool.query(
+          "select id from season_games where league_id=$1 and phase='preseason' and week=1 and home='BAL'",
+          [seasonLeague],
+        )
+      ).rows[0].id;
+      await Promise.all([
+        request("select game_action($1,'ready')", [humanGame]),
+        request("select game_action($1,'ready')", [humanGame], friend),
+      ]);
+      assert.equal(
+        (
+          await pool.query(
+            "select count(*)::int n from game_jobs where game_id=$1",
+            [humanGame],
+          )
+        ).rows[0].n,
+        1,
+      );
+      const claims = await Promise.all(
+        Array.from({ length: 5 }, () =>
+          pool.query("select claim_simulations($1,$2) batch", [
+            seasonLeague,
+            user,
+          ]),
+        ),
+      );
+      const jobs = claims.flatMap((c) => c.rows[0].batch);
+      assert.equal(jobs.length, 16);
+      assert.equal(
+        new Set(jobs.map((j) => j.id)).size,
+        16,
+        "No duplicate lease under simultaneous workers",
+      );
+      for (const j of jobs)
+        await pool.query("select commit_simulation($1,$2,$3)", [
+          j.id,
+          j.lease,
+          simulateGame(j.input),
+        ]);
+      await request("select game_action($1,'finish')", [humanGame]);
+      const advances = await Promise.allSettled(
+        Array.from({ length: 4 }, () =>
+          request("select week_control($1,'advance','preseason',1)", [
+            seasonLeague,
+          ]),
+        ),
+      );
+      assert.equal(
+        advances.filter((r) => r.status === "fulfilled").length,
+        1,
+        "Only one racing advancement may commit",
+      );
+      assert.equal(
+        (
+          await pool.query(
+            "select week from league_seasons where league_id=$1",
+            [seasonLeague],
+          )
+        ).rows[0].week,
+        2,
       );
     } finally {
       await pool.end();

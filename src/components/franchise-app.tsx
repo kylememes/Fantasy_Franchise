@@ -29,6 +29,7 @@ import type {
 import { RosterManagement, Trades, CoachingSettings } from "./management";
 import { DraftRoom } from "./draft-room";
 import { FranchiseMark, TeamLogo } from "./identity";
+import { SeasonHub, CoachingStaff } from "./season-hub";
 const navigation = [
   ["Dashboard", LayoutDashboard],
   ["Roster", Users],
@@ -47,6 +48,7 @@ export default function FranchiseApp() {
     [signup, setSignup] = useState(false),
     [notice, setNotice] = useState(""),
     [busy, setBusy] = useState(false);
+  const [seasonGame, setSeasonGame] = useState("");
   const [management, setManagement] = useState<Management | null>(null);
   const [leagues, setLeagues] = useState<League[]>([]),
     [teams, setTeams] = useState<Franchise[]>([]),
@@ -149,6 +151,7 @@ export default function FranchiseApp() {
     setPlayers([]);
     setQueue([]);
     setManagement(null);
+    setSeasonGame("");
     void refresh();
     void (async () => {
       const all: Player[] = [];
@@ -650,6 +653,9 @@ export default function FranchiseApp() {
                   "League",
                   "Trades",
                   "Coaching",
+                  ...(snapshot?.league.state === "completed"
+                    ? ["Game Center"]
+                    : []),
                 ].includes(label);
                 return (
                   <button
@@ -702,14 +708,20 @@ export default function FranchiseApp() {
                             ? "Make your next move."
                             : view === "Coaching"
                               ? "Set your identity."
-                              : view === "League"
-                                ? "The league office."
-                                : "Build something legendary."}
+                              : view === "Game Center"
+                                ? "Under the lights."
+                                : view === "League"
+                                  ? "The league office."
+                                  : snapshot.league.state === "completed"
+                                    ? "This week’s matchup."
+                                    : "Build something legendary."}
                     </h1>
                   </div>
                   <span className={"status " + snapshot.league.state}>
                     <span />
-                    {snapshot.league.state.replaceAll("_", " ")}
+                    {snapshot.league.state === "completed"
+                      ? "Draft complete"
+                      : snapshot.league.state.replaceAll("_", " ")}
                   </span>
                 </div>
                 {view === "Draft" ? (
@@ -745,6 +757,21 @@ export default function FranchiseApp() {
                       return accepted;
                     }}
                   />
+                ) : ["Dashboard", "Game Center"].includes(view) &&
+                  snapshot.league.state === "completed" &&
+                  me ? (
+                  <SeasonHub
+                    league={snapshot.league}
+                    team={me.franchise_id}
+                    userId={session.user.id}
+                    teams={teams}
+                    players={players}
+                    management={management}
+                    view={view}
+                    gameId={seasonGame}
+                    onGame={setSeasonGame}
+                    onNavigate={setView}
+                  />
                 ) : ["Roster", "Trades", "Coaching"].includes(view) ? (
                   management && me ? (
                     (() => {
@@ -773,7 +800,13 @@ export default function FranchiseApp() {
                       ) : view === "Trades" ? (
                         <Trades {...props} />
                       ) : (
-                        <CoachingSettings {...props} />
+                        <>
+                          <CoachingStaff
+                            league={snapshot.league}
+                            team={me.franchise_id}
+                          />
+                          <CoachingSettings {...props} />
+                        </>
                       );
                     })()
                   ) : (
@@ -781,6 +814,20 @@ export default function FranchiseApp() {
                   )
                 ) : view === "League" ? (
                   <>
+                    {snapshot.league.state === "completed" && me && (
+                      <SeasonHub
+                        league={snapshot.league}
+                        team={me.franchise_id}
+                        userId={session.user.id}
+                        teams={teams}
+                        players={players}
+                        management={management}
+                        view={view}
+                        gameId={seasonGame}
+                        onGame={setSeasonGame}
+                        onNavigate={setView}
+                      />
+                    )}
                     <section className="panel">
                       <div className="panel-heading">
                         <h2>Ownership directory</h2>

@@ -1,0 +1,23 @@
+{
+  "schedule": 320,
+  "invite_join": true,
+  "two_authenticated_owners": true,
+  "commissioner_guard": true,
+  "exclusive_coach_hiring": true,
+  "one_owner_does_not_start": true,
+  "frozen_saved_starter": true,
+  "server_worker": true,
+  "unrevealed_result_private": true,
+  "worker_internals_denied": true,
+  "shared_pause_and_rejoin": true,
+  "identical_saved_final": true,
+  "final_immutable": true,
+  "final_play_count": 140,
+  "background_cpu_games": 15,
+  "idempotent_advance": true,
+  "human_cpu_game": true,
+  "realtime_events": 59,
+  "passed": true,
+  "disposable_accounts_and_league_removed": true,
+  "existing_draft_picks_preserved": true
+}
