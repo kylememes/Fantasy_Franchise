@@ -19,6 +19,7 @@ export type TeamInput = {
   };
   staff?: Record<string, string>;
   coach_bonus_version?: number;
+  gameplay_version?: 3;
 };
 export type GameInput = {
   seed: number;
@@ -27,7 +28,14 @@ export type GameInput = {
   away: TeamInput;
 };
 export type Spot = [number, number];
-export type Agent = { id: string; team: string; role: string; path: Spot[] };
+export type Agent = {
+  id: string;
+  team: string;
+  role: string;
+  path: Spot[];
+  at?: number[];
+  fatigue?: number;
+};
 export type Play = {
   index: number;
   quarter: number;
@@ -55,6 +63,18 @@ export type Play = {
   carrier?: string;
   coverage: string;
   call: string;
+  formation?: string;
+  personnel?: string;
+  tackler?: string;
+  recovery?: string;
+  brokenTackle?: boolean;
+  possession?: { at: number; id: string | null }[];
+  homeScoreBefore?: number;
+  awayScoreBefore?: number;
+  homeTimeoutsBefore?: number;
+  awayTimeoutsBefore?: number;
+  playClock?: number;
+  explanation?: string;
 };
 export type StatLine = {
   passing_attempts: number;
@@ -274,6 +294,9 @@ export function simulateGame(input: GameInput): GameResult {
   const coachRules =
     input.home.coach_bonus_version === 1 ||
     input.away.coach_bonus_version === 1;
+  const modern =
+    input.home.gameplay_version === 3 && input.away.gameplay_version === 3;
+  const fatigue: Record<string, number> = {};
   const random = generator(input.seed),
     normal = () =>
       (random() + random() + random() + random() + random() + random() - 3) *
@@ -355,14 +378,17 @@ export function simulateGame(input: GameInput): GameResult {
       startDown = down,
       startDistance = distance,
       startClock = clock;
+    const beforeScores = [stats[teams[0].id].score, stats[teams[1].id].score];
+    const beforeTimeouts = [...timeouts];
+    const fresh = (t: TeamInput) => (modern ? restedTeam(t, fatigue) : t);
     const offense = selectPersonnel(
-        team,
+        fresh(team),
         "offense",
         quarter,
         input.phase === "preseason",
       ),
       defense = selectPersonnel(
-        def,
+        fresh(def),
         "defense",
         quarter,
         input.phase === "preseason",
@@ -448,8 +474,12 @@ export function simulateGame(input: GameInput): GameResult {
       sacked = false,
       interceptor: FootballPlayer | undefined,
       td = false;
+    let tackler: FootballPlayer | undefined;
+    let design = "",
+      explanation = "",
+      brokenTackle = false;
     const deficit = ds.score - ts.score,
-      seconds = quarter >= 4 ? clock : 9999;
+      seconds = quarter >= 4 || (modern && quarter === 2) ? clock : 9999;
     if (tdPending) {
       tdPending = false;
       const two =
@@ -544,13 +574,33 @@ export function simulateGame(input: GameInput): GameResult {
         deficit < 0 &&
         timeouts[1 - off] === 0 &&
         clock > 0 &&
-        down < 4
+        down < 4 &&
+        (!modern || clock <= (4 - down) * 40)
       ) {
         kind = "kneel";
         gain = -1;
         carrier = qb;
         description = `${qb.name} takes a knee.`;
         call = "Victory formation";
+      } else if (
+        modern &&
+        [2, 4].includes(quarter) &&
+        clock > 12 &&
+        clock < 18 &&
+        down < 4 &&
+        timeouts[off] === 0 &&
+        deficit >= 0 &&
+        plays.at(-1)?.offense === team.id &&
+        (plays.at(-1)?.kind === "run" ||
+          plays.at(-1)?.description.includes("completes to"))
+      ) {
+        kind = "spike";
+        carrier = qb;
+        gain = 0;
+        stopped = true;
+        call = "Clock spike";
+        ts.plays++;
+        description = `${qb.name} spikes the ball to stop the clock.`;
       } else {
         ts.plays++;
         if (down === 3) ts.third_attempts++;
@@ -609,6 +659,26 @@ export function simulateGame(input: GameInput): GameResult {
           passDepth = Math.min(passDepth, 100 - spot + 2);
           const pa = random() < tendency(team, "play_action") * 0.24,
             rpo = random() < tendency(team, "rpo") * 0.16;
+          if (modern) {
+            const concept = random();
+            design = rpo
+              ? "RPO slant"
+              : pa
+                ? "Play action cross"
+                : passDepth > 18
+                  ? "Four verticals"
+                  : concept < 0.22
+                    ? "Tunnel screen"
+                    : concept < 0.5
+                      ? "Mesh crossers"
+                      : concept < 0.75
+                        ? "Stick spacing"
+                        : "Flood";
+            if (concept > 0.985 && down <= 2 && spot < 65 && seconds > 180)
+              design = "Flea flicker";
+            if (design === "Tunnel screen") passDepth = Math.min(2, 100 - spot);
+            if (design === "Flea flicker") passDepth = Math.min(28, 100 - spot);
+          }
           const route = skill(
             target,
             passDepth > 18
@@ -635,11 +705,23 @@ export function simulateGame(input: GameInput): GameResult {
             0.19,
           );
           call = `${rpo ? "RPO " : pa ? "Play action " : ""}${passDepth > 18 ? "Deep concept" : passDepth < 8 ? "Quick concept" : "Intermediate concept"}${blitz ? " vs. blitz" : ""}`;
+          if (modern) {
+            call = design + (blitz ? " vs. blitz" : "");
+            explanation =
+              protection < -5
+                ? "Pressure forces an early decision."
+                : protection > 8
+                  ? "Excellent protection gives the quarterback time."
+                  : separation > 1
+                    ? `${target.name} creates separation with his route and speed.`
+                    : `Safety help closes the throwing window for ${target.name}.`;
+          }
           if (random() < sackChance) {
             kind = "sack";
             sacked = true;
             gain = -Math.round(3 + random() * 7);
             const rusher = dl[Math.floor(random() * dl.length)];
+            tackler = rusher;
             ps[rusher.id].sacks++;
             ps[rusher.id].tackles++;
             ts.sacks++;
@@ -720,6 +802,20 @@ export function simulateGame(input: GameInput): GameResult {
                   ),
                 );
                 if (random() < 0.035) gain += Math.round(8 + random() * 24);
+                if (
+                  modern &&
+                  random() <
+                    clamp(
+                      0.06 +
+                        (skill(target, "agility") - skill(corner, "tackling")) *
+                          0.003,
+                      0.01,
+                      0.2,
+                    )
+                ) {
+                  brokenTackle = true;
+                  gain += Math.round(2 + random() * 4);
+                }
                 gain = Math.min(100 - spot, gain);
                 ps[qb.id].completions++;
                 ps[qb.id].passing_yards += gain;
@@ -739,6 +835,7 @@ export function simulateGame(input: GameInput): GameResult {
           const option = team.coaching.offense === "Option" && random() < 0.28,
             rpo = random() < tendency(team, "rpo") * 0.12;
           carrier = option ? qb : rb;
+          const runConcept = modern ? random() : 0;
           const vision = skill(
               carrier,
               coachRules ? "vision" : "ball_carrier_vision",
@@ -770,10 +867,36 @@ export function simulateGame(input: GameInput): GameResult {
             (power - 75) * 0.012 -
             (tendency(def, "run_defense") - 0.5) * 1.2 +
             (rpo ? 0.3 : 0);
+          if (modern)
+            average +=
+              runConcept < 0.24
+                ? blitz
+                  ? 1
+                  : -0.25
+                : runConcept < 0.5
+                  ? (speed - pursuit) * 0.025
+                  : runConcept < 0.72
+                    ? (power - shed) * 0.018
+                    : 0;
           gain = Math.round(average + normal() * 2.8);
           if (random() < clamp(0.035 + (speed - 80) * 0.0015, 0.01, 0.08))
             gain += Math.round(9 + random() * 28);
           gain = Math.min(100 - spot, Math.max(-6, gain));
+          if (
+            modern &&
+            gain > 0 &&
+            random() <
+              clamp(
+                0.07 +
+                  (power - mean(defenders.map((p) => skill(p, "tackling")))) *
+                    0.003,
+                0.015,
+                0.22,
+              )
+          ) {
+            brokenTackle = true;
+            gain = Math.min(100 - spot, gain + Math.round(2 + random() * 5));
+          }
           ps[carrier.id].rushing_attempts++;
           ps[carrier.id].rushing_yards += gain;
           ts.rushing_yards += gain;
@@ -784,6 +907,26 @@ export function simulateGame(input: GameInput): GameResult {
               : runBlock > shed
                 ? "Inside zone"
                 : "Outside zone";
+          if (modern) {
+            const concept = runConcept;
+            call = option
+              ? "Read option"
+              : rpo
+                ? "RPO handoff"
+                : concept < 0.24
+                  ? "Draw"
+                  : concept < 0.5
+                    ? "Outside stretch"
+                    : concept < 0.72
+                      ? "Power counter"
+                      : "Inside zone";
+            explanation =
+              runBlock > shed + 5
+                ? "The offensive line opens a running lane."
+                : shed > runBlock + 5
+                  ? "The defensive front sheds blocks and squeezes the lane."
+                  : "The runner follows his blockers into the second level.";
+          }
           description = `${carrier.name} runs for ${gain} yards.`;
         }
         if (
@@ -828,7 +971,7 @@ export function simulateGame(input: GameInput): GameResult {
           kind !== "sack" &&
           (kind === "run" || completed)
         ) {
-          const tackler = defenders[Math.floor(random() * defenders.length)];
+          tackler = defenders[Math.floor(random() * defenders.length)];
           ps[tackler.id].tackles++;
         }
         if (!turnover && end > 0 && (gain >= distance || td)) {
@@ -1011,10 +1154,14 @@ export function simulateGame(input: GameInput): GameResult {
         : stopped
           ? 0
           : Math.round(24 + (1 - tendency(team, "tempo")) * 12);
-    if (quarter >= 4 && clock < 180 && deficit > 0)
+    if (
+      ((quarter >= 4 && deficit > 0) ||
+        (modern && quarter === 2 && clock < 90)) &&
+      clock < 180
+    )
       runoff = Math.min(runoff, 7);
     if (
-      quarter >= 4 &&
+      (quarter >= 4 || (modern && quarter === 2)) &&
       clock < 120 &&
       deficit < 0 &&
       timeouts[1 - off] > 0 &&
@@ -1024,14 +1171,31 @@ export function simulateGame(input: GameInput): GameResult {
       runoff = 0;
       description += ` ${def.id} timeout.`;
     }
-    liveSeconds = conversion ? 0 : Math.round(5 + random() * 5);
+    if (
+      modern &&
+      [2, 4].includes(quarter) &&
+      clock < 90 &&
+      (deficit >= 0 || quarter === 2) &&
+      !stopped &&
+      timeouts[off] > 0 &&
+      clock - runoff < 15
+    ) {
+      timeouts[off]--;
+      runoff = 0;
+      description += ` ${team.id} timeout to preserve the clock.`;
+    }
+    liveSeconds = conversion
+      ? 0
+      : modern && kind === "spike"
+        ? 2
+        : Math.round(5 + random() * 5);
     let elapsed = Math.min(clock, liveSeconds + runoff);
     if ([2, 4].includes(quarter) && clock > 120 && clock - elapsed < 120)
       elapsed = clock - 120;
     clock = Math.max(0, clock - elapsed);
     ts.time_of_possession += elapsed;
     const actualEndSpot = clamp(startSpot + gain, 0, 100);
-    plays.push({
+    const recorded: Play = {
       index: plays.length,
       quarter,
       clock: startClock,
@@ -1058,7 +1222,41 @@ export function simulateGame(input: GameInput): GameResult {
       carrier: carrier.id,
       coverage,
       call,
-    });
+    };
+    if (modern) {
+      Object.assign(recorded, {
+        tackler: tackler?.id,
+        brokenTackle,
+        homeScoreBefore: beforeScores[0],
+        awayScoreBefore: beforeScores[1],
+        homeTimeoutsBefore: beforeTimeouts[0],
+        awayTimeoutsBefore: beforeTimeouts[1],
+        playClock: stopped ? 25 : 40,
+        explanation,
+      });
+      buildModernTimeline(
+        recorded,
+        offense,
+        defense,
+        catalog,
+        fatigue,
+        input.seed,
+      );
+      for (const p of [...offense, ...defense])
+        fatigue[p.p.id] = clamp(
+          (fatigue[p.p.id] || 0) +
+            (["RB", "EDGE", "DE", "DT"].includes(p.p.position) ? 13 : 5),
+          0,
+          100,
+        );
+      const used = new Set([...offense, ...defense].map((x) => x.p.id));
+      for (const id of Object.keys(fatigue))
+        if (!used.has(id)) fatigue[id] = Math.max(0, fatigue[id] - 18);
+      if (stopped || conversion)
+        for (const id of Object.keys(fatigue))
+          fatigue[id] = Math.max(0, fatigue[id] - 7);
+    }
+    plays.push(recorded);
     if (conversion) {
       switchPossession(35);
     } else if (kind === "field_goal") {
@@ -1099,11 +1297,553 @@ export function simulateGame(input: GameInput): GameResult {
   }
   if (plays.length >= 450) throw Error("Simulation exceeded play guard");
   return {
-    engine_version: coachRules ? ENGINE_VERSION : "ff-football-1",
+    engine_version: modern
+      ? "ff-football-3"
+      : coachRules
+        ? ENGINE_VERSION
+        : "ff-football-1",
     plays,
     players: catalog,
     box: { teams: stats, players: ps },
     home_score: stats[teams[0].id].score,
     away_score: stats[teams[1].id].score,
   };
+}
+
+/** Fatigue belongs to this seeded game only; base player profiles are never edited. */
+function restedTeam(
+  team: TeamInput,
+  fatigue: Record<string, number>,
+): TeamInput {
+  const depth = { ...team.depth };
+  for (const group of ["RB", "EDGE", "DT"]) {
+    const ids = depth[group];
+    if (!ids) continue;
+    depth[group] = [...ids].sort((a, b) => {
+      const score = (id: string) => {
+        const p = team.players.find((p) => p.id === id);
+        return (p?.overall || 0) - Math.max(0, (fatigue[id] || 0) - 25) * 0.38;
+      };
+      return score(b) - score(a) || ids.indexOf(a) - ids.indexOf(b);
+    });
+  }
+  return {
+    ...team,
+    depth,
+    players: team.players.map((p) => {
+      const penalty = Math.max(0, (fatigue[p.id] || 0) - 30) * 0.12;
+      return {
+        ...p,
+        attributes: Object.fromEntries(
+          Object.entries(p.attributes).map(([k, v]) => [
+            k,
+            clamp(v - penalty, 1, 99),
+          ]),
+        ),
+      };
+    }),
+  };
+}
+
+/** All coordinates and possession changes below describe the already resolved play. */
+function buildModernTimeline(
+  play: Play,
+  offense: ReturnType<typeof selectPersonnel>,
+  defense: ReturnType<typeof selectPersonnel>,
+  catalog: GameResult["players"],
+  fatigue: Record<string, number>,
+  seed: number,
+) {
+  const random = generator(seed ^ Math.imul(play.index + 1, 0x9e3779b1));
+  const direction =
+    play.offense === catalog[offense[0].p.id].team &&
+    play.agents[0].path[0][0] < play.spot
+      ? 1
+      : -1;
+  const d = direction;
+  const forward = (yards: number) => play.spot + d * yards;
+  const safe = (p: Spot): Spot => [clamp(p[0], -9, 109), clamp(p[1], 1, 52.3)];
+  const at = [0, 0.12, 0.2, 0.48, 0.68, 0.86, 1];
+  const kick = ["punt", "field_goal", "extra_point"].includes(play.kind);
+  const passing = play.kind === "pass";
+  const sack = play.kind === "sack";
+  const fumble = play.description.includes("Fumble");
+  const interception = passing && play.turnover && !fumble;
+  const complete = passing && play.description.includes("completes to");
+  const run = ["run", "two_point", "kneel"].includes(play.kind);
+  const originalEnd = play.ball.at(-1)!;
+  const end: Spot = [
+    play.kind === "two_point" && play.scoring
+      ? d > 0
+        ? 100
+        : 0
+      : play.endSpot,
+    originalEnd[1],
+  ];
+  const target = offense.find((x) => x.p.id === play.target);
+  const qb = offense[0].p;
+  const rb = offense[1].p;
+  const shotgun = /screen|Mesh|Four|RPO|Flood|Stick/i.test(play.call);
+  play.formation = kick
+    ? "Special teams"
+    : play.kind === "kneel"
+      ? "Victory"
+      : /Play action|Power|flicker/i.test(play.call)
+        ? "Singleback"
+        : shotgun
+          ? "Shotgun trips"
+          : "Singleback spread";
+  play.personnel = kick ? "Kicking unit" : "11 personnel · 1 RB · 1 TE · 3 WR";
+  play.coverage = kick
+    ? "Kick defense"
+    : `${play.coverage}${play.call.includes("blitz") ? " · pressure" : ""}`;
+  const blitz =
+    /blitz/i.test(play.coverage + play.call) || (sack && random() < 0.5);
+  if (blitz && !kick) play.coverage += " · LB blitz";
+  if (!blitz && !kick)
+    play.coverage += play.coverage.startsWith("Man")
+      ? " · two-high help"
+      : " · Cover 3 shell";
+  const yByRole: Record<string, number> = {
+    QB: 26.65,
+    HB: 32,
+    WR1: 5,
+    WR2: 48,
+    SLOT: shotgun ? 40 : 13,
+    TE: 36,
+    LT: 21,
+    LG: 24,
+    C: 26.65,
+    RG: 29,
+    RT: 32,
+  };
+  const defenderY: Record<string, number> = {
+    EDGE1: 18,
+    DT1: 24,
+    DT2: 29,
+    EDGE2: 35,
+    LB1: 13,
+    LB2: 26,
+    LB3: 40,
+    LB4: 34,
+    CB1: 5,
+    CB2: 48,
+    CB3: 40,
+    FS: 18,
+    SS: 36,
+  };
+  const snap: Spot = [play.spot, 26.65];
+  const qbStart: Spot = [forward(shotgun ? -5 : -1.5), 26.65];
+  const pocket: Spot = [forward(-7), 26.65];
+  const targetStartY = yByRole[target?.role || "HB"] || 32;
+  const catchSpot: Spot =
+    complete || interception
+      ? safe([play.ball[2][0], end[1]])
+      : safe([play.ball[2][0], targetStartY + (random() - 0.5) * 6]);
+  // A completion cannot be caught beyond the recorded final spot.
+  if (complete && d * (catchSpot[0] - end[0]) > 0) catchSpot[0] = end[0];
+  if (interception) {
+    catchSpot[0] = end[0];
+    catchSpot[1] = end[1];
+  }
+  const handoff: Spot = [forward(-3), 28];
+  const lane = /Outside|stretch/i.test(play.call)
+    ? random() < 0.5
+      ? 9
+      : 44
+    : /counter/i.test(play.call)
+      ? 20
+      : 28;
+  if (run)
+    end[1] =
+      play.kind === "kneel" ? 26.65 : clamp(lane + (random() - 0.5) * 8, 3, 50);
+  if (sack) end[1] = 26.65;
+  const middle: Spot = [play.spot + (end[0] - play.spot) * 0.45, lane];
+  const routes = new Map<string, Spot[]>();
+  const build = (
+    id: string,
+    team: string,
+    role: string,
+    path: Spot[],
+  ): Agent => ({
+    id,
+    team,
+    role,
+    path: path.map(safe),
+    at: [...at],
+    fatigue: Math.round(fatigue[id] || 0),
+  });
+  const agents: Agent[] = offense.map(({ role, p }, i) => {
+    const y = yByRole[role] || 26.65;
+    const start: Spot =
+      role === "QB"
+        ? qbStart
+        : role === "HB"
+          ? [forward(-6), 32]
+          : [forward(role === "SLOT" ? -1 : 0), y];
+    let path: Spot[];
+    if (role === "QB")
+      path = [
+        start,
+        start,
+        qbStart,
+        pocket,
+        sack ? end : pocket,
+        sack ? end : pocket,
+        sack ? end : pocket,
+      ];
+    else if (["LT", "LG", "C", "RG", "RT"].includes(role)) {
+      const opponentRole: Record<string, string> = {
+        LT: "EDGE1",
+        LG: "DT1",
+        RG: "DT2",
+        RT: "EDGE2",
+      };
+      const opponent = defense.find((x) => x.role === opponentRole[role]);
+      const push =
+        run && opponent
+          ? (skill(p, "run_blocking") - skill(opponent.p, "block_shedding")) *
+            0.035
+          : 0;
+      const edge: Spot = [
+        forward(passing || sack ? -1 : 1.8 + push),
+        opponent ? defenderY[opponent.role] : y,
+      ];
+      path = [start, start, start, edge, edge, edge, edge];
+    } else if (role === "HB") {
+      path = [
+        start,
+        start,
+        handoff,
+        run ? handoff : [forward(-4), 30],
+        run ? middle : [forward(2), 34],
+        run ? end : [forward(4), 36],
+        run ? end : [forward(4), 36],
+      ];
+    } else {
+      const speed = skill(p, "speed");
+      const depth = /Four|flicker/i.test(play.call)
+        ? 25
+        : /screen/i.test(play.call)
+          ? 2
+          : 8 + (speed - 75) * 0.15;
+      const cross = /cross|Mesh|slant/i.test(play.call);
+      const bend: Spot = [
+        forward(cross ? 4 : depth * 0.5),
+        cross ? y + (y < 26 ? 8 : -8) : y,
+      ];
+      const destination: Spot = [
+        forward(depth),
+        cross ? 53.3 - y : y + (y < 26 ? 3 : -3),
+      ];
+      path = [
+        start,
+        start,
+        [forward(1), y],
+        bend,
+        destination,
+        destination,
+        destination,
+      ];
+    }
+    if (p.id === play.target && passing)
+      path = [
+        start,
+        start,
+        [forward(1), y],
+        [
+          play.spot + (catchSpot[0] - play.spot) * 0.5,
+          (y + catchSpot[1]) * 0.5,
+        ],
+        catchSpot,
+        complete ? end : catchSpot,
+        complete ? end : catchSpot,
+      ];
+    if (p.id === play.carrier && run)
+      path = [
+        start,
+        start,
+        p.id === qb.id ? qbStart : handoff,
+        handoff,
+        middle,
+        end,
+        end,
+      ];
+    routes.set(role, path);
+    return build(p.id, play.offense, role, path);
+  });
+  const defenseTeam = play.agents.find((a) => a.team !== play.offense)!.team;
+  const targetRole = target?.role || "WR1";
+  const paired: Record<string, string> = {
+    CB1: "WR1",
+    CB2: "WR2",
+    CB3: "SLOT",
+    SS: "TE",
+    LB1: "HB",
+  };
+  const man = play.coverage.startsWith("Man");
+  const recoveryPlayer = fumble
+    ? defense.find((x) => x.role.startsWith("LB")) || defense[0]
+    : undefined;
+  if (recoveryPlayer) play.recovery = recoveryPlayer.p.id;
+  const interceptAgent = interception
+    ? defense.find((x) => x.p.id === play.carrier)
+    : undefined;
+  for (const { role, p } of defense) {
+    const y = defenderY[role] || 26.65;
+    const line = /EDGE|DT/.test(role);
+    const start: Spot = [
+      forward(
+        line ? 1.5 : /FS|SS/.test(role) ? 14 : role.startsWith("CB") ? 3 : 5,
+      ),
+      y,
+    ];
+    const rush = line || (blitz && role === "LB2");
+    const coverRole = paired[role] || targetRole;
+    const receiverRoute = routes.get(coverRole)!;
+    let path: Spot[];
+    if (rush) {
+      const engagement: Spot = [forward(passing || sack ? -1 : 1.8), y];
+      const blockerRole: Record<string, string> = {
+        EDGE1: "LT",
+        DT1: "LG",
+        DT2: "RG",
+        EDGE2: "RT",
+      };
+      const blocker = offense.find((x) => x.role === blockerRole[role]);
+      const wins = blocker
+        ? Math.max(skill(p, "power_moves"), skill(p, "finesse_moves")) -
+          skill(blocker.p, "pass_blocking")
+        : 10;
+      const breakthrough: Spot =
+        sack && p.id === play.tackler
+          ? end
+          : wins > 3
+            ? [forward(-4), y + (26 - y) * 0.25]
+            : engagement;
+      path = [
+        start,
+        start,
+        start,
+        engagement,
+        passing || sack ? breakthrough : [forward(2), y],
+        breakthrough,
+        breakthrough,
+      ];
+    } else if (man && paired[role] && passing) {
+      const lag = clamp(
+        (skill(
+          catalog[offense.find((x) => x.role === coverRole)!.p.id],
+          "speed",
+        ) -
+          skill(p, "speed")) *
+          0.04 +
+          0.8,
+        0.2,
+        3,
+      );
+      path = receiverRoute.map((point, i) =>
+        i < 3
+          ? start
+          : ([point[0] - d * lag, point[1] + (y < 26 ? -1 : 1)] as Spot),
+      );
+    } else {
+      const zone: Spot = [
+        forward(/FS|SS/.test(role) ? 20 : role.startsWith("CB") ? 12 : 7),
+        y,
+      ];
+      path = [start, start, start, zone, zone, zone, zone];
+    }
+    if ((run || complete || sack) && !play.scoring && !play.turnover) {
+      const finish: Spot =
+        p.id === play.tackler
+          ? end
+          : [
+              end[0] - d * (2 + random() * 5),
+              clamp(end[1] + (y < end[1] ? -1 : 1) * (2 + random() * 4), 1, 52),
+            ];
+      if (!line || p.id === play.tackler) {
+        path[5] = finish;
+        path[6] = finish;
+      }
+    }
+    if (interceptAgent?.p.id === p.id) {
+      path[4] = catchSpot;
+      path[5] = catchSpot;
+      path[6] = catchSpot;
+    }
+    if (recoveryPlayer?.p.id === p.id) {
+      path[5] = [end[0] - d, end[1] + 1];
+      path[6] = [end[0] + d * 0.5, end[1] + 0.7];
+    }
+    agents.push(build(p.id, defenseTeam, role, path));
+  }
+  // Align the participant awarded the tackle/sack exactly with the recorded carrier endpoint.
+  if (play.brokenTackle && !play.turnover) {
+    const missed = agents.find(
+      (a) =>
+        a.team !== play.offense &&
+        a.id !== play.tackler &&
+        a.role.startsWith("LB"),
+    );
+    if (missed) {
+      missed.path[4] = safe(middle);
+      missed.path[5] = safe([middle[0] - d, middle[1] + 2]);
+      missed.path[6] = missed.path[5];
+    }
+    play.description += " He breaks a tackle for extra yards.";
+  }
+  if (play.tackler && !play.scoring && !play.turnover) {
+    const a = agents.find((a) => a.id === play.tackler);
+    if (a) {
+      a.path[5] = safe(end);
+      a.path[6] = safe(end);
+    }
+  }
+  if (kick) {
+    const kickerStart: Spot = [forward(-10), 26.65],
+      contact: Spot = [forward(-7), 26.65];
+    agents[0] = build(
+      play.carrier!,
+      play.offense,
+      play.kind === "punt" ? "P" : "K",
+      [
+        kickerStart,
+        kickerStart,
+        kickerStart,
+        kickerStart,
+        contact,
+        contact,
+        contact,
+      ],
+    );
+    const kickEnd: Spot =
+      play.kind === "punt"
+        ? originalEnd
+        : [d > 0 ? 105 : -5, play.scoring ? 26.65 : 36];
+    play.ball = [
+      snap,
+      snap,
+      play.kind === "punt" ? kickerStart : contact,
+      play.kind === "punt" ? kickerStart : contact,
+      kickEnd,
+      kickEnd,
+      kickEnd,
+    ].map(safe);
+    play.possession = [
+      { at: 0, id: null },
+      { at: 0.2, id: play.kind === "punt" ? play.carrier! : null },
+      { at: 0.48, id: null },
+    ];
+  } else {
+    const receiver = play.target || play.carrier!;
+    const incompleteEnd: Spot = [
+      catchSpot[0] +
+        d *
+          clamp(
+            (100 - skill(qb, "medium_accuracy", ["accuracy"])) / 12,
+            0.7,
+            4,
+          ),
+      clamp(
+        catchSpot[1] + (100 - skill(qb, "medium_accuracy", ["accuracy"])) / 10,
+        1,
+        52,
+      ),
+    ];
+    play.ball = [
+      snap,
+      snap,
+      qbStart,
+      pocket,
+      passing
+        ? complete || interception
+          ? catchSpot
+          : incompleteEnd
+        : sack
+          ? end
+          : middle,
+      passing
+        ? complete
+          ? end
+          : interception
+            ? catchSpot
+            : incompleteEnd
+        : end,
+      passing
+        ? complete
+          ? end
+          : interception
+            ? catchSpot
+            : incompleteEnd
+        : end,
+    ].map(safe);
+    if (run) {
+      play.ball[3] = safe(handoff);
+      play.ball[2] = safe(play.carrier === qb.id ? qbStart : handoff);
+    }
+    if (play.kind === "kneel") {
+      const a = agents.find((a) => a.id === qb.id)!;
+      a.path = [qbStart, qbStart, qbStart, end, end, end, end].map(safe);
+      play.ball = [snap, snap, qbStart, end, end, end, end].map(safe);
+    }
+    if (play.kind === "spike") {
+      const a = agents.find((a) => a.id === qb.id)!;
+      a.path = [
+        qbStart,
+        qbStart,
+        qbStart,
+        qbStart,
+        qbStart,
+        qbStart,
+        qbStart,
+      ].map(safe);
+      play.ball = (
+        [
+          snap,
+          snap,
+          qbStart,
+          qbStart,
+          [qbStart[0], 28],
+          [qbStart[0], 28],
+          [qbStart[0], 28],
+        ] as Spot[]
+      ).map(safe);
+    }
+    play.possession = [
+      { at: 0, id: null },
+      { at: 0.2, id: run ? play.carrier! : qb.id },
+      { at: 0.48, id: passing ? null : play.carrier! },
+      {
+        at: 0.68,
+        id: passing
+          ? complete || interception
+            ? interception
+              ? play.carrier!
+              : receiver
+            : null
+          : play.carrier!,
+      },
+    ];
+    if (play.kind === "spike")
+      play.possession = [
+        { at: 0, id: null },
+        { at: 0.2, id: qb.id },
+        { at: 0.48, id: null },
+      ];
+    if (fumble) {
+      play.ball[6] = safe([end[0] + d * 0.5, end[1] + 0.7]);
+      play.possession.push(
+        { at: 0.86, id: null },
+        { at: 1, id: play.recovery! },
+      );
+    }
+  }
+  play.ballAt = [...at];
+  play.agents = agents;
+  if (play.tackler && !play.scoring && !play.turnover)
+    play.description += ` Tackled by ${catalog[play.tackler].name}.`;
+  if (fumble && play.recovery)
+    play.description += ` ${catalog[play.recovery].name} recovers.`;
+  if (play.explanation) play.description += ` ${play.explanation}`;
 }

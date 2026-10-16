@@ -269,6 +269,26 @@ test("season UI: commissioner gating, shared readiness/controls, saved independe
     await screen.findByText("Official box score");
     const mutations = calls.filter((c) => c.name === "game_action").length;
     fireEvent.click(screen.getByRole("button", { name: /^Replay$/ }));
+    fireEvent.click(screen.getByRole("button", { name: "0.5×" }));
+    assert.equal(
+      screen.getByRole("button", { name: "0.5×" }).getAttribute("aria-pressed"),
+      "true",
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Next drive" }));
+    fireEvent.click(screen.getByRole("button", { name: "Full field" }));
+    assert.equal(
+      screen
+        .getByRole("button", { name: "Follow play" })
+        .getAttribute("aria-pressed"),
+      "false",
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Energy" }));
+    assert.equal(
+      screen
+        .getByRole("button", { name: "Energy" })
+        .getAttribute("aria-pressed"),
+      "true",
+    );
     fireEvent.click(screen.getByRole("button", { name: "2×" }));
     fireEvent.click(screen.getByRole("button", { name: "Next play" }));
     assert.equal(

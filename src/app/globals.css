@@ -5470,3 +5470,123 @@ select:focus-visible {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Vertical broadcast field: readable on phones without horizontal scrolling. */
+.vertical-football {
+  max-width: 780px;
+  margin: 0 auto;
+  border: 1px solid #c9d1db25;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #0b1424;
+}
+.vertical-football .field-view-tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 12px;
+  gap: 8px;
+}
+.vertical-football .field-view-tools button {
+  font-size: 11px;
+  padding: 9px 13px;
+}
+.vertical-football .field-view-tools button[aria-pressed="true"] {
+  color: #00e5ff;
+  border-color: #00e5ff77;
+  background: #00e5ff0c;
+}
+.vertical-football .football-stage {
+  overflow: hidden;
+}
+.vertical-football .football-stage canvas {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  aspect-ratio: 7 / 10;
+  touch-action: pan-y;
+}
+.field-live-strip {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 18px;
+  background: #070f1b;
+  font-size: 12px;
+  color: #eaf0f7;
+  font-variant-numeric: tabular-nums;
+}
+.field-live-strip > span:last-child {
+  color: #f3cd67;
+}
+.field-formation {
+  padding: 12px 18px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.field-formation strong {
+  font-size: 13px;
+}
+.field-formation span {
+  font-size: 11px;
+  color: var(--muted);
+}
+.field-result {
+  min-height: 90px;
+  padding: 16px 20px;
+  display: grid;
+  gap: 7px;
+  border-top: 1px solid #c9d1db25;
+}
+.field-result strong {
+  color: #00e5ff;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+.field-result span {
+  font-size: 13px;
+  line-height: 1.5;
+}
+.field-result.is-visible {
+  background: #f3cd670a;
+}
+.field-result.is-visible strong {
+  color: #f3cd67;
+}
+.field-result.is-visible.turnover strong {
+  color: #ff7a91;
+}
+.vertical-football .field-player-picker {
+  flex-wrap: wrap;
+}
+.vertical-football .field-player-picker select {
+  min-width: 0;
+  max-width: 100%;
+  flex: 1;
+}
+@media (max-width: 600px) {
+  .vertical-football {
+    border-radius: 12px;
+  }
+  .field-live-strip {
+    font-size: 10px;
+    padding: 10px;
+    gap: 5px;
+  }
+  .field-formation {
+    padding: 10px;
+  }
+  .field-formation span {
+    font-size: 10px;
+  }
+  .field-result {
+    min-height: 110px;
+    padding: 14px;
+  }
+  .game-controls {
+    flex-wrap: wrap;
+  }
+}

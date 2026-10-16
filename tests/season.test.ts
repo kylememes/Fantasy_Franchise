@@ -32,6 +32,7 @@ test("season authority: invitations, two-user readiness, frozen inputs, private 
       "20261016112856_lineup_free_agency.sql",
       "20261016132251_season_game_center.sql",
       "20261016181045_head_coach_bonuses.sql",
+      "20261016223254_vertical_gameplay.sql",
     ])
       await db.exec(await readFile("supabase/migrations/" + n, "utf8"));
     const definitions = await q(
@@ -198,8 +199,19 @@ test("season authority: invitations, two-user readiness, frozen inputs, private 
       await q("select frozen from game_jobs where game_id=$1", [gid])
     )[0].frozen;
     assert.deepEqual(frozen, job.input);
+    assert.equal(job.input.home.gameplay_version, 3);
+    assert.equal(job.input.away.gameplay_version, 3);
     const result = simulateGame(job.input as GameInput);
+    assert.equal(result.engine_version, "ff-football-3");
     await db.exec("set role service_role");
+    await assert.rejects(
+      q("select commit_simulation($1,$2,$3)", [
+        gid,
+        job.lease,
+        { ...result, engine_version: "ff-football-2" },
+      ]),
+      /Invalid engine result/,
+    );
     assert.equal(
       (
         await q("select commit_simulation($1,$2,$3) ok", [
@@ -236,6 +248,23 @@ test("season authority: invitations, two-user readiness, frozen inputs, private 
     await q("select game_action($1,'next')", [gid]);
     game = (await q("select game_snapshot($1) s", [gid]))[0].s;
     assert.equal(game.game.cursor, paused.game.cursor + 1);
+    await identity(outsider);
+    await assert.rejects(
+      q("select game_action($1,'next_drive')", [gid]),
+      /participating owners/,
+    );
+    await identity(friend);
+    const currentOffense = result.plays[game.game.cursor].offense;
+    await q("select game_action($1,'next_drive')", [gid]);
+    const skipped = (await q("select game_snapshot($1) s", [gid]))[0].s;
+    assert.equal(skipped.game.status, "paused");
+    assert.ok(skipped.game.cursor > game.game.cursor);
+    assert.notEqual(result.plays[skipped.game.cursor].offense, currentOffense);
+    assert.equal(
+      skipped.plays.length,
+      skipped.game.cursor + 1,
+      "drive skip reveals only through the new server cursor",
+    );
     await q("select game_action($1,'resume')", [gid]);
     await q("select game_action($1,'speed',4)", [gid]);
     await q("select game_action($1,'finish')", [gid]);

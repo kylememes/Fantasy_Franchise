@@ -22,6 +22,7 @@ import {
   weekLabel,
 } from "@/lib/season";
 import { FootballField } from "./football-field";
+import { nextDriveIndex } from "@/lib/field-playback";
 import { LeagueStandings } from "./league-standings";
 import { TeamLogo } from "./identity";
 import coachCatalog from "../../data/coaches-2026.json";
@@ -228,6 +229,13 @@ export function SeasonHub({
     [liveReplayIndex, setLiveReplayIndex] = useState<number | null>(null),
     [playing, setPlaying] = useState(false),
     [speed, setSpeed] = useState(1),
+    [replayKey, setReplayKey] = useState(0),
+    [moment, setMoment] = useState<{
+      game: string;
+      index: number;
+      clock: number;
+      resolved: boolean;
+    } | null>(null),
     [showStats, setShowStats] = useState(false),
     [schedulePhase, setSchedulePhase] = useState(""),
     [scheduleWeek, setScheduleWeek] = useState(0);
@@ -377,6 +385,20 @@ export function SeasonHub({
             Math.max(0, (game?.plays.length ?? 1) - 1),
           ))
     ];
+  const currentMoment =
+    moment?.game === active?.id && moment?.index === play?.index
+      ? moment
+      : null;
+  const previousPlay = play
+    ? game?.plays.find((p) => p.index === play.index - 1)
+    : undefined;
+  const displayedHome = currentMoment?.resolved
+    ? play?.homeScore
+    : (play?.homeScoreBefore ?? previousPlay?.homeScore ?? 0);
+  const displayedAway = currentMoment?.resolved
+    ? play?.awayScore
+    : (play?.awayScoreBefore ?? previousPlay?.awayScore ?? 0);
+  const displayedClock = currentMoment?.clock ?? play?.clock ?? 900;
   const previousStatus = useRef<{ id: string; status: string } | null>(null);
   useEffect(() => {
     if (
@@ -672,7 +694,9 @@ export function SeasonHub({
                 <div>
                   <TeamLogo id={active.away} />
                   <span>{active.away}</span>
-                  <strong>{play?.awayScore ?? active.away_score ?? 0}</strong>
+                  <strong>
+                    {play ? displayedAway : (active.away_score ?? 0)}
+                  </strong>
                 </div>
                 <div className="broadcast-clock">
                   <span>
@@ -680,7 +704,7 @@ export function SeasonHub({
                   </span>
                   <strong>
                     {play
-                      ? `${play.quarter === 5 ? "OT" : `Q${play.quarter}`} ${Math.floor(play.clock / 60)}:${String(play.clock % 60).padStart(2, "0")}`
+                      ? `${play.quarter === 5 ? "OT" : `Q${play.quarter}`} ${Math.floor(displayedClock / 60)}:${String(displayedClock % 60).padStart(2, "0")}`
                       : "15:00"}
                   </strong>
                   <small>
@@ -690,7 +714,9 @@ export function SeasonHub({
                   </small>
                 </div>
                 <div>
-                  <strong>{play?.homeScore ?? active.home_score ?? 0}</strong>
+                  <strong>
+                    {play ? displayedHome : (active.home_score ?? 0)}
+                  </strong>
                   <span>{active.home}</span>
                   <TeamLogo id={active.home} />
                 </div>
@@ -703,10 +729,20 @@ export function SeasonHub({
               )}
               <div className="broadcast-timeouts">
                 <span>
-                  {active.away} timeouts: {play?.awayTimeouts ?? 3}
+                  {active.away} timeouts:{" "}
+                  {currentMoment?.resolved
+                    ? play?.awayTimeouts
+                    : (play?.awayTimeoutsBefore ??
+                      previousPlay?.awayTimeouts ??
+                      3)}
                 </span>
                 <span>
-                  {active.home} timeouts: {play?.homeTimeouts ?? 3}
+                  {active.home} timeouts:{" "}
+                  {currentMoment?.resolved
+                    ? play?.homeTimeouts
+                    : (play?.homeTimeoutsBefore ??
+                      previousPlay?.homeTimeouts ??
+                      3)}
                 </span>
               </div>
               {["scheduled", "queued", "building", "error"].includes(
@@ -785,6 +821,18 @@ export function SeasonHub({
               ) : (
                 <>
                   <FootballField
+                    key={active.id}
+                    replayKey={replayKey}
+                    onMoment={(next) =>
+                      setMoment((old) =>
+                        old?.game === active.id &&
+                        old.index === next.index &&
+                        old.clock === next.clock &&
+                        old.resolved === next.resolved
+                          ? old
+                          : { ...next, game: active.id },
+                      )
+                    }
                     play={play}
                     players={game.players || {}}
                     home={lookup(active.home)}
@@ -821,22 +869,24 @@ export function SeasonHub({
                         ? "Pause"
                         : "Play"}
                     </button>
-                    {[1, 2, 4].map((n) => (
-                      <button
-                        key={n}
-                        aria-pressed={
-                          (watchingReplay ? speed : active.speed) === n
-                        }
-                        disabled={busy || (!watchingReplay && !control)}
-                        onClick={() =>
-                          watchingReplay
-                            ? setSpeed(n)
-                            : void gameControl("speed", n)
-                        }
-                      >
-                        {n}×
-                      </button>
-                    ))}
+                    {(watchingReplay ? [0.25, 0.5, 1, 2, 4] : [1, 2, 4]).map(
+                      (n) => (
+                        <button
+                          key={n}
+                          aria-pressed={
+                            (watchingReplay ? speed : active.speed) === n
+                          }
+                          disabled={busy || (!watchingReplay && !control)}
+                          onClick={() =>
+                            watchingReplay
+                              ? setSpeed(n)
+                              : void gameControl("speed", n)
+                          }
+                        >
+                          {n}×
+                        </button>
+                      ),
+                    )}
                     <button
                       className="secondary"
                       disabled={busy || (!watchingReplay && !control)}
@@ -856,6 +906,24 @@ export function SeasonHub({
                     </button>
                     <button
                       className="secondary"
+                      disabled={busy || (!watchingReplay && !control)}
+                      onClick={() => {
+                        setPlaying(false);
+                        if (final)
+                          setReplayIndex(
+                            nextDriveIndex(game.plays, replayIndex),
+                          );
+                        else if (liveReplayIndex !== null)
+                          setLiveReplayIndex(
+                            nextDriveIndex(game.plays, liveReplayIndex),
+                          );
+                        else void gameControl("next_drive");
+                      }}
+                    >
+                      <FastForward size={16} /> Next drive
+                    </button>
+                    <button
+                      className="secondary"
                       disabled={!game.plays.length}
                       onClick={() => {
                         if (final) setReplayIndex((i) => Math.max(0, i - 1));
@@ -863,6 +931,7 @@ export function SeasonHub({
                           setLiveReplayIndex(
                             Math.max(0, (active.cursor || 0) - 1),
                           );
+                        setReplayKey((k) => k + 1);
                         setPlaying(true);
                       }}
                     >

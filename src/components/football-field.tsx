@@ -4,17 +4,14 @@ import type { Franchise } from "@/lib/types";
 import type {
   Play,
   GameResult,
-  Spot,
 } from "../../supabase/functions/_shared/simulation";
-function point(path: Spot[], t: number): Spot {
-  const n = (path.length - 1) * Math.min(1, Math.max(0, t)),
-    i = Math.min(path.length - 2, Math.floor(n)),
-    f = n - i;
-  return [
-    path[i][0] + (path[i + 1][0] - path[i][0]) * f,
-    path[i][1] + (path[i + 1][1] - path[i][1]) * f,
-  ];
-}
+import {
+  ballSpot,
+  cameraBounds,
+  carrierAt,
+  playerSpot,
+} from "@/lib/field-playback";
+
 export function FootballField({
   play,
   players,
@@ -23,6 +20,8 @@ export function FootballField({
   playing,
   speed,
   onEnd,
+  replayKey = 0,
+  onMoment,
 }: {
   play?: Play;
   players: GameResult["players"];
@@ -31,207 +30,287 @@ export function FootballField({
   playing: boolean;
   speed: number;
   onEnd?: () => void;
+  replayKey?: number;
+  onMoment?: (moment: {
+    index: number;
+    clock: number;
+    resolved: boolean;
+  }) => void;
 }) {
-  const stage = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null),
     progress = useRef(0),
-    last = useRef(0),
     ended = useRef(false),
     onEndRef = useRef(onEnd);
+  const [full, setFull] = useState(false),
+    [names, setNames] = useState(true),
+    [fatigue, setFatigue] = useState(false),
+    [routes, setRoutes] = useState(true),
+    [selected, setSelected] = useState("");
+  const [phase, setPhase] = useState("Pre-snap");
+  const [readout, setReadout] = useState({
+    clock: play?.clock || 0,
+    playClock: 40,
+  });
+  const hitTargets = useRef<{ id: string; x: number; y: number }[]>([]);
   onEndRef.current = onEnd;
-  const [zoom, setZoom] = useState(false),
-    [selected, setSelected] = useState<string | null>(null);
+  const momentRef = useRef(onMoment);
+  momentRef.current = onMoment;
   useEffect(() => {
     progress.current = 0;
     ended.current = false;
-  }, [play?.index]);
+    setPhase("Pre-snap");
+    setSelected("");
+  }, [play?.index, play?.offense, replayKey]);
   useEffect(() => {
-    const el = stage.current;
-    if (!el || !play || el.scrollWidth <= el.clientWidth) return;
-    const lo = zoom ? Math.max(0, Math.min(60, play.spot - 20)) : 0;
-    const relative = (play.spot + 10 - lo) / (zoom ? 60 : 120);
-    el.scrollLeft = Math.max(0, relative * el.scrollWidth - el.clientWidth / 2);
-  }, [play?.index, zoom]);
+    if (playing && ended.current) {
+      progress.current = 0;
+      ended.current = false;
+      setPhase("Pre-snap");
+    }
+  }, [playing]);
   useEffect(() => {
     let frame = 0,
+      last = 0,
       paint = 0;
-    last.current = 0;
-    const reduced = window.matchMedia?.(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const media = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    let reduced = media?.matches || false;
+    const motion = (event: MediaQueryListEvent) => {
+      reduced = event.matches;
+    };
+    media?.addEventListener?.("change", motion);
     const draw = (now: number) => {
-      const el = canvas.current,
-        ctx = el?.getContext("2d");
-      if (!el || !ctx) return;
-      if (last.current && playing)
+      if (last && playing)
         progress.current = Math.min(
           1,
-          progress.current + ((now - last.current) * speed) / 4000,
+          progress.current + (Math.min(100, now - last) * speed) / 4000,
         );
-      last.current = now;
-      if (now - paint > 32) {
+      last = now;
+      const el = canvas.current,
+        ctx = el?.getContext("2d");
+      if (el && ctx && now - paint >= 32) {
         paint = now;
-        const W = 1200,
-          H = 650;
+        const t = reduced ? 1 : progress.current;
+        const currentPhase =
+          t < 0.12
+            ? "Pre-snap"
+            : t < 0.2
+              ? "Snap"
+              : t < 0.48
+                ? "Developing"
+                : t < 0.68 && play?.kind === "pass"
+                  ? "Ball in flight"
+                  : t < 0.86
+                    ? "Live play"
+                    : "Result";
+        if (play)
+          momentRef.current?.({
+            index: play.index,
+            clock: Math.round(
+              play.clock +
+                (play.endClock - play.clock) * Math.max(0, (t - 0.12) / 0.88),
+            ),
+            resolved: t >= 0.86,
+          });
+        setPhase((previous) =>
+          previous === currentPhase ? previous : currentPhase,
+        );
+        const clock = play
+          ? Math.round(
+              play.clock +
+                (play.endClock - play.clock) * Math.max(0, (t - 0.12) / 0.88),
+            )
+          : 0;
+        const playClock =
+          t < 0.12
+            ? Math.max(1, (play?.playClock || 40) - Math.floor(t * 25))
+            : 0;
+        setReadout((previous) =>
+          previous.clock === clock && previous.playClock === playClock
+            ? previous
+            : { clock, playClock },
+        );
+        const W = 700,
+          H = 1000,
+          left = 30,
+          top = 28,
+          width = 640,
+          height = 944;
+        const [lo, hi] = cameraBounds(play, t, full);
+        const x = (across: number) => left + (across / 53.3) * width;
+        const y = (yard: number) => top + ((hi - yard) / (hi - lo)) * height;
         ctx.clearRect(0, 0, W, H);
         ctx.fillStyle = "#080e20";
         ctx.fillRect(0, 0, W, H);
-        const left = 45,
-          top = 44,
-          width = 1110,
-          height = 550;
-        const lo = zoom && play ? Math.max(0, Math.min(60, play.spot - 20)) : 0,
-          hi = zoom ? lo + 60 : 120;
-        const x = (yards: number) =>
-            left + ((yards + 10 - lo) / (hi - lo)) * width,
-          y = (yards: number) => top + (yards / 53.3) * height;
         ctx.save();
         ctx.beginPath();
         ctx.rect(left, top, width, height);
         ctx.clip();
-        ctx.fillStyle = "#132e2e";
+        ctx.fillStyle = "#184637";
         ctx.fillRect(left, top, width, height);
         for (let yard = -10; yard < 110; yard += 5) {
-          ctx.fillStyle = (yard / 5) % 2 ? "#ffffff04" : "#00000012";
-          ctx.fillRect(x(yard), top, x(yard + 5) - x(yard), height);
+          ctx.fillStyle = yard % 10 === 0 ? "#ffffff05" : "#00000016";
+          ctx.fillRect(left, y(yard + 5), width, y(yard) - y(yard + 5));
         }
-        ctx.globalAlpha = 0.5;
-        ctx.fillStyle = home.color;
-        ctx.fillRect(x(-10), top, x(0) - x(-10), height);
-        ctx.fillStyle = away.color;
-        ctx.fillRect(x(100), top, x(110) - x(100), height);
-        ctx.globalAlpha = 1;
+        for (const [yard, team] of [
+          [-10, home],
+          [100, away],
+        ] as const) {
+          ctx.fillStyle = team.color;
+          ctx.globalAlpha = 0.65;
+          ctx.fillRect(left, y(yard + 10), width, y(yard) - y(yard + 10));
+          ctx.globalAlpha = 1;
+          ctx.font = "bold 35px Arial";
+          ctx.textAlign = "center";
+          ctx.fillStyle = "#ffffffbb";
+          ctx.fillText(team.id, x(26.65), y(yard + 5) + 12);
+        }
         for (let yard = 0; yard <= 100; yard += 5) {
-          ctx.strokeStyle = yard % 10 === 0 ? "#c9d1db88" : "#c9d1db38";
+          ctx.strokeStyle = yard % 10 === 0 ? "#ffffff88" : "#ffffff33";
           ctx.lineWidth = 1;
           ctx.beginPath();
-          ctx.moveTo(x(yard), top);
-          ctx.lineTo(x(yard), top + height);
+          ctx.moveTo(left, y(yard));
+          ctx.lineTo(left + width, y(yard));
           ctx.stroke();
-          if (yard % 10 === 0 && yard > 0 && yard < 100) {
-            ctx.fillStyle = "#c9d1db99";
-            ctx.font = "italic 20px Arial";
+          if (yard > 0 && yard < 100 && yard % 10 === 0) {
+            ctx.font = "bold 24px Arial";
             ctx.textAlign = "center";
-            ctx.fillText(String(Math.min(yard, 100 - yard)), x(yard), y(5));
-            ctx.fillText(String(Math.min(yard, 100 - yard)), x(yard), y(50));
+            ctx.fillStyle = "#ffffff88";
+            ctx.fillText(String(Math.min(yard, 100 - yard)), x(3), y(yard) - 8);
+            ctx.fillText(
+              String(Math.min(yard, 100 - yard)),
+              x(50),
+              y(yard) - 8,
+            );
           }
         }
-        for (let yard = 1; yard < 100; yard++) {
-          for (const line of [23.6, 29.7]) {
-            ctx.strokeStyle = "#c9d1db66";
+        for (let yard = 1; yard < 100; yard++)
+          for (const hash of [23.6, 29.7]) {
+            ctx.strokeStyle = "#ffffff66";
             ctx.beginPath();
-            ctx.moveTo(x(yard), y(line));
-            ctx.lineTo(x(yard), y(line) + 5);
+            ctx.moveTo(x(hash) - 4, y(yard));
+            ctx.lineTo(x(hash) + 4, y(yard));
             ctx.stroke();
           }
-        }
-        const t = reduced ? 1 : progress.current;
+        hitTargets.current = [];
         if (play) {
           for (const [yard, color] of [
             [play.spot, "#00e5ff"],
             [play.firstDown, "#f3cd67"],
           ] as const) {
             ctx.strokeStyle = color;
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 3;
             ctx.beginPath();
-            ctx.moveTo(x(yard), top);
-            ctx.lineTo(x(yard), top + height);
+            ctx.moveTo(left, y(yard));
+            ctx.lineTo(left + width, y(yard));
             ctx.stroke();
           }
-          if (t < 0.15) {
-            ctx.setLineDash([6, 5]);
-            ctx.strokeStyle = "#00e5ff55";
+          if (routes && t < 0.12) {
+            ctx.strokeStyle = "#8cecf5aa";
+            ctx.lineWidth = 2;
+            ctx.setLineDash([7, 6]);
             for (const a of play.agents.filter(
-              (a) => a.team === play.offense && /WR|SLOT|TE/.test(a.role),
+              (a) => a.team === play.offense && /^(WR|SLOT|TE)/.test(a.role),
             )) {
               ctx.beginPath();
               a.path.forEach((p, i) =>
-                i ? ctx.lineTo(x(p[0]), y(p[1])) : ctx.moveTo(x(p[0]), y(p[1])),
+                i ? ctx.lineTo(x(p[1]), y(p[0])) : ctx.moveTo(x(p[1]), y(p[0])),
               );
               ctx.stroke();
             }
             ctx.setLineDash([]);
           }
-          const located = play.agents.map((a) => ({ a, p: point(a.path, t) }));
-          for (const { a, p } of located) {
+          const owner = carrierAt(play, t);
+          for (const a of play.agents) {
             const player = players[a.id];
             if (!player) continue;
-            const cx = x(p[0]),
-              cy = y(p[1]),
-              team = a.team === home.id ? home : away;
-            const rating =
-              player.overall >= 90
-                ? "#f3cd67"
-                : player.overall >= 80
-                  ? "#00e5ff"
-                  : player.overall >= 70
-                    ? "#c9d1db"
-                    : "#78859e";
+            const p = playerSpot(a, t),
+              cx = x(p[1]),
+              cy = y(p[0]);
+            if (cy < top - 30 || cy > top + height + 30) continue;
+            const team = a.team === home.id ? home : away;
+            if (a.id === owner) {
+              ctx.strokeStyle = "#ffdd72";
+              ctx.lineWidth = 4;
+              ctx.beginPath();
+              ctx.arc(cx, cy, 23, 0, Math.PI * 2);
+              ctx.stroke();
+            }
             ctx.beginPath();
-            ctx.arc(cx, cy, 11, 0, Math.PI * 2);
+            ctx.arc(cx, cy, 17, 0, Math.PI * 2);
             ctx.fillStyle = team.color;
             ctx.fill();
             ctx.lineWidth = a.id === selected ? 4 : 2;
-            ctx.strokeStyle = a.id === selected ? "#f4f8ff" : rating;
+            ctx.strokeStyle = a.id === selected ? "#00e5ff" : "#f4f8ff";
             ctx.stroke();
-            ctx.font = "bold 10px Arial";
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "bold 17px Arial";
             ctx.textAlign = "center";
-            ctx.fillStyle = "#f4f8ff";
-            ctx.shadowColor = "#000";
-            ctx.shadowBlur = 3;
-            ctx.fillText(String(player.jersey), cx, cy + 3.5);
-            ctx.shadowBlur = 0;
-            const name = player.name.split(" ").slice(-1).join(" ");
-            ctx.font = "10px Arial";
-            const offset =
-              /LT|LG|C|RG|RT/.test(a.role) && a.team === play.offense
-                ? -17
-                : 20;
             ctx.lineWidth = 3;
-            ctx.strokeStyle = "#080e20";
-            ctx.strokeText(name, cx, cy + offset);
-            ctx.fillStyle = "#f4f8ff";
-            ctx.fillText(name, cx, cy + offset);
+            ctx.strokeStyle = "#000a";
+            ctx.strokeText(String(player.jersey), cx, cy + 6);
+            ctx.fillText(String(player.jersey), cx, cy + 6);
+            if (names) {
+              const label = player.name.split(" ").slice(-1)[0];
+              const line = /^(LT|LG|C|RG|RT)$/.test(a.role);
+              const offset = line
+                ? a.role === "LG" || a.role === "RG"
+                  ? -29
+                  : 34
+                : a.team === play.offense
+                  ? 35
+                  : -27;
+              ctx.font = "bold 15px Arial";
+              ctx.lineWidth = 4;
+              ctx.strokeStyle = "#08121a";
+              ctx.strokeText(label, cx, cy + offset);
+              ctx.fillText(label, cx, cy + offset);
+            }
+            if (fatigue && a.fatigue !== undefined) {
+              ctx.fillStyle = "#071018";
+              ctx.fillRect(cx - 18, cy + 20, 36, 4);
+              ctx.fillStyle =
+                a.fatigue > 65
+                  ? "#ff7a91"
+                  : a.fatigue > 35
+                    ? "#f3cd67"
+                    : "#68e2a4";
+              ctx.fillRect(cx - 18, cy + 20, 36 * (1 - a.fatigue / 100), 4);
+            }
+            hitTargets.current.push({ id: a.id, x: cx, y: cy });
           }
-          const bt =
-            t < 0.26
-              ? point(play.ball.slice(0, 2), t / 0.26)
-              : t < 0.68
-                ? point(play.ball.slice(1, 3), (t - 0.26) / 0.42)
-                : point(play.ball.slice(2), Math.min(1, (t - 0.68) / 0.32));
-          const air =
+          const b = ballSpot(play, t),
+            bx = x(b[1]),
+            by = y(b[0]);
+          const flight =
             (play.kind === "pass" ||
               ["punt", "field_goal", "extra_point"].includes(play.kind)) &&
-            t > 0.26 &&
-            t < 0.68
-              ? Math.sin(((t - 0.26) / 0.42) * Math.PI) * 14
-              : 0;
-          ctx.fillStyle = "#0007";
+            t > 0.48 &&
+            t < 0.68;
+          const air = flight ? Math.sin(((t - 0.48) / 0.2) * Math.PI) * 18 : 0;
           ctx.beginPath();
-          ctx.ellipse(x(bt[0]), y(bt[1]) + 4, 5, 2, 0, 0, Math.PI * 2);
+          ctx.ellipse(bx, by + 4, 8, 4, 0, 0, Math.PI * 2);
+          ctx.fillStyle = "#0008";
           ctx.fill();
-          ctx.fillStyle = "#b97d42";
-          ctx.strokeStyle = "#fff3";
-          ctx.lineWidth = 1;
           ctx.beginPath();
-          ctx.ellipse(x(bt[0]), y(bt[1]) - air, 6, 3, -0.6, 0, Math.PI * 2);
+          ctx.ellipse(bx, by - air, 9, 5, -0.6, 0, Math.PI * 2);
+          ctx.fillStyle = "#b57a45";
           ctx.fill();
+          ctx.strokeStyle = "#fff";
+          ctx.lineWidth = 1.5;
           ctx.stroke();
-          if (
-            t > 0.88 &&
-            (play.turnover ||
-              play.scoring ||
-              ["run", "sack"].includes(play.kind))
-          ) {
-            const end = play.ball.at(-1)!;
+          ctx.beginPath();
+          ctx.moveTo(bx - 3, by - air);
+          ctx.lineTo(bx + 3, by - air);
+          ctx.stroke();
+          if (t >= 0.86) {
             ctx.strokeStyle = play.scoring
               ? "#f3cd67"
               : play.turnover
                 ? "#ff7a91"
-                : "#f4f8ff";
-            ctx.lineWidth = 2;
+                : "#ffffff99";
+            ctx.lineWidth = 3;
             ctx.beginPath();
-            ctx.arc(x(end[0]), y(end[1]), 17 + (t - 0.88) * 35, 0, Math.PI * 2);
+            ctx.arc(bx, by, 28 + (t - 0.86) * 60, 0, Math.PI * 2);
             ctx.stroke();
           }
         }
@@ -239,12 +318,6 @@ export function FootballField({
         ctx.strokeStyle = "#c9d1db88";
         ctx.lineWidth = 2;
         ctx.strokeRect(left, top, width, height);
-        ctx.fillStyle = "#c9d1db";
-        ctx.font = "bold 12px Arial";
-        ctx.textAlign = "left";
-        ctx.fillText(`${home.id} END ZONE`, left, 25);
-        ctx.textAlign = "right";
-        ctx.fillText(`${away.id} END ZONE`, W - left, 25);
       }
       if (progress.current >= 1 && !ended.current && playing) {
         ended.current = true;
@@ -253,52 +326,127 @@ export function FootballField({
       frame = requestAnimationFrame(draw);
     };
     frame = requestAnimationFrame(draw);
-    return () => cancelAnimationFrame(frame);
-  }, [play, players, home, away, playing, speed, zoom, selected]);
+    return () => {
+      cancelAnimationFrame(frame);
+      media?.removeEventListener?.("change", motion);
+    };
+  }, [
+    play,
+    players,
+    home,
+    away,
+    playing,
+    speed,
+    full,
+    names,
+    fatigue,
+    routes,
+    selected,
+    replayKey,
+  ]);
+  const result = phase === "Result";
+  const clock = readout.clock;
   return (
-    <div className="football-view">
+    <div className="football-view vertical-football">
       <div className="field-view-tools">
-        <button className="secondary" onClick={() => setZoom((v) => !v)}>
-          {zoom ? "Show full field" : "Closer view"}
+        <button
+          className="secondary"
+          aria-pressed={!full}
+          onClick={() => setFull((v) => !v)}
+        >
+          {full ? "Follow play" : "Full field"}
         </button>
+        <button
+          className="secondary"
+          aria-pressed={names}
+          onClick={() => setNames((v) => !v)}
+        >
+          Names
+        </button>
+        <button
+          className="secondary"
+          aria-pressed={routes}
+          onClick={() => setRoutes((v) => !v)}
+        >
+          Routes
+        </button>
+        <button
+          className="secondary"
+          aria-pressed={fatigue}
+          onClick={() => setFatigue((v) => !v)}
+        >
+          Energy
+        </button>
+      </div>
+      <div className="field-live-strip" aria-label="On-field game situation">
+        <strong>
+          {play?.offense} · {play?.down} & {play?.distance}
+        </strong>
         <span>
-          Circle = team · Ring: gold 90+ / cyan 80–89 / chrome 70–79 / slate
-          below 70
+          {play?.quarter === 5 ? "OT" : `Q${play?.quarter || 1}`}{" "}
+          {Math.floor(clock / 60)}:{String(clock % 60).padStart(2, "0")}
+        </span>
+        <span>
+          {phase === "Pre-snap" ? `Play clock ${readout.playClock}` : phase}
         </span>
       </div>
-      <div className="football-stage" ref={stage}>
+      <div className="field-formation">
+        <strong>{play?.formation || play?.call || "Saved formation"}</strong>
+        <span>
+          {play?.personnel || "11 on offense · 11 on defense"} ·{" "}
+          {play?.coverage}
+        </span>
+      </div>
+      <div className="football-stage">
         <canvas
           ref={canvas}
-          width={1200}
-          height={650}
-          aria-label="Animated top-down football field. Jersey numbers and player names identify the saved lineup."
+          width={700}
+          height={1000}
           role="img"
+          aria-label={`Vertical top-down football field. ${play?.description || "Waiting for a play."}`}
           onClick={(e) => {
-            if (!play) return;
             const rect = e.currentTarget.getBoundingClientRect(),
-              px = ((e.clientX - rect.left) * 1200) / rect.width,
-              py = ((e.clientY - rect.top) * 650) / rect.height;
-            const lo = zoom ? Math.max(0, Math.min(60, play.spot - 20)) : 0,
-              hi = zoom ? lo + 60 : 120;
-            const a = play.agents.find((a) => {
-              const p = point(a.path, progress.current);
-              return (
-                Math.hypot(
-                  45 + ((p[0] + 10 - lo) / (hi - lo)) * 1110 - px,
-                  44 + (p[1] / 53.3) * 550 - py,
-                ) < 18
-              );
-            });
-            setSelected(a?.id || null);
+              x = ((e.clientX - rect.left) * 700) / rect.width,
+              y = ((e.clientY - rect.top) * 1000) / rect.height;
+            setSelected(
+              hitTargets.current.find((p) => Math.hypot(p.x - x, p.y - y) < 25)
+                ?.id || "",
+            );
           }}
         />
+      </div>
+      <div
+        className={`field-result ${result ? "is-visible" : ""} ${play?.turnover ? "turnover" : ""}`}
+        aria-live="polite"
+      >
+        {result ? (
+          <>
+            <strong>
+              {play?.scoring
+                ? "SCORE"
+                : play?.turnover
+                  ? "TURNOVER"
+                  : play?.kind === "sack"
+                    ? "SACK"
+                    : "PLAY COMPLETE"}
+            </strong>
+            <span>{play?.description}</span>
+          </>
+        ) : (
+          <>
+            <strong>{phase}</strong>
+            <span>
+              {play?.call} · {play?.coverage}
+            </span>
+          </>
+        )}
       </div>
       <label className="field-player-picker">
         Inspect a player
         <select
           aria-label="Inspect a player on the field"
-          value={selected || ""}
-          onChange={(e) => setSelected(e.target.value || null)}
+          value={selected}
+          onChange={(e) => setSelected(e.target.value)}
         >
           <option value="">Select player</option>
           {play?.agents.map((a) => (
@@ -313,11 +461,15 @@ export function FootballField({
         <p className="field-selected-player">
           #{players[selected].jersey} {players[selected].name} ·{" "}
           {players[selected].position} · {players[selected].overall} OVR
+          {play?.agents.find((a) => a.id === selected)?.fatigue !== undefined
+            ? ` · Energy ${100 - (play.agents.find((a) => a.id === selected)?.fatigue || 0)}%`
+            : ""}
         </p>
       )}
       <p className="fineprint">
-        Cyan line: scrimmage · Gold line: first down. Reduced-motion settings
-        show resolved positions. Swipe the field sideways on smaller screens.
+        Cyan: scrimmage · Gold: first down · Gold halo: ball carrier.{" "}
+        {fatigue ? "Energy bars show remaining stamina. " : ""}Reduced motion
+        shows the resolved play.
       </p>
     </div>
   );
