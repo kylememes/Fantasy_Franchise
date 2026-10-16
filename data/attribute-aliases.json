@@ -1,0 +1,19 @@
+{
+  "run_blocking": ["run_block", "blocking"],
+  "pass_blocking": ["pass_block", "blocking"],
+  "power_moves": ["pass_rush"],
+  "finesse_moves": ["pass_rush"],
+  "block_shedding": ["tackling"],
+  "pursuit": ["tackling"],
+  "man_coverage": ["coverage"],
+  "zone_coverage": ["coverage"],
+  "short_route": ["route_running"],
+  "medium_route": ["route_running"],
+  "deep_route": ["route_running"],
+  "short_accuracy": ["accuracy"],
+  "medium_accuracy": ["accuracy"],
+  "deep_accuracy": ["accuracy"],
+  "pressure_response": ["awareness"],
+  "vision": ["ball_carrier_vision", "awareness"],
+  "contested_catch": ["catching"]
+}

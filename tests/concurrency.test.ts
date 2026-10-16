@@ -259,6 +259,12 @@ test(
           "utf8",
         ),
       );
+      await pool.query(
+        await readFile(
+          "supabase/migrations/20261016181045_head_coach_bonuses.sql",
+          "utf8",
+        ),
+      );
       const seasonLeague = (
         await request("select create_league('Season races','BAL') id")
       ).rows[0].id;
@@ -273,6 +279,19 @@ test(
       await pool.query(
         "update leagues set state='completed',next_pick=1696 where id=$1",
         [seasonLeague],
+      );
+      const hires = await Promise.allSettled([
+        request("select hire_coach($1,'HC','andy-reid')", [seasonLeague]),
+        request(
+          "select hire_coach($1,'HC','andy-reid')",
+          [seasonLeague],
+          friend,
+        ),
+      ]);
+      assert.equal(
+        hires.filter((r) => r.status === "fulfilled").length,
+        1,
+        "simultaneous owners cannot hire the same coach",
       );
       await request("select season_snapshot($1)", [seasonLeague]);
       await request("select week_control($1,'open','preseason',1)", [

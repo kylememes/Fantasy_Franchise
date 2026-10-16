@@ -24,6 +24,7 @@ import {
 import { FootballField } from "./football-field";
 import { TeamLogo } from "./identity";
 import coachCatalog from "../../data/coaches-2026.json";
+import { headCoachBonuses } from "@/lib/coaches";
 const staffLabels = {
   HC: "Head coach",
   OC: "Offensive coordinator",
@@ -97,9 +98,11 @@ export function CoachingStaff({
         <span>REAL NFL NAMES · YOUR PHILOSOPHY</span>
       </div>
       <p className="panel-copy">
-        Hire a head coach and coordinators to lead your franchise. Names
-        personalize your staff; you control the schemes and tendencies. Hires
-        have no ratings bonus or salary-cap charge.
+        Head coaches give targeted player attribute bonuses; you still control
+        every scheme and tendency. Coordinators personalize your staff without
+        extra bonuses. Hires have no salary-cap charge. Human owners choose
+        first: CPU teams hire remaining head coaches when the commissioner
+        advances to Preseason Week 2.
       </p>
       <div className="staff-grid">
         {Object.entries(staffLabels).map(([role, label]) => {
@@ -108,6 +111,10 @@ export function CoachingStaff({
             ),
             current = coachCatalog.find((c) => c.id === hire?.coach_id),
             choice = choices[role] || "";
+          const specialty =
+            role === "HC"
+              ? headCoachBonuses.find((c) => c.id === (choice || current?.id))
+              : null;
           return (
             <div key={role} className="staff-slot">
               <span className="eyebrow">{label}</span>
@@ -136,6 +143,24 @@ export function CoachingStaff({
                     })}
                 </select>
               </label>
+              {specialty && (
+                <div className="coach-specialties">
+                  <strong>
+                    {choice ? "Preview specialties" : "Active specialties"}
+                  </strong>
+                  <ul>
+                    {specialty.bonuses.map((b) => (
+                      <li key={b.label}>
+                        <b>+{b.amount}</b> {b.label}
+                      </li>
+                    ))}
+                  </ul>
+                  <small>
+                    Original game bonuses · attributes cap at 99 · apply at
+                    kickoff
+                  </small>
+                </div>
+              )}
               <div className="dialog-actions">
                 <button
                   className="primary"

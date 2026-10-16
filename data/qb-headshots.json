@@ -1,0 +1,66 @@
+{
+  "source": "ESPN public headshot CDN; identities matched by nflverse GSIS and ESPN IDs",
+  "roster_source": "https://github.com/nflverse/nflverse-data/releases/download/rosters/roster_2026.csv",
+  "players": [
+    {
+      "external_id": "00-0026498",
+      "name": "Matthew Stafford",
+      "espn_id": "12483",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/12483.png"
+    },
+    {
+      "external_id": "00-0033077",
+      "name": "Dak Prescott",
+      "espn_id": "2577417",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/2577417.png"
+    },
+    {
+      "external_id": "00-0033873",
+      "name": "Patrick Mahomes",
+      "espn_id": "3139477",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3139477.png"
+    },
+    {
+      "external_id": "00-0034796",
+      "name": "Lamar Jackson",
+      "espn_id": "3916387",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3916387.png"
+    },
+    {
+      "external_id": "00-0034857",
+      "name": "Josh Allen",
+      "espn_id": "3918298",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3918298.png"
+    },
+    {
+      "external_id": "00-0036355",
+      "name": "Justin Herbert",
+      "espn_id": "4038941",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4038941.png"
+    },
+    {
+      "external_id": "00-0036442",
+      "name": "Joe Burrow",
+      "espn_id": "3915511",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/3915511.png"
+    },
+    {
+      "external_id": "00-0037834",
+      "name": "Brock Purdy",
+      "espn_id": "4361741",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4361741.png"
+    },
+    {
+      "external_id": "00-0039851",
+      "name": "Drake Maye",
+      "espn_id": "4431452",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4431452.png"
+    },
+    {
+      "external_id": "00-0039918",
+      "name": "Caleb Williams",
+      "espn_id": "4431611",
+      "url": "https://a.espncdn.com/i/headshots/nfl/players/full/4431611.png"
+    }
+  ]
+}

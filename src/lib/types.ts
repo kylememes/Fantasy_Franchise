@@ -130,6 +130,7 @@ export type Coaching = {
   version: number;
 };
 export type Management = {
+  head_coach?: import("./coaches").HeadCoach | null;
   revision?: number;
   ownership: { player_id: string; franchise_id: string }[];
   contracts: DraftContract[];

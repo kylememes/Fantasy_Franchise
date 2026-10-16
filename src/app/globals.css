@@ -4820,3 +4820,73 @@ select:focus-visible {
     margin-bottom: 18px;
   }
 }
+/* Position-first card details and the limited elite-QB photo trial. */
+.portrait-art .player-headshot {
+  width: 150%;
+  max-width: none;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 7px #0009);
+}
+.card-coach-badge {
+  position: absolute;
+  top: 27%;
+  left: 5px;
+  padding: 3px 4px;
+  border: 1px solid var(--cyan);
+  border-radius: 3px;
+  background: #0a0f2cee;
+  color: var(--cyan);
+  font-size: 8px;
+  font-weight: 800;
+}
+.card-coach-name {
+  display: block;
+  color: var(--cyan);
+  font-size: 8px;
+  line-height: 1.3;
+  margin: 3px 0;
+}
+.boosted-rating {
+  white-space: nowrap;
+}
+.boosted-rating s {
+  color: var(--muted);
+  font-size: 8px;
+}
+.boosted-rating em {
+  color: var(--cyan);
+  font-size: 8px;
+  font-style: normal;
+}
+.coach-specialties {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #00e5ff38;
+  border-radius: 6px;
+  background: #00e5ff08;
+}
+.coach-specialties strong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.coach-specialties ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.coach-specialties li {
+  font-size: 12px;
+  line-height: 1.7;
+}
+.coach-specialties b {
+  color: var(--cyan);
+}
+.coach-specialties small {
+  display: block;
+  color: var(--muted);
+  margin-top: 5px;
+}

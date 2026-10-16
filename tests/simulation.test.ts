@@ -169,3 +169,86 @@ test("ensemble has plausible football totals and player matchup/coaching effects
   assert.ok(eliteWins >= 24);
   assert.ok(runCarries > passCarries * 1.15);
 });
+
+test("coach-aware games use secondary coverage, tackling, line strength and TE blocking while legacy frozen games retain their exact result", async () => {
+  const { createHash } = await import("node:crypto");
+  const legacy = {
+    seed: 12345,
+    phase: "regular" as const,
+    home: syntheticTeam("H"),
+    away: syntheticTeam("A"),
+  };
+  assert.equal(
+    createHash("sha256")
+      .update(JSON.stringify(simulateGame(legacy)))
+      .digest("hex"),
+    "a46d24945119bcca622cc840f4e98df3107569da6078f55078c84bb2278f30f2",
+  );
+  const make = () => {
+    const home = syntheticTeam("H", 82),
+      away = syntheticTeam("A", 82);
+    home.coach_bonus_version = 1;
+    away.coach_bonus_version = 1;
+    return { home, away };
+  };
+  let points = 0,
+    plays = 0,
+    completions = 0,
+    attempts = 0;
+  for (let seed = 0; seed < 50; seed++) {
+    const { home, away } = make();
+    const game = simulateGame({ seed, phase: "regular", home, away });
+    assert.equal(game.engine_version, "ff-football-2");
+    points += game.home_score + game.away_score;
+    plays += game.plays.filter(
+      (p) => p.kind === "pass" || p.kind === "run" || p.kind === "sack",
+    ).length;
+    for (const p of Object.values(game.box.players)) {
+      completions += p.completions;
+      attempts += p.passing_attempts;
+    }
+  }
+  assert.ok(points / 100 > 12 && points / 100 < 36);
+  assert.ok(plays / 50 > 90 && plays / 50 < 160);
+  assert.ok(completions / attempts > 0.45 && completions / attempts < 0.78);
+  const metrics = (
+    kind: "coverage" | "run-defense" | "blocking",
+    high: boolean,
+  ) => {
+    let yards = 0,
+      complete = 0;
+    for (let seed = 100; seed < 130; seed++) {
+      const { home, away } = make();
+      const value = high ? 98 : 40;
+      if (kind === "coverage") {
+        home.coaching.tendencies.run_pass = 95;
+        for (const p of away.players)
+          if (["FS", "SS"].includes(p.position))
+            p.attributes.zone_coverage = p.attributes.man_coverage = value;
+      } else {
+        home.coaching.tendencies.run_pass = 5;
+        if (kind === "run-defense")
+          for (const p of away.players) {
+            p.attributes.tackling = value;
+            if (p.position === "LB") p.attributes.awareness = value;
+            if (["DT", "EDGE", "DE"].includes(p.position))
+              p.attributes.strength = value;
+          }
+        else
+          for (const p of home.players)
+            if (p.position === "TE") p.attributes.run_blocking = value;
+      }
+      const r = simulateGame({ seed, phase: "regular", home, away });
+      yards += r.box.teams.H.rushing_yards;
+      for (const p of home.players) complete += r.box.players[p.id].completions;
+    }
+    return { yards, complete };
+  };
+  assert.ok(
+    metrics("coverage", true).complete < metrics("coverage", false).complete,
+  );
+  assert.ok(
+    metrics("run-defense", true).yards < metrics("run-defense", false).yards,
+  );
+  assert.ok(metrics("blocking", true).yards > metrics("blocking", false).yards);
+});

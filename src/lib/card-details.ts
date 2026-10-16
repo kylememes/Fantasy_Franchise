@@ -1,0 +1,178 @@
+const OL = ["speed", "strength", "pass_blocking", "run_blocking"];
+const DL = [
+  "speed",
+  "strength",
+  "tackling",
+  "power_moves",
+  "finesse_moves",
+  "block_shedding",
+  "pursuit",
+];
+const DB = [
+  "speed",
+  "acceleration",
+  "man_coverage",
+  "zone_coverage",
+  "press",
+  "catching",
+  "tackling",
+  "jumping",
+];
+export const positionAttributes: Record<string, string[]> = {
+  QB: [
+    "speed",
+    "throw_power",
+    "short_accuracy",
+    "medium_accuracy",
+    "deep_accuracy",
+  ],
+  RB: [
+    "speed",
+    "acceleration",
+    "vision",
+    "carrying",
+    "power",
+    "agility",
+    "catching",
+  ],
+  FB: [
+    "speed",
+    "strength",
+    "lead_block",
+    "run_blocking",
+    "carrying",
+    "catching",
+  ],
+  WR: [
+    "speed",
+    "acceleration",
+    "catching",
+    "short_route",
+    "medium_route",
+    "deep_route",
+    "release",
+    "contested_catch",
+  ],
+  TE: [
+    "speed",
+    "strength",
+    "catching",
+    "contested_catch",
+    "short_route",
+    "medium_route",
+    "run_blocking",
+  ],
+  LT: OL,
+  LG: OL,
+  C: OL,
+  RG: OL,
+  RT: OL,
+  EDGE: DL,
+  DE: DL,
+  DT: DL,
+  LB: [
+    "speed",
+    "tackling",
+    "pursuit",
+    "play_recognition",
+    "block_shedding",
+    "man_coverage",
+    "zone_coverage",
+  ],
+  CB: DB,
+  FS: DB,
+  SS: DB,
+  K: ["speed", "kick_power", "kick_accuracy"],
+  P: ["speed", "kick_power", "kick_accuracy"],
+};
+const passing = [
+  "passing_yards",
+  "passing_tds",
+  "passing_touchdowns",
+  "completions",
+  "passing_attempts",
+  "completion_percentage",
+  "interceptions_thrown",
+  "passing_interceptions",
+  "passer_rating",
+  "rushing_yards",
+  "rushing_tds",
+  "rushing_touchdowns",
+];
+const rushing = [
+  "rushing_yards",
+  "rushing_tds",
+  "rushing_touchdowns",
+  "rushing_attempts",
+  "receptions",
+  "receiving_yards",
+  "receiving_tds",
+  "receiving_touchdowns",
+  "fumbles_lost",
+];
+const receiving = [
+  "receptions",
+  "targets",
+  "receiving_yards",
+  "receiving_tds",
+  "receiving_touchdowns",
+  "rushing_yards",
+  "rushing_tds",
+  "rushing_touchdowns",
+];
+const blocking = ["sacks_allowed", "pressures_allowed", "pancakes"];
+const defense = [
+  "tackles",
+  "def_tackles",
+  "def_sacks",
+  "sacks",
+  "def_interceptions",
+  "interceptions",
+  "forced_fumbles",
+  "def_fumbles_forced",
+  "passes_defended",
+  "def_pass_defended",
+];
+const stats: Record<string, string[]> = {
+  QB: passing,
+  RB: rushing,
+  FB: rushing,
+  WR: receiving,
+  TE: receiving,
+  LT: blocking,
+  LG: blocking,
+  C: blocking,
+  RG: blocking,
+  RT: blocking,
+  EDGE: defense,
+  DE: defense,
+  DT: defense,
+  LB: defense,
+  CB: defense,
+  FS: defense,
+  SS: defense,
+  K: [
+    "field_goals_made",
+    "field_goals_attempted",
+    "extra_points_made",
+    "extra_points_attempted",
+  ],
+  P: [
+    "punts",
+    "punt_yards",
+    "punting_yards",
+    "punts_inside_20",
+    "punting_average",
+  ],
+};
+export function cardValues(
+  position: string,
+  values: Record<string, number>,
+  kind: "ratings" | "statistics",
+): [string, number][] {
+  const keys =
+    (kind === "ratings" ? positionAttributes[position] : stats[position]) || [];
+  return keys
+    .filter((k) => Number.isFinite(values[k]))
+    .map((k) => [k, values[k]]);
+}
