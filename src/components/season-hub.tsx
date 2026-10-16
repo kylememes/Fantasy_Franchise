@@ -845,7 +845,7 @@ export function SeasonHub({
                     </button>
                     <button
                       className="secondary"
-                      disabled={busy || (!watchingReplay && !control)}
+                      disabled={busy || (!final && !control)}
                       onClick={() => {
                         if (final) {
                           setReplayIndex(game.plays.length - 1);

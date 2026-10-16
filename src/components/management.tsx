@@ -520,8 +520,9 @@ export function CoachingSettings({ league, data, busy, mutate }: Props) {
       </div>
       <p className="panel-copy">
         Set your team’s philosophy. These are situational preferences, not fixed
-        play percentages. Settings are saved for the upcoming simulation engine;
-        games are not implemented yet.
+        play percentages. Saved settings guide game decisions alongside down,
+        distance, score, clock, and player matchups. Changes apply to games that
+        have not kicked off.
       </p>
       {stale && (
         <p className="callout">

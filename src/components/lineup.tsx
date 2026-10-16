@@ -456,8 +456,8 @@ export function Lineup({
       <p className="fineprint">
         Decorative player silhouettes, not individual player photographs.
         Development traits are game-assigned. Card backs show available ratings
-        and NFL roster snapshot statistics; simulated season stats come with the
-        game engine.
+        and NFL roster snapshot statistics. Saved simulated game statistics are
+        available in Game Center.
       </p>
     </section>
   );

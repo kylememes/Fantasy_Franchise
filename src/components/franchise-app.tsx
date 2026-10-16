@@ -712,12 +712,16 @@ export default function FranchiseApp() {
                                 ? "Under the lights."
                                 : view === "League"
                                   ? "The league office."
-                                  : "Build something legendary."}
+                                  : snapshot.league.state === "completed"
+                                    ? "This week’s matchup."
+                                    : "Build something legendary."}
                     </h1>
                   </div>
                   <span className={"status " + snapshot.league.state}>
                     <span />
-                    {snapshot.league.state.replaceAll("_", " ")}
+                    {snapshot.league.state === "completed"
+                      ? "Draft complete"
+                      : snapshot.league.state.replaceAll("_", " ")}
                   </span>
                 </div>
                 {view === "Draft" ? (
