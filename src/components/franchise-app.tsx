@@ -666,6 +666,15 @@ export default function FranchiseApp() {
                   >
                     <Icon size={18} />
                     {label}
+                    {label === "Trades" &&
+                      !!management?.unread_trade_ids?.length && (
+                        <span
+                          className="trade-unread-badge"
+                          aria-label={`${management.unread_trade_ids.length} unread trade offers`}
+                        >
+                          {management.unread_trade_ids.length}
+                        </span>
+                      )}
                     {!available && <small>SOON</small>}
                   </button>
                 );
