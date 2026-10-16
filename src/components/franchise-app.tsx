@@ -19,7 +19,14 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { supabase as db } from "@/lib/supabase";
-import type { League, Franchise, Player, Snapshot } from "@/lib/types";
+import type {
+  League,
+  Franchise,
+  Player,
+  Snapshot,
+  Management,
+} from "@/lib/types";
+import { RosterManagement, Trades, CoachingSettings } from "./management";
 import { DraftRoom } from "./draft-room";
 import { FranchiseMark, TeamLogo } from "./identity";
 const navigation = [
@@ -40,6 +47,7 @@ export default function FranchiseApp() {
     [signup, setSignup] = useState(false),
     [notice, setNotice] = useState(""),
     [busy, setBusy] = useState(false);
+  const [management, setManagement] = useState<Management | null>(null);
   const [leagues, setLeagues] = useState<League[]>([]),
     [teams, setTeams] = useState<Franchise[]>([]),
     [selected, setSelected] = useState(""),
@@ -103,7 +111,11 @@ export default function FranchiseApp() {
   }, [session, loadHome]);
   const refresh = useCallback(async () => {
     if (!db || !selected) return;
-    const { data, error } = await db.rpc("league_snapshot", { lid: selected });
+    const [snapshotResult, managementResult] = await Promise.all([
+      db.rpc("league_snapshot", { lid: selected }),
+      db.rpc("management_snapshot", { lid: selected }),
+    ]);
+    const { data, error } = snapshotResult;
     if (selectedRef.current !== selected) return;
     if (error) {
       setSync("Connection issue");
@@ -121,6 +133,8 @@ export default function FranchiseApp() {
         ? old
         : data,
     );
+    if (managementResult.error) setNotice(managementResult.error.message);
+    else setManagement(managementResult.data);
     setSync("Synced");
   }, [selected, loadHome]);
   useEffect(() => {
@@ -129,6 +143,7 @@ export default function FranchiseApp() {
     setSnapshot(null);
     setPlayers([]);
     setQueue([]);
+    setManagement(null);
     void refresh();
     void (async () => {
       const all: Player[] = [];
@@ -299,11 +314,15 @@ export default function FranchiseApp() {
   const myIds = useMemo(
     () =>
       new Set(
-        snapshot?.picks
-          .filter((p) => p.franchise_id === me?.franchise_id)
-          .map((p) => p.player_id),
+        management
+          ? management.ownership
+              .filter((p) => p.franchise_id === me?.franchise_id)
+              .map((p) => p.player_id)
+          : snapshot?.picks
+              .filter((p) => p.franchise_id === me?.franchise_id)
+              .map((p) => p.player_id),
       ),
-    [snapshot?.picks, me?.franchise_id],
+    [management, snapshot?.picks, me?.franchise_id],
   );
   const myRoster = players.filter((p) => myIds.has(p.id));
   return (
@@ -623,6 +642,8 @@ export default function FranchiseApp() {
                   "Roster",
                   "Draft",
                   "League",
+                  "Trades",
+                  "Coaching",
                 ].includes(label);
                 return (
                   <button
@@ -666,9 +687,13 @@ export default function FranchiseApp() {
                         ? "The draft room."
                         : view === "Roster"
                           ? "Your foundation."
-                          : view === "League"
-                            ? "The league office."
-                            : "Build something legendary."}
+                          : view === "Trades"
+                            ? "Make your next move."
+                            : view === "Coaching"
+                              ? "Set your identity."
+                              : view === "League"
+                                ? "The league office."
+                                : "Build something legendary."}
                     </h1>
                   </div>
                   <span className={"status " + snapshot.league.state}>
@@ -709,48 +734,40 @@ export default function FranchiseApp() {
                       return accepted;
                     }}
                   />
-                ) : view === "Roster" ? (
-                  <section className="panel">
-                    <div className="panel-heading">
-                      <h2>
-                        {myTeam?.city} {myTeam?.name}
-                      </h2>
-                      <span>{myRoster.length} / 53 PLAYERS</span>
-                    </div>
-                    <p className="panel-copy">
-                      Drafted players are saved to your franchise. Depth-chart
-                      editing and cap management arrive in Phase 2.
-                    </p>
-                    <div className="table-wrap">
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>Player</th>
-                            <th>POS</th>
-                            <th>OVR</th>
-                            <th>Age</th>
-                            <th>Test salary</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {myRoster.map((p) => (
-                            <tr key={p.id}>
-                              <td>{p.name}</td>
-                              <td>{p.position}</td>
-                              <td>{p.overall}</td>
-                              <td>{p.age}</td>
-                              <td>${(p.salary / 1000000).toFixed(2)}M</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                      {!myRoster.length && (
-                        <p className="empty">
-                          Your story starts with the first pick.
-                        </p>
-                      )}
-                    </div>
-                  </section>
+                ) : ["Roster", "Trades", "Coaching"].includes(view) ? (
+                  management && me ? (
+                    (() => {
+                      const props = {
+                        league: snapshot.league,
+                        data: management,
+                        players,
+                        teams,
+                        team: me.franchise_id,
+                        busy,
+                        mutate: async (
+                          fn: string,
+                          args: Record<string, unknown>,
+                        ) => {
+                          let success = false;
+                          await action(async () => {
+                            await rpc(fn, args);
+                            await refresh();
+                            success = true;
+                          });
+                          return success;
+                        },
+                      };
+                      return view === "Roster" ? (
+                        <RosterManagement {...props} />
+                      ) : view === "Trades" ? (
+                        <Trades {...props} />
+                      ) : (
+                        <CoachingSettings {...props} />
+                      );
+                    })()
+                  ) : (
+                    <p>Loading franchise management…</p>
+                  )
                 ) : view === "League" ? (
                   <>
                     <section className="panel">

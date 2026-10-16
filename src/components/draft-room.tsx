@@ -13,7 +13,7 @@ import {
   Clock3,
 } from "lucide-react";
 import { TeamLogo } from "./identity";
-import { limits, onClock, money } from "@/lib/types";
+import { limits, onClock, money, draftContract } from "@/lib/types";
 import type { Snapshot, Player, Franchise } from "@/lib/types";
 type Props = {
   snapshot: Snapshot;
@@ -114,6 +114,15 @@ export function DraftRoom({
   function open(p: Player) {
     setChosen({ player: p, pick: l.next_pick, revision: l.revision });
   }
+  const projectedContract = draftContract(round);
+  const profileRound = chosen
+    ? Math.min(
+        53,
+        Math.floor((picked.get(chosen.player.id)?.pick ?? l.next_pick) / 32) +
+          1,
+      )
+    : round;
+  const profileContract = draftContract(profileRound);
   const canPick =
     chosen &&
     myTurn &&
@@ -201,10 +210,29 @@ export function DraftRoom({
                   ? "Draft complete. Open Roster to review your team."
                   : myTurn
                     ? "You’re on the clock. Select a player to review and confirm your pick."
-                    : "CPU teams choose every four seconds. Your picks have no time limit."}
+                    : l.state === "completing"
+                      ? "Commissioner-authorized simulation is filling rosters. Pause is available at any time."
+                      : "CPU teams choose every four seconds. Your picks have no time limit."}
         </div>
         {commissioner && (
           <div className="commissioner-actions">
+            {l.state !== "completed" &&
+              !(l.state === "completing" && l.full_draft_sim) && (
+                <button
+                  className="secondary"
+                  disabled={busy}
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        "Simulate ALL remaining picks for every team, including human owners? This skips the Round 15 checkpoint. You can still pause and resume.",
+                      )
+                    )
+                      void onControl("simulate_all");
+                  }}
+                >
+                  <FastForward size={15} /> Simulate entire draft
+                </button>
+              )}
             {l.state === "waiting" && (
               <button
                 className="primary"
@@ -398,7 +426,6 @@ export function DraftRoom({
                   <option value="overall">Overall rating</option>
                   <option value="age">Youngest first</option>
                   <option value="position">Position</option>
-                  <option value="salary">Salary</option>
                 </select>
               </div>
               <div className="table-caption">
@@ -460,7 +487,9 @@ export function DraftRoom({
                           </span>
                         </td>
                         <td className="optional-column">{p.age}</td>
-                        <td className="optional-column">{money(p.salary)}</td>
+                        <td className="optional-column">
+                          {money(projectedContract.annual_salary)}
+                        </td>
                         <td>
                           <button
                             className={
@@ -632,7 +661,8 @@ export function DraftRoom({
                   : `${chosen.player.development} potential`}
               </span>
               <span>
-                {money(chosen.player.salary)} provisional annual salary
+                {money(profileContract.annual_salary)}/year ·{" "}
+                {profileContract.years} years · Draft round {profileRound}
               </span>
             </div>
             <div className="profile-decision">

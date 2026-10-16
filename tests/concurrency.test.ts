@@ -24,12 +24,18 @@ test(
           "utf8",
         ),
       );
-      async function request(sql: string, args: unknown[] = []) {
+      await pool.query(
+        await readFile(
+          "supabase/migrations/20261016022903_franchise_management.sql",
+          "utf8",
+        ),
+      );
+      async function request(sql: string, args: unknown[] = [], actor = user) {
         const c = await pool.connect();
         try {
           await c.query("begin");
           await c.query("select set_config('request.jwt.claim.sub',$1,true)", [
-            user,
+            actor,
           ]);
           await c.query("set local role authenticated");
           const r = await c.query(sql, args);
@@ -137,6 +143,66 @@ test(
       ).rows[0];
       assert.equal(totals.n, totals.unique_players);
       assert.equal(totals.n, totals.unique_picks);
+
+      const friend = "10000000-0000-0000-0000-000000000002";
+      await pool.query("insert into auth.users values($1)", [friend]);
+      const tradeLeague = (
+        await request("select create_league('Concurrent trades','BAL') id")
+      ).rows[0].id;
+      await pool.query("insert into memberships values($1,$2,'KC')", [
+        tradeLeague,
+        friend,
+      ]);
+      await pool.query("update leagues set state='completed' where id=$1", [
+        tradeLeague,
+      ]);
+      await pool.query(
+        `with ranked as(select p.player_id,lim.maximum,row_number() over(partition by profile->>'position' order by player_id) rn from league_players p join position_limits lim on lim.position=p.profile->>'position' where league_id=$1)
+      update league_players p set franchise_id=case when r.rn<=r.maximum then 'BAL' else 'KC' end from ranked r where p.league_id=$1 and p.player_id=r.player_id and r.rn<=r.maximum*2`,
+        [tradeLeague],
+      );
+      await pool.query(
+        "insert into player_contracts select league_id,player_id,1000000,2,1,20 from league_players where league_id=$1 and franchise_id is not null",
+        [tradeLeague],
+      );
+      const assets = (
+        await pool.query(
+          "select franchise_id,player_id from league_players where league_id=$1 and profile->>'position'='QB' and franchise_id is not null order by franchise_id,player_id",
+          [tradeLeague],
+        )
+      ).rows;
+      const from = assets.find((x) => x.franchise_id === "BAL").player_id,
+        to = assets.find((x) => x.franchise_id === "KC").player_id;
+      const offer = (
+        await request(
+          "select propose_trade($1,'KC',$2::uuid[],$3::uuid[]) id",
+          [tradeLeague, [from], [to]],
+        )
+      ).rows[0].id;
+      const acceptances = await Promise.all(
+        Array.from({ length: 5 }, () =>
+          request("select respond_trade($1,'accept') status", [offer], friend),
+        ),
+      );
+      assert.ok(acceptances.every((r) => r.rows[0].status === "accepted"));
+      assert.equal(
+        (
+          await pool.query(
+            "select count(*)::int n from league_events where league_id=$1 and message like 'Trade completed:%'",
+            [tradeLeague],
+          )
+        ).rows[0].n,
+        1,
+      );
+      assert.equal(
+        (
+          await pool.query(
+            "select franchise_id from league_players where league_id=$1 and player_id=$2",
+            [tradeLeague, from],
+          )
+        ).rows[0].franchise_id,
+        "KC",
+      );
     } finally {
       await pool.end();
     }

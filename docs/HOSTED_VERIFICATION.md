@@ -17,4 +17,14 @@ Security Advisor findings reviewed:
 
 Deployment is live at https://fantasy-franchise-three.vercel.app/ with frontend environment and Auth redirects configured. The refresh was verified with an authenticated-role rollback transaction: 2,545 snapshots, real display names, no automatic start, one CPU pick, immediate second tick blocked, pause blocked, current pick preserved. The existing test league retained all 22 picks.
 
-Still required before launch: two-browser Auth/Realtime acceptance testing and visual verification of the updated deployment.  Vercel connector requests currently return 403 for the kylememes scope. This is a database-level verification, not a claim of hosted browser end-to-end completion.
+## Two-session hosted acceptance — 2026-10-16
+
+The result in `docs/multiplayer-acceptance.json` uses two disposable users authenticated through actual Supabase Auth, separate client sessions, real RPC requests and real Realtime subscriptions. Invitation preview/join, synchronized human picks, commissioner-only controls, pause across live cron cycles, and CPU resumption passed. This verifies live Auth/API/Realtime, not two visual browser sessions. The fixture league, accounts and sessions were removed after the check; zero fixture records remained. The existing running league at 22 picks and paused league at 19 picks were preserved.
+
+## Management deployment
+
+Applied `franchise_contract_schema`, `franchise_draft_and_trade_schema` and `franchise_coaching_and_management_rpc` through the migration connector. Its trade-function migration request failed with an expired request-state error; the reviewed `settle_trade`/`propose_trade` definitions and explicit privileges were applied transactionally through direct SQL instead. The repository's combined migration is for fresh installs; do not reapply it to this hosted project.
+
+Existing picks received round-based contracts. Standard draft payroll is $205.25M, leaving $69.75M against the $275M cap. All new application tables have RLS and read-only client grants. Guarded public RPCs are intentionally executable; internal contract, pick-right and trade-settlement functions are not. The existing leaked-password protection advisory remains an Auth configuration item; see [Supabase guidance](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection).
+
+Still required: physical-phone and two-browser visual acceptance of the management screens. Vercel connector requests return 403 for the kylememes scope; Git deployment status and the approved browser fallback are used for release verification.

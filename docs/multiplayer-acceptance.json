@@ -1,0 +1,13 @@
+{
+  "started_at": "2026-10-16T03:13:34.117Z",
+  "checks": [
+    "Two distinct live Supabase Auth sessions signed in",
+    "Invitation preview and second-owner join succeeded",
+    "Second owner cannot start, pause, resume or simulate the draft",
+    "Two human picks synchronized via actual Realtime subscriptions and matching snapshots",
+    "Pause preserved the pick through active cron cycles for more than six seconds",
+    "Commissioner resume restarted CPU selections and synchronized the second owner"
+  ],
+  "status": "PASS",
+  "finished_at": "2026-10-16T03:14:03.748Z"
+}
