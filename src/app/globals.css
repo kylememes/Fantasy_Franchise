@@ -4857,10 +4857,25 @@ select:focus-visible {
   height: 100%;
 }
 .brand--art .brand-tagline small {
-  font-size: 9px;
-  line-height: 1.8;
-  letter-spacing: 1.5px;
+  display: block;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.45;
+  letter-spacing: 1.3px;
   margin: 0;
+  color: #d6dfeb;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #dce5f0 32%,
+    #8f9eaf 49%,
+    #f4f8ff 57%,
+    #b6c4d5 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .intro .intro-logo {
   width: min(100%, 340px);
@@ -4885,7 +4900,7 @@ select:focus-visible {
     height: 62px;
   }
   .brand--art .brand-tagline small {
-    font-size: 7px;
+    font-size: 12px;
     letter-spacing: 1px;
   }
   .intro .intro-logo {
@@ -5589,4 +5604,33 @@ select:focus-visible {
   .game-controls {
     flex-wrap: wrap;
   }
+}
+
+/* League selection stays first at every viewport. */
+.lobby-grid.league-home-stack {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+}
+.league-home-stack > .league-library {
+  order: 0;
+  min-width: 0;
+}
+.league-library > h1 {
+  font-size: clamp(30px, 4vw, 42px);
+  margin: 0 0 22px;
+}
+.league-library > h1 .muted {
+  font-size: 0.6em;
+}
+.league-library .empty {
+  padding: 24px;
+}
+.league-home-stack > .create-panel {
+  order: 1;
+  width: 100%;
+  max-width: none;
+}
+.league-library .league-card > span:nth-child(2) {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
