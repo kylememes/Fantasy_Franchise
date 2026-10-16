@@ -30,6 +30,12 @@ test(
           "utf8",
         ),
       );
+      await pool.query(
+        await readFile(
+          "supabase/migrations/20261016112856_lineup_free_agency.sql",
+          "utf8",
+        ),
+      );
       async function request(sql: string, args: unknown[] = [], actor = user) {
         const c = await pool.connect();
         try {
@@ -162,7 +168,7 @@ test(
         [tradeLeague],
       );
       await pool.query(
-        "insert into player_contracts select league_id,player_id,1000000,2,1,20 from league_players where league_id=$1 and franchise_id is not null",
+        "insert into player_contracts(league_id,player_id,annual_salary,years,start_season,draft_round) select league_id,player_id,1000000,2,1,20 from league_players where league_id=$1 and franchise_id is not null",
         [tradeLeague],
       );
       const assets = (
@@ -202,6 +208,38 @@ test(
           )
         ).rows[0].franchise_id,
         "KC",
+      );
+      const free = (
+        await pool.query(
+          "select player_id,free_agent_salary($1,player_id) price from league_players where league_id=$1 and franchise_id is null limit 1",
+          [tradeLeague],
+        )
+      ).rows[0];
+      const signings = await Promise.allSettled([
+        request("select sign_free_agent($1,$2,$3)", [
+          tradeLeague,
+          free.player_id,
+          free.price,
+        ]),
+        request(
+          "select sign_free_agent($1,$2,$3)",
+          [tradeLeague, free.player_id, free.price],
+          friend,
+        ),
+      ]);
+      assert.equal(
+        signings.filter((r) => r.status === "fulfilled").length,
+        1,
+        "Only one human may claim a free agent",
+      );
+      assert.equal(
+        (
+          await pool.query(
+            "select count(*)::int n from roster_transactions where league_id=$1 and player_id=$2 and action='sign'",
+            [tradeLeague, free.player_id],
+          )
+        ).rows[0].n,
+        1,
       );
     } finally {
       await pool.end();

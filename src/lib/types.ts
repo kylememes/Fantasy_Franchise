@@ -47,6 +47,9 @@ export type Player = {
   rating_source?: string;
   overall_source?: string;
   overall_source_row?: number;
+  attributes_source?: string;
+  attributes_source_row?: number;
+  development_source?: string;
   is_fictional?: boolean;
   stats?: Record<string, number>;
 };
@@ -96,7 +99,8 @@ export type DraftContract = {
   annual_salary: number;
   years: number;
   start_season: number;
-  draft_round: number;
+  draft_round: number | null;
+  origin?: "draft" | "free_agency";
 };
 export type RookiePick = {
   id: string;
@@ -126,11 +130,14 @@ export type Coaching = {
   version: number;
 };
 export type Management = {
+  revision?: number;
   ownership: { player_id: string; franchise_id: string }[];
   contracts: DraftContract[];
   picks: RookiePick[];
   trades: TradeOffer[];
   coaching: Coaching | null;
+  depth?: { orders: Record<string, string[]>; version: number };
+  free_agents?: { player_id: string; annual_salary: number }[];
 };
 export function draftContract(round: number) {
   const first = [30, 20, 16, 14, 12, 10, 9, 8, 7, 6, 5, 4.5, 4, 3.5, 3];

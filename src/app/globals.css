@@ -2500,3 +2500,538 @@ body {
     flex-wrap: wrap;
   }
 }
+
+/* Personnel cards: trait color is independent of current overall. */
+.lineup-panel {
+  overflow: hidden;
+  padding: 24px;
+  background: linear-gradient(145deg, #221b2d, #13141d 60%);
+}
+.lineup-panel h2 {
+  font-size: clamp(22px, 3vw, 36px);
+  letter-spacing: -1px;
+  margin: 6px 0;
+  color: #eeedf4;
+  text-shadow: 0 2px #000;
+}
+.lineup-tabs {
+  display: flex;
+  gap: 6px;
+  background: #101019;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 5px;
+  margin: 18px 0;
+  flex-wrap: wrap;
+}
+.lineup-tabs button {
+  flex: 1;
+  min-height: 44px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #a8a2b5;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 12px;
+  padding: 10px;
+}
+.lineup-tabs button.active {
+  background: linear-gradient(#ff8c93, #e9697c);
+  color: #25121c;
+  box-shadow: 0 2px 12px #ff7c8920;
+}
+.lineup-context {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 14px 0;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: #aca5b9;
+}
+.lineup-field {
+  padding: 28px 14px;
+  border: 1px solid #5b516733;
+  border-radius: 14px;
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 85px,
+      #ad9ec114 86px,
+      #ad9ec114 87px
+    ),
+    linear-gradient(90deg, #161c22, #202833 50%, #161c22);
+  box-shadow: inset 0 0 80px #04040a99;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.formation-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.player-card {
+  --dev: #b58159;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-width: 0;
+  width: 145px;
+  max-width: 100%;
+  padding: 9px 7px 0;
+  border: 2px solid var(--dev);
+  border-radius: 9px;
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--dev) 32%, #181821),
+    #13141a 50%,
+    color-mix(in srgb, var(--dev) 18%, #101018)
+  );
+  box-shadow:
+    inset 0 0 0 2px #ffffff16,
+    0 7px 16px #0008;
+  color: #f4f2f6;
+  overflow: hidden;
+  text-align: left;
+  isolation: isolate;
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s;
+}
+button.player-card:hover:not(:disabled) {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 24px color-mix(in srgb, var(--dev) 35%, transparent);
+}
+.player-card.selected {
+  outline: 2px solid #ffffffaa;
+  outline-offset: 3px;
+}
+.dev-franchise {
+  --dev: #f44f68;
+}
+.dev-superstar {
+  --dev: #e9bc54;
+}
+.dev-star {
+  --dev: #bec6d4;
+}
+.dev-normal {
+  --dev: #b78358;
+}
+.dev-hidden {
+  --dev: #74778d;
+}
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-weight: 900;
+  font-size: 12px;
+  width: 100%;
+  z-index: 1;
+}
+.card-top strong {
+  font-size: 28px;
+  line-height: 0.9;
+  letter-spacing: -1px;
+  text-align: center;
+}
+.card-top small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 1px;
+  margin-top: 4px;
+  color: #dbd6e2;
+}
+.card-athlete {
+  height: 74px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -5px;
+}
+.card-athlete svg {
+  width: 100px;
+  height: 90px;
+  fill: color-mix(in srgb, var(--dev) 15%, #202331);
+  stroke: color-mix(in srgb, var(--dev) 65%, #aaa);
+}
+.card-athlete b {
+  position: absolute;
+  top: 29px;
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: #eee;
+  transform: skew(-4deg);
+}
+.card-name {
+  font-size: 11px;
+  font-weight: 900;
+  text-align: center;
+  line-height: 1.3;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  width: 100%;
+  padding: 4px 0;
+}
+.card-trait {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-top: 1px solid var(--dev);
+  background: #08090b60;
+  color: var(--dev);
+  margin: 0 -7px;
+  width: calc(100% + 14px);
+  min-height: 28px;
+  padding: 4px 3px;
+  font-size: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: center;
+}
+.card-trait svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+.card-trait span:first-child {
+  font-size: 9px;
+}
+.depth-editor {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px;
+  margin-top: 22px;
+  background: #100e19a8;
+}
+.depth-toolbar {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.depth-toolbar label {
+  max-width: 180px;
+}
+.depth-toolbar strong {
+  font-size: 18px;
+}
+.depth-toolbar small {
+  display: block;
+  color: #a39aae;
+  font-size: 11px;
+  margin-top: 5px;
+}
+.depth-players {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.depth-player {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--dev);
+  border-radius: 8px;
+  min-width: 0;
+  background: #ffffff03;
+}
+.depth-player > div {
+  flex: 1;
+  min-width: 0;
+}
+.depth-player strong {
+  display: block;
+  font-size: 12px;
+}
+.depth-player small {
+  display: block;
+  font-size: 10px;
+  color: #a49bb0;
+  line-height: 1.6;
+}
+.depth-player > b {
+  text-align: center;
+  font-size: 20px;
+  color: var(--dev);
+}
+.depth-player > b small {
+  font-size: 8px;
+}
+.depth-rank {
+  font-size: 11px;
+  color: #80768e;
+  font-weight: 800;
+}
+.depth-player select {
+  padding: 7px;
+  min-width: 44px;
+  min-height: 44px;
+}
+.depth-player button {
+  padding: 8px;
+  min-height: 44px;
+  min-width: 36px;
+  background: #272131;
+  border: 1px solid var(--line);
+  color: #ddd;
+  border-radius: 5px;
+}
+.development-legend {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--line);
+  margin-top: 22px;
+  padding-top: 16px;
+}
+.development-legend > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--dev);
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+.development-legend i {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--dev);
+}
+.mobile-starter {
+  display: none;
+}
+.free-agent-list {
+  display: grid;
+  gap: 8px;
+}
+.free-agent-row {
+  display: grid;
+  grid-template-columns: minmax(130px, 1fr) 45px 120px 140px;
+  align-items: center;
+  gap: 14px;
+  padding: 13px;
+  background: #ffffff03;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+}
+.free-agent-row strong {
+  display: block;
+  font-size: 12px;
+}
+.free-agent-row small {
+  display: block;
+  color: #a49bb0;
+  font-size: 10px;
+  margin-top: 4px;
+}
+.free-agent-row .transaction-reason {
+  grid-column: 1/-1;
+  margin: 0;
+  color: #c3a3ae;
+}
+.free-agent-row button {
+  min-height: 44px;
+}
+.transaction-overlay {
+  position: fixed;
+  inset: 0;
+  background: #06040bd9;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  backdrop-filter: blur(6px);
+}
+.transaction-dialog {
+  background: linear-gradient(145deg, #2d2239, #14121f);
+  border: 1px solid #6e536f;
+  border-radius: 16px;
+  padding: 24px;
+  width: min(450px, 100%);
+  max-height: 90dvh;
+  overflow: auto;
+  box-shadow: 0 24px 90px #0009;
+}
+.transaction-dialog .player-card {
+  margin: 16px auto;
+  width: 160px;
+}
+.transaction-dialog p {
+  font-size: 13px;
+  color: #c3bacd;
+  line-height: 1.6;
+}
+.transaction-dialog h3 {
+  margin-top: 0;
+}
+@media (min-width: 1400px) {
+  .player-card {
+    width: 165px;
+  }
+  .card-athlete {
+    height: 90px;
+  }
+  .card-athlete svg {
+    height: 105px;
+  }
+  .card-athlete b {
+    top: 35px;
+    font-size: 29px;
+  }
+  .card-name {
+    font-size: 12px;
+  }
+  .card-trait {
+    font-size: 9px;
+  }
+}
+@media (max-width: 1050px) {
+  .lineup-field {
+    padding: 20px 8px;
+  }
+  .formation-row {
+    gap: 7px;
+  }
+  .player-card {
+    padding: 7px 5px 0;
+  }
+  .card-top strong {
+    font-size: 23px;
+  }
+  .card-top {
+    font-size: 10px;
+  }
+  .card-athlete {
+    height: 60px;
+  }
+  .card-athlete svg {
+    height: 75px;
+    width: 80px;
+  }
+  .card-athlete b {
+    font-size: 20px;
+    top: 22px;
+  }
+  .card-name {
+    font-size: 9px;
+  }
+  .card-trait {
+    margin: 0 -5px;
+    width: calc(100% + 10px);
+    font-size: 7px;
+  }
+  .depth-players {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 700px) {
+  .lineup-panel {
+    padding: 16px;
+  }
+  .lineup-field {
+    display: none;
+  }
+  .lineup-context small {
+    display: none;
+  }
+  .depth-editor {
+    margin-top: 12px;
+    padding: 12px;
+  }
+  .depth-toolbar {
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .depth-toolbar label {
+    min-width: 110px;
+  }
+  .depth-toolbar strong {
+    font-size: 15px;
+  }
+  .depth-toolbar small {
+    font-size: 10px;
+  }
+  .mobile-starter {
+    display: flex;
+    justify-content: center;
+    padding: 16px 0 24px;
+  }
+  .mobile-starter .player-card {
+    width: 200px;
+  }
+  .mobile-starter .card-top strong {
+    font-size: 38px;
+  }
+  .mobile-starter .card-athlete {
+    height: 115px;
+  }
+  .mobile-starter .card-athlete svg {
+    height: 130px;
+    width: 140px;
+  }
+  .mobile-starter .card-athlete b {
+    font-size: 36px;
+    top: 45px;
+  }
+  .mobile-starter .card-name {
+    font-size: 15px;
+    padding: 10px 0;
+  }
+  .mobile-starter .card-trait {
+    font-size: 10px;
+    min-height: 34px;
+  }
+  .depth-player {
+    gap: 8px;
+    padding: 10px 8px;
+  }
+  .depth-player strong {
+    font-size: 12px;
+  }
+  .development-legend {
+    gap: 12px;
+  }
+  .development-legend > span {
+    font-size: 8px;
+  }
+  .lineup-tabs button {
+    font-size: 10px;
+  }
+  .free-agent-row {
+    grid-template-columns: 1fr 40px 95px;
+    gap: 8px;
+  }
+  .free-agent-row button {
+    grid-column: 1/-1;
+  }
+  .free-agent-row strong {
+    font-size: 12px;
+  }
+  .transaction-dialog {
+    padding: 20px;
+  }
+  .lineup-panel .fineprint {
+    font-size: 10px;
+  }
+}

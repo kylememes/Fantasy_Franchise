@@ -134,7 +134,12 @@ export default function FranchiseApp() {
         : data,
     );
     if (managementResult.error) setNotice(managementResult.error.message);
-    else setManagement(managementResult.data);
+    else
+      setManagement((old) =>
+        old && (old.revision ?? -1) > (managementResult.data.revision ?? -1)
+          ? old
+          : managementResult.data,
+      );
     setSync("Synced");
   }, [selected, loadHome]);
   useEffect(() => {
@@ -613,9 +618,9 @@ export default function FranchiseApp() {
           <div className="data-note">
             NFL roster data: nflverse (CC BY 4.0). Overall ratings use the
             uploaded Madden NFL 27 worksheet where matched. Unmatched overalls
-            and skill attributes remain original estimates. Contracts follow the
-            fantasy draft round scale. New NFL pools include clearly labeled
-            fictional depth reserves where needed.
+            and skills retain original estimates where unmatched. Contracts
+            follow the fantasy draft round scale. New NFL pools include clearly
+            labeled fictional depth reserves where needed.
           </div>
         </main>
       ) : (
@@ -935,7 +940,7 @@ export default function FranchiseApp() {
                 )}
                 <footer className="data-note">
                   {players.some((p) => p.is_fictional === false)
-                    ? "NFL roster: nflverse · CC BY 4.0. Worksheet overalls where matched; other overalls and skill attributes remain estimated. Fantasy round-based contracts. Includes labeled fictional depth reserves."
+                    ? "NFL roster: nflverse · CC BY 4.0. Worksheet overalls and skills where matched; unmatched ratings remain estimated. Game-assigned development traits. Fantasy round-based contracts. Includes labeled fictional depth reserves."
                     : "Saved fictional test pool · Original provisional ratings and contracts. Create a new league to use the NFL player pool."}
                 </footer>
               </>
