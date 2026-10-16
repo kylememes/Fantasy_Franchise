@@ -3729,3 +3729,49 @@ button.player-card:hover:not(:disabled) {
     transition: none;
   }
 }
+/* Keep assistive labels out of the personnel grid without hiding them from screen readers. */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.formation-lineup .lineup-heading {
+  padding: 0 0 12px;
+}
+.formation-lineup .lineup-heading h2 {
+  font-size: 36px;
+  line-height: 1.1;
+  margin: 6px 0;
+}
+.formation-lineup .lineup-heading h2 > span {
+  font-size: 8px;
+  line-height: 1.4;
+  letter-spacing: 2px;
+}
+.formation-lineup .portrait-jersey {
+  bottom: 28px;
+}
+.roster-heading {
+  margin-bottom: 14px;
+}
+.roster-heading h1 {
+  font-size: 28px;
+}
+.formation-lineup .depth-player > label {
+  margin: 0;
+  flex: 0 0 auto;
+}
+.formation-lineup .depth-player > div {
+  min-width: 0;
+  flex: 1;
+}
+.formation-lineup .depth-player strong {
+  overflow-wrap: normal;
+  word-break: normal;
+}
