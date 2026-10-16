@@ -33,6 +33,10 @@ update public.player_datasets set is_default=true where id='nflverse-2026-origin
 commit;
 ```
 
+## Requested ratings reference
+
+The user selected https://www.maddenratings.com/ as the preferred overall/attribute reference on 2026-10-15. Its [About](https://www.maddenratings.com/about) page describes the data as reference-only; its [Terms](https://www.maddenratings.com/terms) do not supply a bulk game-redistribution license. No ratings from that site were imported. Current estimates remain explicitly labeled. An authorized export can use the existing importer with provider `MaddenRatings.com`, the exact edition/update, and an actual permission reference. Source football statistics are separate from game skill ratings.
+
 ## Authorized Madden ratings
 
 No EA database is scraped, bundled or redistributed. EA's [Madden 27 ratings page](https://www.ea.com/games/madden-nfl/ratings) is a reference, not an import license. Before using an EA dataset, obtain authorization covering the intended reproduction and distribution. `scripts/authorized-ratings.ts` accepts an authorized JSON export and a permission manifest, matches nflverse/GSIS external IDs, validates attributes and creates a separate versioned dataset. It never overwrites an existing league.

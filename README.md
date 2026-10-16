@@ -17,6 +17,16 @@ Next.js / React / TypeScript · Supabase Auth / PostgreSQL / Realtime · Vercel
 
 **Data:** New leagues use an attributed nflverse 2026 snapshot with 2,532 real players, original provisional ratings/game contracts, and 13 explicitly fictional fullback depth reserves. Existing test leagues keep their original pool and picks. No EA database is scraped or included. See `docs/DATA_SOURCES.md` for provenance, limitations and the authorized Madden import workflow.
 
+## Franchise management increment
+
+- Fantasy draft contracts: Round 1 $30M/year; Round 2 $20M; each later round follows the same league-wide declining scale. Standard full-roster payroll is $205.25M against a $275M cap, leaving $69.75M for trades.
+- Five-year deals in rounds 1–5, four in 6–10, three in 11–15, two in 16–35, one in 36–53. Existing drafted players receive the same scale without changing selections.
+- Commissioner-confirmed simulation of every remaining draft pick, including human teams and the Round 15 checkpoint; pause/resume still applies.
+- Current rosters and contracts, human trade inbox/acceptance, CPU value checks, future rookie-pick rights, atomic transfers and cap/position validation. Trades unlock after draft completion.
+- Saved offensive/defensive schemes and 16 tendencies with conflict detection. These settings will feed the later simulation engine; games are not implemented yet.
+
+See [management rules](docs/FRANCHISE_MANAGEMENT.md). Depth-chart editing, free agency, extensions and season progression remain later work.
+
 ## Architecture before implementation
 
 See [Architecture and phased plan](docs/ARCHITECTURE.md) for schema, boundaries, draft state transitions, concurrency model and later phases. The authoritative backend is PostgreSQL RPC, not browser state. The frontend never receives a service-role key.
@@ -70,7 +80,7 @@ The separate concurrency suite runs only when `TEST_DATABASE_URL` points at an *
 
 The pause guarantee is transactional: an in-flight CPU batch (one pick during the initial draft, or at most eight during roster completion) can finish before pause acquires the league lock. After pause commits, further picks cannot commit until explicit resume. No human draft timer exists. CPU jobs operate on saved state and never resume a paused league.
 
-Position limits are enforced even for human picks to guarantee every completed 53-player roster can fill its positions. HB is represented as RB. Scouting/development details and salaries are provisional metadata; cap negotiations, trades, coaching, simulation, seasons and history remain Phases 2–5.
+Position limits are enforced even for human picks to guarantee every completed 53-player roster can fill its positions. HB is represented as RB. Scouting/development details and salaries are provisional metadata; cap negotiations, depth-chart editing, simulation, seasons and history remain later work. Trades and coaching preparation are implemented in the management increment.
 
 Supabase project backups are managed separately from source control. Do not reset the live database or reapply the initial migration on deployment. Source deployments do not recreate leagues.
 
