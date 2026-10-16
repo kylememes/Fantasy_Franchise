@@ -122,6 +122,20 @@ export type TradeOffer = {
   give_value: number;
   take_value: number;
   created_at: string;
+  resolved_at?: string | null;
+  counter_of?: string | null;
+  thread_id?: string | null;
+  evaluation?: TradePreview;
+};
+export type TradePreview = {
+  valid: boolean;
+  is_cpu: boolean;
+  cpu_accepts: boolean;
+  interest: number | null;
+  feedback: string[];
+  problems: string[];
+  give_value: number;
+  take_value: number;
 };
 export type Coaching = {
   offense: string;
@@ -136,6 +150,8 @@ export type Management = {
   contracts: DraftContract[];
   picks: RookiePick[];
   trades: TradeOffer[];
+  human_teams?: string[];
+  unread_trade_ids?: string[];
   coaching: Coaching | null;
   depth?: { orders: Record<string, string[]>; version: number };
   free_agents?: { player_id: string; annual_salary: number }[];
