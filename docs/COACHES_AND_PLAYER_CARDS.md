@@ -8,10 +8,10 @@ The database computes effective game attributes from the source profile, exact p
 
 New frozen inputs carry coach_bonus_version 1 and use football engine V2. Inputs frozen before this update keep V1 behavior; a deterministic regression test verifies an existing input's exact result hash. The worker's commit function validates engine version against frozen inputs.
 
-## Quarterback headshot trial
+## Superstar player headshots
 
-Ten existing real quarterbacks currently tagged Superstar or Franchise Superstar are matched by exact nflverse GSIS ID, ESPN ID and player name. Card eligibility is checked on every render: quarterbacks only, eligible development tier only, never fictional players. Other positions, lower tiers, missing identities and failed image loads use the existing silhouette.
+All 111 current real players tagged Superstar or Franchise Superstar are matched by exact nflverse GSIS ID and roster name across positions. ESPN IDs identify 87 photos; official NFL roster headshot URLs cover the remaining 24 offensive linemen. Card eligibility is checked on every render: eligible development tiers only, never fictional players. Lower tiers, missing identities and failed image loads use the existing silhouette. Photo lookup uses a shared identity index.
 
-Images are displayed from ESPN's public headshot CDN, loaded lazily without sending the league URL as a referrer. No image files are copied into this repository. data/qb-headshots.json records identities, public image URLs and the roster metadata source. Every trial URL was checked for a successful image response. This records provenance and technical availability; it does not claim that nflverse's data license grants rights to third-party photographs. The source can be disabled or replaced independently of player identity and ratings.
+Images are displayed from ESPN's public headshot CDN or the official NFL image CDN, loaded lazily without sending the league URL as a referrer. No image files are copied into this repository. data/player-headshots.json records identities, photo providers, public image URLs and the roster metadata source. Every URL was checked for a successful image response on the recorded verification date. This records provenance and technical availability; it does not claim that nflverse's data license grants rights to third-party photographs. The source can be disabled or replaced independently of player identity and ratings.
 
 Validation includes position filtering, capped boosts, no base-profile mutation, exact identity matching, photo error fallback, shared hiring conflicts, human-first timing, CPU hire uniqueness/idempotence, frozen input stability, and legacy simulation compatibility.
