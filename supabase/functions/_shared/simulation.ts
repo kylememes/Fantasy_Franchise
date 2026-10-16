@@ -68,6 +68,7 @@ export type Play = {
   tackler?: string;
   recovery?: string;
   brokenTackle?: boolean;
+  blitz?: boolean;
   possession?: { at: number; id: string | null }[];
   homeScoreBefore?: number;
   awayScoreBefore?: number;
@@ -1227,6 +1228,7 @@ export function simulateGame(input: GameInput): GameResult {
       Object.assign(recorded, {
         tackler: tackler?.id,
         brokenTackle,
+        blitz,
         homeScoreBefore: beforeScores[0],
         awayScoreBefore: beforeScores[1],
         homeTimeoutsBefore: beforeTimeouts[0],
@@ -1397,8 +1399,7 @@ function buildModernTimeline(
   play.coverage = kick
     ? "Kick defense"
     : `${play.coverage}${play.call.includes("blitz") ? " · pressure" : ""}`;
-  const blitz =
-    /blitz/i.test(play.coverage + play.call) || (sack && random() < 0.5);
+  const blitz = play.blitz === true;
   if (blitz && !kick) play.coverage += " · LB blitz";
   if (!blitz && !kick)
     play.coverage += play.coverage.startsWith("Man")
@@ -1825,6 +1826,20 @@ function buildModernTimeline(
           : play.carrier!,
       },
     ];
+    if (/Play action/i.test(play.call) && (passing || sack)) {
+      const a = agents.find(a => a.id === qb.id)!;
+      a.path[2] = safe(handoff);
+      play.ball[2] = safe(handoff);
+    }
+    if (/Flea flicker/i.test(play.call) && passing) {
+      const q = agents.find(a => a.id === qb.id)!, r = agents.find(a => a.id === rb.id)!;
+      q.path = [qbStart,qbStart,handoff,pocket,pocket,pocket,pocket,pocket,pocket].map(safe);
+      q.at = [0,.12,.2,.32,.42,.48,.68,.86,1];
+      r.path[2] = safe(handoff); r.path[3] = safe(handoff);
+      const landing = complete || interception ? catchSpot : incompleteEnd;
+      play.ball = [snap,snap,handoff,handoff,pocket,pocket,landing,complete ? end : landing,complete ? end : landing].map(safe);
+      play.possession = [{at:0,id:null},{at:.2,id:rb.id},{at:.32,id:null},{at:.42,id:qb.id},{at:.48,id:null},{at:.68,id:complete || interception ? play.carrier! : null}];
+    }
     if (play.kind === "spike")
       play.possession = [
         { at: 0, id: null },
@@ -1832,14 +1847,14 @@ function buildModernTimeline(
         { at: 0.48, id: null },
       ];
     if (fumble) {
-      play.ball[6] = safe([end[0] + d * 0.5, end[1] + 0.7]);
+      play.ball[play.ball.length - 1] = safe([end[0] + d * 0.5, end[1] + 0.7]);
       play.possession.push(
         { at: 0.86, id: null },
         { at: 1, id: play.recovery! },
       );
     }
   }
-  play.ballAt = [...at];
+  play.ballAt = play.ball.length === 9 ? [0,.12,.2,.32,.42,.48,.68,.86,1] : [...at];
   play.agents = agents;
   if (play.tackler && !play.scoring && !play.turnover)
     play.description += ` Tackled by ${catalog[play.tackler].name}.`;

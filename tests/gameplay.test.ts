@@ -96,6 +96,13 @@ test("V3 ensemble has varied calls, defenses, correct turnover possession and pl
     for (const p of r.plays) {
       calls.add(p.call.replace(" vs. blitz", ""));
       coverage.add(p.coverage);
+      for (const t of [.22,.3,.43,.47,.7,.78,.85]) {
+        const owner = carrierAt(p,t);
+        if (!owner) continue;
+        const agent = p.agents.find(a=>a.id===owner)!;
+        const a=playerSpot(agent,t),b=ballSpot(p,t);
+        assert.ok(Math.hypot(a[0]-b[0],a[1]-b[1])<.02,`${p.index} ${p.call} carrier drift at ${t}`);
+      }
       if (p.brokenTackle) broken++;
       if (p.turnover && p.description.includes("intercepts")) {
         interceptions++;
