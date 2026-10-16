@@ -3775,3 +3775,6 @@ button.player-card:hover:not(:disabled) {
   overflow-wrap: normal;
   word-break: normal;
 }
+.formation-lineup .depth-editor h3 {
+  font-family: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+}
