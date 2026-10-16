@@ -13,9 +13,9 @@ Next.js / React / TypeScript · Supabase Auth / PostgreSQL / Realtime · Vercel
 - Atomic selections, stale-request rejection, per-league player uniqueness, authorization and RLS isolation.
 - Searchable draft room, position/rating/age/salary filters, player profiles, confirmation, private queue, round board, roster needs and activity.
 - Needs-aware CPU roster completion and durable database worker, plus Realtime notifications with polling recovery.
-- Navy/chrome interface with responsive navigation and tables. Future-phase controls are explicitly unavailable.
+- Original plum/coral/mint identity, NFL logos and mobile draft cards with explicit selection controls. Future-phase controls are explicitly unavailable.
 
-**Data:** 2,120 fictional test players with original provisional ratings and salaries. These are not real NFL rosters or EA Madden ratings. No EA scraping is used. Profiles record provenance and are copied into each league so future catalog changes cannot rewrite an existing draft. Production NFL datasets require an authorized import workflow and source review.
+**Data:** New leagues use an attributed nflverse 2026 snapshot with 2,532 real players, original provisional ratings/game contracts, and 13 explicitly fictional fullback depth reserves. Existing test leagues keep their original pool and picks. No EA database is scraped or included. See `docs/DATA_SOURCES.md` for provenance, limitations and the authorized Madden import workflow.
 
 ## Architecture before implementation
 
@@ -26,13 +26,14 @@ See [Architecture and phased plan](docs/ARCHITECTURE.md) for schema, boundaries,
 Use a **new dedicated Supabase project**. Do not run these migrations against FLG or Coastlyne.
 
 1. Apply `supabase/migrations/001_franchise.sql` through Supabase migrations or the SQL editor, as project database owner.
-2. Enable `pg_cron` in Database → Extensions. Apply `002_realtime_worker.sql` once. This registers a 5-second CPU job and publishes league, membership and pick changes. A Supabase PostgreSQL version supporting second-based cron intervals is required.
+2. Enable `pg_cron` in Database → Extensions. Apply `002_realtime_worker.sql` once. This initially registers a 5-second CPU job and publishes league, membership and pick changes. A Supabase PostgreSQL version supporting second-based cron intervals is required. Apply the remaining migration files in filename order; the pacing migration changes the worker check to once per second and enforces a four-second server-side gap between normal CPU picks.
 3. Set the two values from `.env.example` in Vercel, and in `.env.local` for local work:
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY` (publishable/anon key, never service-role)
-4. Enable email/password authentication. Set Supabase Auth Site URL to the application URL and configure confirmation redirect URLs for the deployed origin and local development. Keep email confirmation enabled for production; use your provider's email delivery setup.
-5. Link Vercel to `kylememes/Fantasy_Franchise` using the Next.js preset. Add both variables to intended environments and deploy. No Vercel Cron or paid external job service is needed for this phase.
-6. Verify the two-user acceptance checklist below before using a live league.
+4. For the real-player catalog, follow the import/activation instructions in `docs/DATA_SOURCES.md`. Until activation, new installs use the clearly fictional test pool.
+5. Enable email/password authentication. Set Supabase Auth Site URL to the application URL and configure confirmation redirect URLs for the deployed origin and local development. Keep email confirmation enabled for production; use your provider's email delivery setup.
+6. Link Vercel to `kylememes/Fantasy_Franchise` using the Next.js preset. Add both variables to intended environments and deploy. No Vercel Cron or paid external job service is needed for this phase.
+7. Verify the two-user acceptance checklist below before using a live league.
 
 The app intentionally shows a backend-connection message when the public Supabase configuration is missing. It never substitutes browser-only storage for shared league state.
 
@@ -67,7 +68,7 @@ The separate concurrency suite runs only when `TEST_DATABASE_URL` points at an *
 
 ## Operational notes
 
-The pause guarantee is transactional: an in-flight CPU batch (at most 8 picks for normal callers) can finish before pause acquires the league lock. After pause commits, further picks cannot commit until explicit resume. No human draft timer exists. CPU jobs operate on saved state and never resume a paused league.
+The pause guarantee is transactional: an in-flight CPU batch (one pick during the initial draft, or at most eight during roster completion) can finish before pause acquires the league lock. After pause commits, further picks cannot commit until explicit resume. No human draft timer exists. CPU jobs operate on saved state and never resume a paused league.
 
 Position limits are enforced even for human picks to guarantee every completed 53-player roster can fill its positions. HB is represented as RB. Scouting/development details and salaries are provisional metadata; cap negotiations, trades, coaching, simulation, seasons and history remain Phases 2–5.
 
@@ -78,6 +79,6 @@ Supabase project backups are managed separately from source control. Do not rese
 - Local production build and TypeScript checks: passed.
 - Local full-draft SQL integration suite and restart test: passed.
 - Real PostgreSQL concurrency suite: configured in CI; see workflow results for status.
-- Hosted Auth/Realtime/cron and browser end-to-end verification: pending Supabase connection and Vercel project access.
+- Hosted schema, dataset import, authenticated RPC rollback checks, worker and initial deployment: passed. Two-user browser Auth/Realtime acceptance remains pending; see `docs/HOSTED_VERIFICATION.md`.
 
 References: [Supabase Cron](https://supabase.com/docs/guides/cron/quickstart), [Postgres Changes](https://supabase.com/docs/guides/realtime/postgres-changes), [Row Level Security](https://supabase.com/docs/guides/database/postgres/row-level-security).

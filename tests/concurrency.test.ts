@@ -18,6 +18,12 @@ test(
       await pool.query(
         await readFile("supabase/migrations/001_franchise.sql", "utf8"),
       );
+      await pool.query(
+        await readFile(
+          "supabase/migrations/20261015214620_mobile_draft_pacing.sql",
+          "utf8",
+        ),
+      );
       async function request(sql: string, args: unknown[] = []) {
         const c = await pool.connect();
         try {
@@ -104,8 +110,24 @@ test(
         before,
       );
       await request("select draft_control($1,'resume')", [lid]);
-      await Promise.all(
-        Array.from({ length: 5 }, () => request("select cpu_tick($1)", [lid])),
+      await pool.query(
+        "update leagues set next_cpu_pick_at=clock_timestamp()-interval '1 second' where id=$1",
+        [lid],
+      );
+      const paced = await Promise.all(
+        Array.from({ length: 5 }, () =>
+          request("select cpu_tick($1) n", [lid]),
+        ),
+      );
+      assert.equal(
+        paced.reduce((n, r) => n + r.rows[0].n, 0),
+        1,
+        "Concurrent workers may make only one paced CPU pick",
+      );
+      assert.equal(
+        (await request("select cpu_tick($1) n", [lid])).rows[0].n,
+        0,
+        "Pacing cannot be bypassed by repeat requests",
       );
       const totals = (
         await pool.query(

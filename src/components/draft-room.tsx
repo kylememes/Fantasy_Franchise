@@ -12,6 +12,7 @@ import {
   X,
   Clock3,
 } from "lucide-react";
+import { TeamLogo } from "./identity";
 import { limits, onClock, money } from "@/lib/types";
 import type { Snapshot, Player, Franchise } from "@/lib/types";
 type Props = {
@@ -23,7 +24,7 @@ type Props = {
   queue: string[];
   onQueue: (id: string) => Promise<void>;
   onControl: (a: string) => Promise<void>;
-  onPick: (id: string, pick: number, revision: number) => Promise<void>;
+  onPick: (id: string, pick: number, revision: number) => Promise<boolean>;
 };
 export function DraftRoom({
   snapshot: s,
@@ -46,15 +47,21 @@ export function DraftRoom({
       pick: number;
       revision: number;
     } | null>(null),
-    [confirming, setConfirming] = useState(false);
+    [confirming, setConfirming] = useState<{
+      pick: number;
+      revision: number;
+    } | null>(null);
   const [visibleCount, setVisibleCount] = useState(100);
+  const [pickError, setPickError] = useState("");
   useEffect(() => setVisibleCount(100), [position, query, sort, tab]);
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     if (chosen) dialog.current?.showModal();
     else dialog.current?.close();
-    setConfirming(false);
+    setConfirming(null);
+    setPickError("");
   }, [chosen]);
+  const realPool = players.some((p) => p.is_fictional === false);
   const l = s.league,
     teamId = onClock(l.draft_order, l.next_pick),
     team = teams.find((t) => t.id === teamId),
@@ -110,8 +117,6 @@ export function DraftRoom({
   const canPick =
     chosen &&
     myTurn &&
-    chosen.pick === l.next_pick &&
-    chosen.revision === l.revision &&
     !picked.has(chosen.player.id) &&
     counts[chosen.player.position] < limits[chosen.player.position];
   return (
@@ -126,7 +131,7 @@ export function DraftRoom({
         </div>
         <div className="clock-team">
           <span className="team-tile" style={{ background: team?.color }}>
-            {l.state === "completed" ? "✓" : teamId}
+            {l.state === "completed" ? "✓" : <TeamLogo id={teamId} />}
           </span>
           <div>
             <small>
@@ -173,7 +178,7 @@ export function DraftRoom({
           <div key={p.pick} className={i === 0 ? "current" : ""}>
             <small>{i === 0 ? "UP NOW" : `PICK ${p.pick + 1}`}</small>
             <b style={{ color: teams.find((t) => t.id === p.team)?.color }}>
-              {p.team}
+              <TeamLogo id={p.team} /> {p.team}
             </b>
             <span>
               {s.members.some((m) => m.franchise_id === p.team)
@@ -196,7 +201,7 @@ export function DraftRoom({
                   ? "Draft complete. Open Roster to review your team."
                   : myTurn
                     ? "You’re on the clock. Select a player to review and confirm your pick."
-                    : "The board updates automatically. Human owners have unlimited time."}
+                    : "CPU teams choose every four seconds. Your picks have no time limit."}
         </div>
         {commissioner && (
           <div className="commissioner-actions">
@@ -250,6 +255,47 @@ export function DraftRoom({
           </div>
         )}
       </div>
+      <div
+        className={"turn-banner " + (myTurn ? "your-turn" : "")}
+        role="status"
+        aria-live="polite"
+      >
+        <TeamLogo id={me?.franchise_id || teamId} />
+        <div>
+          <strong>
+            {myTurn
+              ? "You’re on the clock"
+              : l.state === "paused"
+                ? "Draft paused"
+                : l.state === "waiting"
+                  ? "Waiting for the commissioner"
+                  : l.state === "completed"
+                    ? "Your roster is ready"
+                    : "Scout your next selection"}
+          </strong>
+          <span>
+            {myTurn
+              ? "Tap Draft beside a player, then confirm your selection."
+              : `Your franchise: ${me?.franchise_id || "—"} · ${l.state === "running" ? `${teamId} is selecting. Browse or queue players while you wait.` : "You can still browse player profiles."}`}
+          </span>
+        </div>
+      </div>
+      {!!s.picks.length && (
+        <div
+          className="latest-pick-banner"
+          key={s.picks.at(-1)?.pick}
+          aria-live="polite"
+        >
+          <span>JUST DRAFTED</span>
+          <TeamLogo id={s.picks.at(-1)!.franchise_id} />
+          <strong>
+            {byId.get(s.picks.at(-1)!.player_id)?.name || "Loading player…"}
+          </strong>
+          <small>
+            #{s.picks.at(-1)!.pick + 1} · {s.picks.at(-1)!.franchise_id}
+          </small>
+        </div>
+      )}
       <div className="draft-layout">
         <section className="panel player-panel">
           <div className="tabs draft-tabs">
@@ -300,7 +346,7 @@ export function DraftRoom({
                       key={n}
                     >
                       <small>
-                        #{n + 1} ·{" "}
+                        <TeamLogo id={id} /> #{n + 1} ·{" "}
                         <b
                           style={{
                             color: teams.find((t) => t.id === id)?.color,
@@ -356,7 +402,12 @@ export function DraftRoom({
                 </select>
               </div>
               <div className="table-caption">
-                <span>{filtered.length} AVAILABLE · PROVISIONAL TEST POOL</span>
+                <span>
+                  {filtered.length} AVAILABLE ·{" "}
+                  {realPool
+                    ? "NFL ROSTER / ORIGINAL RATINGS"
+                    : "FICTIONAL TEST POOL"}
+                </span>
                 <small>OVR: 0–99 original rating scale</small>
               </div>
               <div className="table-wrap player-list">
@@ -366,8 +417,9 @@ export function DraftRoom({
                       <th>PLAYER</th>
                       <th>POS</th>
                       <th>OVR</th>
-                      <th>AGE</th>
-                      <th>SALARY</th>
+                      <th className="optional-column">AGE</th>
+                      <th className="optional-column">SALARY</th>
+                      <th>SELECT</th>
                       <th>QUEUE</th>
                     </tr>
                   </thead>
@@ -383,7 +435,9 @@ export function DraftRoom({
                             <span>
                               {p.name}
                               <small>
-                                {p.development} development · Fictional
+                                {p.is_fictional === false
+                                  ? `${p.nfl_team} · Original rating`
+                                  : "Fictional depth player"}
                               </small>
                             </span>
                           </button>
@@ -405,8 +459,21 @@ export function DraftRoom({
                             {p.overall}
                           </span>
                         </td>
-                        <td>{p.age}</td>
-                        <td>{money(p.salary)}</td>
+                        <td className="optional-column">{p.age}</td>
+                        <td className="optional-column">{money(p.salary)}</td>
+                        <td>
+                          <button
+                            className={
+                              myTurn
+                                ? "primary draft-player-button"
+                                : "secondary draft-player-button"
+                            }
+                            aria-label={`${myTurn ? "Draft" : "View"} ${p.name}`}
+                            onClick={() => open(p)}
+                          >
+                            {myTurn ? "Draft" : "View"}
+                          </button>
+                        </td>
                         <td>
                           <button
                             className={
@@ -498,6 +565,7 @@ export function DraftRoom({
                     if (x) open(x);
                   }}
                 >
+                  <TeamLogo id={p.franchise_id} />
                   <span className="pick-number">{p.pick + 1}</span>
                   <div>
                     <strong>
@@ -521,6 +589,7 @@ export function DraftRoom({
       <dialog
         ref={dialog}
         className="player-dialog"
+        aria-labelledby="player-profile-title"
         onCancel={() => setChosen(null)}
         onClick={(e) => {
           if (e.target === dialog.current) setChosen(null);
@@ -536,12 +605,15 @@ export function DraftRoom({
               <X />
             </button>
             <span className="eyebrow">
-              PLAYER PROFILE · FICTIONAL TEST DATA
+              PLAYER PROFILE ·{" "}
+              {chosen.player.is_fictional === false
+                ? "NFL ROSTER / ORIGINAL RATINGS"
+                : "FICTIONAL PLAYER"}
             </span>
             <div className="profile-title">
               <span className="profile-jersey">{chosen.player.jersey}</span>
               <div>
-                <h2>{chosen.player.name}</h2>
+                <h2 id="player-profile-title">{chosen.player.name}</h2>
                 <p>
                   {chosen.player.position} · Age {chosen.player.age} ·{" "}
                   {Math.floor(chosen.player.height_inches / 12)}′
@@ -554,10 +626,106 @@ export function DraftRoom({
               </span>
             </div>
             <div className="profile-meta">
-              <span>{chosen.player.development} potential</span>
+              <span>
+                {chosen.player.is_fictional === false
+                  ? `${chosen.player.nfl_team} roster snapshot · Development unscouted`
+                  : `${chosen.player.development} potential`}
+              </span>
               <span>
                 {money(chosen.player.salary)} provisional annual salary
               </span>
+            </div>
+            <div className="profile-decision">
+              {picked.has(chosen.player.id) ? (
+                <div className="callout">
+                  Drafted by {picked.get(chosen.player.id)?.franchise_id}
+                </div>
+              ) : (
+                <>
+                  <div className="dialog-actions">
+                    <button
+                      className="secondary"
+                      disabled={busy}
+                      onClick={() => void onQueue(chosen.player.id)}
+                    >
+                      {queue.includes(chosen.player.id)
+                        ? "Remove from queue"
+                        : "Add to queue"}
+                    </button>
+                    <button
+                      className="primary"
+                      disabled={busy || !canPick}
+                      onClick={() =>
+                        setConfirming({
+                          pick: l.next_pick,
+                          revision: l.revision,
+                        })
+                      }
+                    >
+                      Draft this player
+                    </button>
+                  </div>
+                  {!canPick && (
+                    <small className="fineprint">
+                      {counts[chosen.player.position] >=
+                      limits[chosen.player.position]
+                        ? "Your roster slots at this position are full."
+                        : l.state === "paused"
+                          ? "The commissioner has paused the draft. Picks are disabled until they resume."
+                          : !myTurn
+                            ? `${teamId} is on the clock. Your team is ${me?.franchise_id}. You can queue this player while you wait.`
+                            : "This player is unavailable."}
+                    </small>
+                  )}
+                  {confirming && (
+                    <div className="confirm-box" role="alert">
+                      {pickError && <p className="pick-error">{pickError}</p>}
+                      <strong>
+                        Draft {chosen.player.name} to {me?.franchise_id}?
+                      </strong>
+                      <p>
+                        This will permanently use pick #{confirming.pick + 1}.
+                      </p>
+                      {(confirming.pick !== l.next_pick ||
+                        confirming.revision !== l.revision) && (
+                        <p>
+                          The draft changed. Go back and review the selection
+                          again.
+                        </p>
+                      )}
+                      <button
+                        className="primary"
+                        disabled={
+                          busy ||
+                          !canPick ||
+                          confirming?.pick !== l.next_pick ||
+                          confirming?.revision !== l.revision
+                        }
+                        onClick={async () => {
+                          const accepted = await onPick(
+                            chosen.player.id,
+                            confirming!.pick,
+                            confirming!.revision,
+                          );
+                          if (accepted) setChosen(null);
+                          else
+                            setPickError(
+                              "Your pick was not accepted. The league may have changed or the connection failed. Review the current draft status and try again.",
+                            );
+                        }}
+                      >
+                        Confirm draft pick
+                      </button>
+                      <button
+                        className="text-button"
+                        onClick={() => setConfirming(null)}
+                      >
+                        Go back
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
             <div className="attribute-grid">
               {Object.entries(chosen.player.attributes).map(([k, v]) => (
@@ -568,72 +736,27 @@ export function DraftRoom({
                 </div>
               ))}
             </div>
+            {chosen.player.stats &&
+              Object.values(chosen.player.stats).some(Boolean) && (
+                <div className="snapshot-stats">
+                  <h3>2026 source snapshot stats</h3>
+                  <p>
+                    Partial season totals from the imported snapshot; not live
+                    career statistics.
+                  </p>
+                  <div>
+                    {Object.entries(chosen.player.stats)
+                      .filter(([, v]) => v !== 0)
+                      .map(([k, v]) => (
+                        <span key={k}>
+                          {k.replaceAll("_", " ")} <b>{v}</b>
+                        </span>
+                      ))}
+                  </div>
+                </div>
+              )}
             <p>{chosen.player.history}</p>
             <p className="fineprint">{chosen.player.source}</p>
-            {picked.has(chosen.player.id) ? (
-              <div className="callout">
-                Drafted by {picked.get(chosen.player.id)?.franchise_id}
-              </div>
-            ) : (
-              <>
-                <div className="dialog-actions">
-                  <button
-                    className="secondary"
-                    disabled={busy}
-                    onClick={() => void onQueue(chosen.player.id)}
-                  >
-                    {queue.includes(chosen.player.id)
-                      ? "Remove from queue"
-                      : "Add to queue"}
-                  </button>
-                  <button
-                    className="primary"
-                    disabled={busy || !canPick}
-                    onClick={() => setConfirming(true)}
-                  >
-                    Select player
-                  </button>
-                </div>
-                {!canPick && (
-                  <small className="fineprint">
-                    {counts[chosen.player.position] >=
-                    limits[chosen.player.position]
-                      ? "Your roster slots at this position are full."
-                      : chosen.revision !== l.revision
-                        ? "Draft state changed. Close and reopen this player before selecting."
-                        : "You can select when the draft is running and your team is on the clock."}
-                  </small>
-                )}
-                {confirming && (
-                  <div className="confirm-box">
-                    <strong>
-                      Draft {chosen.player.name} to {me?.franchise_id}?
-                    </strong>
-                    <p>This will permanently use pick #{chosen.pick + 1}.</p>
-                    <button
-                      className="primary"
-                      disabled={busy || !canPick}
-                      onClick={async () => {
-                        await onPick(
-                          chosen.player.id,
-                          chosen.pick,
-                          chosen.revision,
-                        );
-                        setChosen(null);
-                      }}
-                    >
-                      Confirm draft pick
-                    </button>
-                    <button
-                      className="text-button"
-                      onClick={() => setConfirming(false)}
-                    >
-                      Go back
-                    </button>
-                  </div>
-                )}
-              </>
-            )}
           </>
         )}
       </dialog>

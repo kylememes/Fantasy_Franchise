@@ -21,6 +21,7 @@ import {
 import { supabase as db } from "@/lib/supabase";
 import type { League, Franchise, Player, Snapshot } from "@/lib/types";
 import { DraftRoom } from "./draft-room";
+import { FranchiseMark, TeamLogo } from "./identity";
 const navigation = [
   ["Dashboard", LayoutDashboard],
   ["Roster", Users],
@@ -213,7 +214,7 @@ export default function FranchiseApp() {
       }
     };
     void tick();
-    const t = setInterval(() => void tick(), 1600);
+    const t = setInterval(() => void tick(), 1000);
     return () => {
       stopped = true;
       clearInterval(t);
@@ -280,14 +281,12 @@ export default function FranchiseApp() {
         if (error) throw error;
         setQueue((q) => q.filter((x) => x !== pid));
       } else {
-        const { error } = await db!
-          .from("draft_queue")
-          .insert({
-            league_id: selected,
-            user_id: session!.user.id,
-            player_id: pid,
-            rank: Date.now() % 2147483647,
-          });
+        const { error } = await db!.from("draft_queue").insert({
+          league_id: selected,
+          user_id: session!.user.id,
+          player_id: pid,
+          rank: Date.now() % 2147483647,
+        });
         if (error) throw error;
         setQueue((q) => [...q, pid]);
       }
@@ -316,12 +315,11 @@ export default function FranchiseApp() {
           aria-label="Fantasy Franchise home"
         >
           <span className="brand-mark">
-            <Shield size={30} />
-            <b>F</b>
+            <FranchiseMark />
           </span>
           <span>
             FANTASY <strong>FRANCHISE</strong>
-            <small>FOOTBALL. UNDER YOUR CONTROL.</small>
+            <small>DRAFT YOUR TEAM. BUILD YOUR DYNASTY.</small>
           </span>
         </button>
         <div className="top-actions">
@@ -569,6 +567,13 @@ export default function FranchiseApp() {
                     ))}
                 </select>
               </label>
+              <div className="selected-franchise">
+                <TeamLogo id={team} />
+                <span>
+                  {teams.find((t) => t.id === team)?.city}{" "}
+                  {teams.find((t) => t.id === team)?.name}
+                </span>
+              </div>
               <button
                 className="primary"
                 disabled={
@@ -587,9 +592,10 @@ export default function FranchiseApp() {
             </form>
           </div>
           <div className="data-note">
-            PROVISIONAL DATA · The included pool uses fictional testing players
-            and original ratings. No official EA ratings or verified NFL roster
-            is included.
+            NFL roster data: nflverse (CC BY 4.0). Ratings, attributes and
+            contracts are original provisional estimates, not EA/Madden ratings.
+            New NFL pools include clearly labeled fictional depth reserves where
+            needed.
           </div>
         </main>
       ) : (
@@ -599,12 +605,18 @@ export default function FranchiseApp() {
               className="team-identity"
               style={{ "--team-color": myTeam?.color } as React.CSSProperties}
             >
-              <span className="team-monogram">{myTeam?.id || "FF"}</span>
+              <TeamLogo id={myTeam?.id || "BAL"} className="franchise-avatar" />
               <small>YOUR FRANCHISE</small>
               <h3>{myTeam?.name || "Loading…"}</h3>
               <p>{commissioner ? "Commissioner" : "General manager"}</p>
             </div>
-            <nav>
+            <nav aria-label="League navigation">
+              <button
+                className="mobile-leagues"
+                onClick={() => setSelected("")}
+              >
+                ← Leagues
+              </button>
               {navigation.map(([label, Icon]) => {
                 const available = [
                   "Dashboard",
@@ -682,17 +694,20 @@ export default function FranchiseApp() {
                         await refresh();
                       })
                     }
-                    onPick={(id, pick, revision) =>
-                      action(async () => {
+                    onPick={async (id, pick, revision) => {
+                      let accepted = false;
+                      await action(async () => {
                         await rpc("submit_pick", {
                           lid: selected,
                           pid: id,
                           expected_pick: pick,
                           expected_revision: revision,
                         });
+                        accepted = true;
                         await refresh();
-                      })
-                    }
+                      });
+                      return accepted;
+                    }}
                   />
                 ) : view === "Roster" ? (
                   <section className="panel">
@@ -788,7 +803,7 @@ export default function FranchiseApp() {
                           );
                           return (
                             <div key={t.id} className="ownership">
-                              <b style={{ color: t.color }}>{t.id}</b>
+                              <TeamLogo id={t.id} />
                               <div>
                                 {t.city} {t.name}
                                 <small>
@@ -854,9 +869,7 @@ export default function FranchiseApp() {
                         </button>
                       </div>
                       <div className="hero-shield">
-                        <Shield size={180} strokeWidth={0.7} />
-                        <span>FF</span>
-                        <small>EST. SEASON 01</small>
+                        <FranchiseMark />
                       </div>
                     </section>
                     <div className="metric-grid">
@@ -903,8 +916,9 @@ export default function FranchiseApp() {
                   </>
                 )}
                 <footer className="data-note">
-                  DEVELOPMENT POOL · Fictional players. Original provisional
-                  ratings and contracts. Not official EA or NFL data.
+                  {players.some((p) => p.is_fictional === false)
+                    ? "NFL roster: nflverse · CC BY 4.0. Original provisional ratings and game contracts, not EA/Madden. Includes labeled fictional depth reserves."
+                    : "Saved fictional test pool · Original provisional ratings and contracts. Create a new league to use the NFL player pool."}
                 </footer>
               </>
             )}
