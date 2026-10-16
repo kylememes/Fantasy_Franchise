@@ -121,7 +121,7 @@ test("trade review, current ownership, contract display and coaching save surviv
   );
   assert.ok(screen.getByText("Away Quarterback"));
   assert.equal(screen.queryByText("Home Quarterback"), null);
-  assert.ok(screen.getAllByText("$20M").length >= 1);
+  assert.ok(screen.getAllByText(/^\$20(?:\.0)?M$/).length >= 1);
   cleanup();
   const coach = render(React.createElement(CoachingSettings, props));
   fireEvent.change(screen.getByRole("slider", { name: "Blitz frequency" }), {
