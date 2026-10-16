@@ -337,16 +337,19 @@ export default function FranchiseApp() {
     <div className="app">
       <header className="topbar">
         <button
-          className="brand"
+          className="brand brand--art"
           onClick={() => setSelected("")}
           aria-label="Fantasy Franchise home"
         >
           <span className="brand-mark">
             <FranchiseMark />
           </span>
-          <span>
-            FANTASY <strong>FRANCHISE</strong>
-            <small>DRAFT YOUR TEAM. BUILD YOUR DYNASTY.</small>
+          <span className="brand-tagline">
+            <small>
+              DRAFT YOUR TEAM.
+              <br />
+              BUILD YOUR DYNASTY.
+            </small>
           </span>
         </button>
         <div className="top-actions">
@@ -1006,6 +1009,7 @@ export default function FranchiseApp() {
 function Intro() {
   return (
     <section className="intro">
+      <FranchiseMark className="intro-logo" />
       <span className="eyebrow">32 FRANCHISES. YOUR LEGACY.</span>
       <h1>
         Draft your team.
