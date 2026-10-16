@@ -4093,6 +4093,79 @@ select:focus-visible {
 .season-standings .fineprint {
   padding: 0 20px 16px;
 }
+.season-standings > .panel-heading {
+  flex-wrap: wrap;
+}
+.standings-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.division-standings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+.standings-group {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #0c1426;
+}
+.standings-group h3 {
+  margin: 0;
+  padding: 13px 14px;
+  color: #dbe8f5;
+  font-size: 13px;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(120deg, #26344b, #111a2d);
+}
+.standings-group th,
+.standings-group td {
+  padding: 11px 9px;
+}
+.standings-group .your-standing {
+  background: #00e5ff0b;
+}
+.league-standings-table {
+  padding: 16px;
+}
+.dashboard-league-settings {
+  margin-bottom: 20px;
+}
+.dashboard-league-settings > summary {
+  padding: 16px 20px;
+  cursor: pointer;
+  color: #dbe8f5;
+  font-size: 13px;
+  font-weight: 600;
+}
+.dashboard-league-settings[open] > summary {
+  border-bottom: 1px solid var(--line);
+}
+@media (max-width: 1100px) {
+  .division-standings-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .standings-controls {
+    width: 100%;
+  }
+  .standings-controls label {
+    flex: 1;
+  }
+  .standings-controls select {
+    width: 100%;
+  }
+  .division-standings-grid,
+  .league-standings-table {
+    padding: 10px;
+  }
+}
 .bye-week {
   text-align: center;
   padding: 40px 20px;

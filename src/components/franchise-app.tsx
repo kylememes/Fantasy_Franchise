@@ -13,7 +13,6 @@ import {
   SlidersHorizontal,
   ArrowLeftRight,
   ScanSearch,
-  Globe,
   MonitorPlay,
   Copy,
   RefreshCw,
@@ -37,7 +36,6 @@ const navigation = [
   ["Trades", ArrowLeftRight],
   ["Draft", ListOrdered],
   ["Scouting", ScanSearch],
-  ["League", Globe],
   ["Game Center", MonitorPlay],
 ] as const;
 export default function FranchiseApp() {
@@ -653,7 +651,6 @@ export default function FranchiseApp() {
                   "Dashboard",
                   "Roster",
                   "Draft",
-                  "League",
                   "Trades",
                   "Coaching",
                   ...(snapshot?.league.state === "completed"
@@ -713,11 +710,9 @@ export default function FranchiseApp() {
                               ? "Set your identity."
                               : view === "Game Center"
                                 ? "Under the lights."
-                                : view === "League"
-                                  ? "The league office."
-                                  : snapshot.league.state === "completed"
-                                    ? "This week’s matchup."
-                                    : "Build something legendary."}
+                                : snapshot.league.state === "completed"
+                                  ? "This week’s matchup."
+                                  : "Build something legendary."}
                     </h1>
                   </div>
                   <span className={"status " + snapshot.league.state}>
@@ -727,111 +722,10 @@ export default function FranchiseApp() {
                       : snapshot.league.state.replaceAll("_", " ")}
                   </span>
                 </div>
-                {view === "Draft" ? (
-                  <DraftRoom
-                    snapshot={snapshot}
-                    players={players}
-                    teams={teams}
-                    userId={session.user.id}
-                    busy={busy}
-                    queue={queue.filter((id) => !activePicks.has(id))}
-                    onQueue={changeQueue}
-                    onControl={(a) =>
-                      action(async () => {
-                        await rpc("draft_control", {
-                          lid: selected,
-                          action: a,
-                        });
-                        await refresh();
-                      })
-                    }
-                    onPick={async (id, pick, revision) => {
-                      let accepted = false;
-                      await action(async () => {
-                        await rpc("submit_pick", {
-                          lid: selected,
-                          pid: id,
-                          expected_pick: pick,
-                          expected_revision: revision,
-                        });
-                        accepted = true;
-                        await refresh();
-                      });
-                      return accepted;
-                    }}
-                  />
-                ) : ["Dashboard", "Game Center"].includes(view) &&
-                  snapshot.league.state === "completed" &&
-                  me ? (
-                  <SeasonHub
-                    league={snapshot.league}
-                    team={me.franchise_id}
-                    userId={session.user.id}
-                    teams={teams}
-                    players={players}
-                    management={management}
-                    view={view}
-                    gameId={seasonGame}
-                    onGame={setSeasonGame}
-                    onNavigate={setView}
-                  />
-                ) : ["Roster", "Trades", "Coaching"].includes(view) ? (
-                  management && me ? (
-                    (() => {
-                      const props = {
-                        league: snapshot.league,
-                        data: management,
-                        players,
-                        teams,
-                        team: me.franchise_id,
-                        busy,
-                        mutate: async (
-                          fn: string,
-                          args: Record<string, unknown>,
-                        ) => {
-                          let success = false;
-                          await action(async () => {
-                            await rpc(fn, args);
-                            await refresh();
-                            success = true;
-                          });
-                          return success;
-                        },
-                      };
-                      return view === "Roster" ? (
-                        <RosterManagement {...props} />
-                      ) : view === "Trades" ? (
-                        <Trades {...props} />
-                      ) : (
-                        <>
-                          <CoachingStaff
-                            league={snapshot.league}
-                            team={me.franchise_id}
-                          />
-                          <CoachingSettings {...props} />
-                        </>
-                      );
-                    })()
-                  ) : (
-                    <p>Loading franchise management…</p>
-                  )
-                ) : view === "League" ? (
-                  <>
-                    {snapshot.league.state === "completed" && me && (
-                      <SeasonHub
-                        league={snapshot.league}
-                        team={me.franchise_id}
-                        userId={session.user.id}
-                        teams={teams}
-                        players={players}
-                        management={management}
-                        view={view}
-                        gameId={seasonGame}
-                        onGame={setSeasonGame}
-                        onNavigate={setView}
-                      />
-                    )}
-                    <section className="panel">
+                {view === "Dashboard" && (
+                  <details className="panel dashboard-league-settings">
+                    <summary>League settings &amp; owners</summary>
+                    <div className="league-settings-body">
                       <div className="panel-heading">
                         <h2>Ownership directory</h2>
                         <span>
@@ -924,8 +818,97 @@ export default function FranchiseApp() {
                           );
                         })}
                       </div>
-                    </section>
-                  </>
+                    </div>
+                  </details>
+                )}
+                {view === "Draft" ? (
+                  <DraftRoom
+                    snapshot={snapshot}
+                    players={players}
+                    teams={teams}
+                    userId={session.user.id}
+                    busy={busy}
+                    queue={queue.filter((id) => !activePicks.has(id))}
+                    onQueue={changeQueue}
+                    onControl={(a) =>
+                      action(async () => {
+                        await rpc("draft_control", {
+                          lid: selected,
+                          action: a,
+                        });
+                        await refresh();
+                      })
+                    }
+                    onPick={async (id, pick, revision) => {
+                      let accepted = false;
+                      await action(async () => {
+                        await rpc("submit_pick", {
+                          lid: selected,
+                          pid: id,
+                          expected_pick: pick,
+                          expected_revision: revision,
+                        });
+                        accepted = true;
+                        await refresh();
+                      });
+                      return accepted;
+                    }}
+                  />
+                ) : ["Dashboard", "Game Center"].includes(view) &&
+                  snapshot.league.state === "completed" &&
+                  me ? (
+                  <SeasonHub
+                    league={snapshot.league}
+                    team={me.franchise_id}
+                    userId={session.user.id}
+                    teams={teams}
+                    players={players}
+                    management={management}
+                    view={view}
+                    gameId={seasonGame}
+                    onGame={setSeasonGame}
+                    onNavigate={setView}
+                  />
+                ) : ["Roster", "Trades", "Coaching"].includes(view) ? (
+                  management && me ? (
+                    (() => {
+                      const props = {
+                        league: snapshot.league,
+                        data: management,
+                        players,
+                        teams,
+                        team: me.franchise_id,
+                        busy,
+                        mutate: async (
+                          fn: string,
+                          args: Record<string, unknown>,
+                        ) => {
+                          let success = false;
+                          await action(async () => {
+                            await rpc(fn, args);
+                            await refresh();
+                            success = true;
+                          });
+                          return success;
+                        },
+                      };
+                      return view === "Roster" ? (
+                        <RosterManagement {...props} />
+                      ) : view === "Trades" ? (
+                        <Trades {...props} />
+                      ) : (
+                        <>
+                          <CoachingStaff
+                            league={snapshot.league}
+                            team={me.franchise_id}
+                          />
+                          <CoachingSettings {...props} />
+                        </>
+                      );
+                    })()
+                  ) : (
+                    <p>Loading franchise management…</p>
+                  )
                 ) : (
                   <>
                     <section className="dashboard-hero">
