@@ -611,10 +611,11 @@ export default function FranchiseApp() {
             </form>
           </div>
           <div className="data-note">
-            NFL roster data: nflverse (CC BY 4.0). Ratings, attributes and
-            contracts are original provisional estimates, not EA/Madden ratings.
-            New NFL pools include clearly labeled fictional depth reserves where
-            needed.
+            NFL roster data: nflverse (CC BY 4.0). Overall ratings use the
+            uploaded Madden NFL 27 worksheet where matched. Unmatched overalls
+            and skill attributes remain original estimates. Contracts follow the
+            fantasy draft round scale. New NFL pools include clearly labeled
+            fictional depth reserves where needed.
           </div>
         </main>
       ) : (
@@ -934,7 +935,7 @@ export default function FranchiseApp() {
                 )}
                 <footer className="data-note">
                   {players.some((p) => p.is_fictional === false)
-                    ? "NFL roster: nflverse · CC BY 4.0. Original provisional ratings and game contracts, not EA/Madden. Includes labeled fictional depth reserves."
+                    ? "NFL roster: nflverse · CC BY 4.0. Worksheet overalls where matched; other overalls and skill attributes remain estimated. Fantasy round-based contracts. Includes labeled fictional depth reserves."
                     : "Saved fictional test pool · Original provisional ratings and contracts. Create a new league to use the NFL player pool."}
                 </footer>
               </>
