@@ -66,14 +66,14 @@ export function PlayerCard({
             </strong>
           </span>
           <span className="portrait-art" aria-hidden="true">
-            <img
-              src="/art/helmeted-player.webp"
-              alt=""
-              width="360"
-              height="333"
-              loading="lazy"
-              draggable={false}
-            />
+            <svg
+              className="player-silhouette"
+              viewBox="0 0 360 333"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M180 12c-43 0-71 32-71 76v21c0 14 6 26 15 36v21l-25 15-40 13c-27 9-42 30-48 58L0 333h360l-11-81c-6-28-21-49-48-58l-40-13-25-15v-21c9-10 15-22 15-36V88c0-44-28-76-71-76Z" />
+            </svg>
             <b className="portrait-jersey">#{player?.jersey ?? "—"}</b>
           </span>
           <span className="card-name">{name}</span>
@@ -454,7 +454,7 @@ export function Lineup({
         <small>Color = development · OVR = current ability</small>
       </div>
       <p className="fineprint">
-        Original decorative player artwork, not individual player photographs.
+        Decorative player silhouettes, not individual player photographs.
         Development traits are game-assigned. Card backs show available ratings
         and NFL roster snapshot statistics; simulated season stats come with the
         game engine.
