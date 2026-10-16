@@ -1,0 +1,19 @@
+{
+  "id": "nflverse-2026-original-v1",
+  "as_of": "2026-10-15",
+  "season": 2026,
+  "real_players": 2532,
+  "fictional_depth_reserves": 13,
+  "roster_source": "https://github.com/nflverse/nflverse-data/releases/download/rosters/roster_2026.csv",
+  "stats_source": "https://github.com/nflverse/nflverse-data/releases/download/stats_player/stats_player_week_2026.csv",
+  "license": "CC BY 4.0",
+  "credit": "nflverse contributors",
+  "rating_source": "Fantasy Franchise original experimental model; not EA/Madden ratings",
+  "limitations": [
+    "Snapshot is not a live transaction feed.",
+    "LT/RT and LG/RG inferred by balanced allocation where source lists T/G; OLB mapped to EDGE.",
+    "Box-score model is provisional and not calibrated for simulation.",
+    "Contracts and development are original game estimates.",
+    "Fictional reserves fill source shortages for the required 53-player template."
+  ]
+}

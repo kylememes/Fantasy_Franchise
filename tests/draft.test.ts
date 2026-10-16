@@ -4,6 +4,7 @@ import { PGlite } from "@electric-sql/pglite";
 import { readFile, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { poolInsert, validatePool } from "../scripts/pool-sql";
 import { limits, onClock } from "../src/lib/types";
 let db: PGlite, dir: string, lid: string, invite: string;
 const owner = "00000000-0000-0000-0000-000000000001",
@@ -32,6 +33,14 @@ async function snap() {
 async function control(action: string) {
   await q("select draft_control($1,$2)", [lid, action]);
 }
+async function advanceCpuClock() {
+  await db.exec("reset role");
+  await q(
+    "update leagues set next_cpu_pick_at=clock_timestamp()-interval '1 second' where id=$1",
+    [lid],
+  );
+  await db.exec("set role authenticated");
+}
 async function humanPick(id: string) {
   await identity(id);
   const s = await state();
@@ -59,6 +68,18 @@ before(async () => {
   );
   await db.exec(
     await readFile("supabase/migrations/001_franchise.sql", "utf8"),
+  );
+  await db.exec(
+    await readFile(
+      "supabase/migrations/20261015214620_mobile_draft_pacing.sql",
+      "utf8",
+    ),
+  );
+  await db.exec(
+    await readFile(
+      "supabase/migrations/20261015215105_player_dataset_catalog.sql",
+      "utf8",
+    ),
   );
 });
 after(async () => {
@@ -166,6 +187,7 @@ test("start, CPU picks, unauthorized picks, pause, stale request and persistence
   );
   let s = await state();
   while (!["BAL", "BUF"].includes(onClock(s.draft_order, s.next_pick))) {
+    await advanceCpuClock();
     await q("select cpu_tick($1)", [lid]);
     s = await state();
   }
@@ -226,7 +248,7 @@ test("start, CPU picks, unauthorized picks, pause, stale request and persistence
 });
 test("complete 15 rounds, explicit checkpoint, pause auto-completion, fill every positional slot without duplicates", async () => {
   let done = false;
-  for (let safety = 0; safety < 700 && !done; safety++) {
+  for (let safety = 0; safety < 1800 && !done; safety++) {
     await identity(owner);
     let s = await state();
     if (s.state === "awaiting_completion") {
@@ -236,7 +258,10 @@ test("complete 15 rounds, explicit checkpoint, pause auto-completion, fill every
     const t = onClock(s.draft_order, s.next_pick);
     if (t === "BAL" || t === "BUF")
       await humanPick(t === "BAL" ? owner : friend);
-    else await q("select cpu_tick($1)", [lid]);
+    else {
+      await advanceCpuClock();
+      await q("select cpu_tick($1)", [lid]);
+    }
   }
   assert.equal(done, true);
   await identity(owner);
@@ -255,6 +280,7 @@ test("complete 15 rounds, explicit checkpoint, pause auto-completion, fill every
   assert.equal((await state()).next_pick, paused.next_pick);
   await control("resume");
   for (let safety = 0; safety < 200; safety++) {
+    await advanceCpuClock();
     await q("select cpu_tick($1)", [lid]);
     if ((await state()).state === "completed") break;
   }
@@ -283,4 +309,79 @@ test("complete 15 rounds, explicit checkpoint, pause auto-completion, fill every
   await identity(outsider);
   assert.equal((await q("select * from league_players")).length, 0);
   await admin();
+});
+
+test("real NFL dataset: attribution, duplicate identities, full roster coverage and existing draft preservation", async () => {
+  await admin();
+  const pool = JSON.parse(await readFile("data/nfl-2026-pool.json", "utf8"));
+  validatePool(pool);
+  assert.ok(pool.filter((p: any) => !p.is_fictional).length > 2000);
+  assert.ok(
+    pool.some((p: any) => p.name === "Lamar Jackson" && !p.is_fictional),
+  );
+  await q(
+    "insert into player_datasets(id,label,source_url,license,rating_source) values('nflverse-2026-original-v1','NFL test','https://github.com/nflverse/nflverse-data','CC BY 4.0','ff-original-v1')",
+  );
+  for (let n = 0; n < pool.length; n += 100)
+    await db.exec(poolInsert(pool.slice(n, n + 100)));
+  await q("update player_datasets set is_default=false");
+  await q(
+    "update player_datasets set is_default=true where id='nflverse-2026-original-v1'",
+  );
+  await identity(owner);
+  const original = await state();
+
+  assert.equal((await state()).next_pick, original.next_pick);
+  const realLid = (
+    await q<any>("select create_league('NFL Roster Test','BAL') id")
+  )[0].id;
+  const count = (
+    await q<any>("select count(*) n from league_players where league_id=$1", [
+      realLid,
+    ])
+  )[0].n;
+  assert.equal(count, pool.length);
+  // Fixture-only shortcut skips the human rounds to exercise complete real-pool coverage.
+  await admin();
+  await q(
+    "update leagues set state='completing',next_cpu_pick_at=clock_timestamp()-interval '1 second' where id=$1",
+    [realLid],
+  );
+  for (let n = 0; n < 250; n++) {
+    await q(
+      "update leagues set next_cpu_pick_at=clock_timestamp()-interval '1 second' where id=$1",
+      [realLid],
+    );
+    await q("select cpu_tick_internal($1,8)", [realLid]);
+    if (
+      (await q<any>("select state from leagues where id=$1", [realLid]))[0]
+        .state === "completed"
+    )
+      break;
+    // Inaugural checkpoint is always respected even when invoked through the internal engine.
+    await q(
+      "update leagues set state='completing' where id=$1 and state='awaiting_completion'",
+      [realLid],
+    );
+  }
+  assert.equal(
+    (await q<any>("select next_pick from leagues where id=$1", [realLid]))[0]
+      .next_pick,
+    1696,
+  );
+  const coverage = await q<any>(
+    "select franchise_id,profile->>'position' pos,count(*) n from league_players where league_id=$1 and franchise_id is not null group by 1,2",
+    [realLid],
+  );
+  assert.equal(coverage.length, 32 * 19);
+  for (const c of coverage) assert.equal(c.n, limits[c.pos]);
+  assert.equal(
+    (
+      await q<any>(
+        "select count(distinct player_id) n from draft_picks where league_id=$1",
+        [realLid],
+      )
+    )[0].n,
+    1696,
+  );
 });

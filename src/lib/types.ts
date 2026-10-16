@@ -14,6 +14,8 @@ export type League = {
   revision: number;
   draft_order: string[];
   season: number;
+  dataset?: string;
+  next_cpu_pick_at?: string;
 };
 export type Franchise = {
   id: string;
@@ -37,6 +39,12 @@ export type Player = {
   development: string;
   source: string;
   history: string;
+  dataset?: string;
+  external_id?: string;
+  nfl_team?: string | null;
+  rating_source?: string;
+  is_fictional?: boolean;
+  stats?: Record<string, number>;
 };
 export type Pick = { pick: number; player_id: string; franchise_id: string };
 export type Member = { user_id: string; franchise_id: string };
