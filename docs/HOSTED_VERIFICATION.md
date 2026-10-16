@@ -28,3 +28,7 @@ Applied `franchise_contract_schema`, `franchise_draft_and_trade_schema` and `fra
 Existing picks received round-based contracts. Standard draft payroll is $205.25M, leaving $69.75M against the $275M cap. All new application tables have RLS and read-only client grants. Guarded public RPCs are intentionally executable; internal contract, pick-right and trade-settlement functions are not. The existing leaked-password protection advisory remains an Auth configuration item; see [Supabase guidance](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection).
 
 Still required: physical-phone and two-browser visual acceptance of the management screens. Vercel connector requests return 403 for the kylememes scope; Git deployment status and the approved browser fallback are used for release verification.
+
+## Uploaded overall overlay — 2026-10-16
+
+Applied schema `uploaded_overall_ratings`, staged all 2,107 identity matches and activated import `uploaded-ovr-28a6660ca355` atomically. Master and existing NFL snapshot counts both matched. Before/after checksums for draft picks, ownership, attributes/statistics and contracts were identical. Josh Allen and Myles Garrett are 99; Justin Jefferson WR is 94, the separate LB is 67, and Pat Surtain II is 97. The importer is idempotent and future leagues inherit the updated values. The original fictional test league and unmatched estimates were preserved.

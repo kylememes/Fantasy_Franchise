@@ -35,7 +35,15 @@ commit;
 
 ## Requested ratings reference
 
-The user selected https://www.maddenratings.com/ as the preferred overall/attribute reference on 2026-10-15. Its [About](https://www.maddenratings.com/about) page describes the data as reference-only; its [Terms](https://www.maddenratings.com/terms) do not supply a bulk game-redistribution license. No ratings from that site were imported. Current estimates remain explicitly labeled. An authorized export can use the existing importer with provider `MaddenRatings.com`, the exact edition/update, and an actual permission reference. Source football statistics are separate from game skill ratings.
+The user selected MaddenRatings.com as the preferred reference and then supplied `madden_nfl_27_-_full_player_ratings__official_launch_roster_.xlsx`. The workbook is the source of the imported overall numbers; no website scraping was used. Its filename/sheet title are user-supplied labels, not independent verification of official EA provenance.
+
+`data/uploaded-overalls.json` records its SHA-256, source sheet/row, matching evidence, original estimates, applied overalls and unresolved rows. Of 2,362 workbook players, 2,107 match the existing NFL pool. The 425 unmatched real players in the app and 13 fictional reserves retain their original estimates. The 255 source rows not matched to current app identities are recorded; this operation does not add players or change positions.
+
+Names are normalized for punctuation/suffixes, constrained by football position, with exact birth-date/surname evidence for aliases and same-name identities. No fuzzy matches are accepted automatically. The source roster CSV provides identity evidence; conflicting biography fields are not imported. Example: Justin Jefferson WR (94) and Justin Jefferson LB (67) remain distinct. Both Jaylon Jones identities are resolved with birth dates.
+
+Only overall, overall provenance and league revision change. Skill attributes, statistics, contracts, draft picks, player IDs and ownership remain intact. Existing NFL leagues and future league creation use the same updated master values; fictional test pools are unchanged. Reload an already-open app after this one-time update.
+
+Reproduce extraction with `python scripts/extract-uploaded-overalls.py WORKBOOK.xlsx ROSTERS.csv`, apply the uploaded-overall schema migration, then run `node --import tsx scripts/uploaded-overalls.ts`. Apply generated `supabase/.temp/overalls/setup.sql`, every numbered staging batch, and finally `activate.sql`. Activation validates completeness, locks affected leagues and applies atomically; repeating an applied import has no effect. Fresh installs import the base NFL pool first. The base seed remains an immutable record of the original estimates; the overlay supplies the current overalls.
 
 ## Authorized Madden ratings
 

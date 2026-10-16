@@ -431,11 +431,11 @@ export function DraftRoom({
               <div className="table-caption">
                 <span>
                   {filtered.length} AVAILABLE ·{" "}
-                  {realPool
-                    ? "NFL ROSTER / ORIGINAL RATINGS"
-                    : "FICTIONAL TEST POOL"}
+                  {realPool ? "NFL ROSTER" : "FICTIONAL TEST POOL"}
                 </span>
-                <small>OVR: 0–99 original rating scale</small>
+                <small>
+                  OVR: uploaded worksheet where matched; otherwise estimated
+                </small>
               </div>
               <div className="table-wrap player-list">
                 <table>
@@ -636,7 +636,9 @@ export function DraftRoom({
             <span className="eyebrow">
               PLAYER PROFILE ·{" "}
               {chosen.player.is_fictional === false
-                ? "NFL ROSTER / ORIGINAL RATINGS"
+                ? chosen.player.overall_source
+                  ? "NFL ROSTER / WORKSHEET OVERALL"
+                  : "NFL ROSTER / ESTIMATED OVERALL"
                 : "FICTIONAL PLAYER"}
             </span>
             <div className="profile-title">
@@ -757,6 +759,13 @@ export function DraftRoom({
                 </>
               )}
             </div>
+            <p className="fineprint">
+              Overall:{" "}
+              {chosen.player.overall_source
+                ? "uploaded Madden NFL 27 workbook."
+                : "original provisional estimate; no reliable worksheet match."}{" "}
+              Individual skill attributes remain original estimates.
+            </p>
             <div className="attribute-grid">
               {Object.entries(chosen.player.attributes).map(([k, v]) => (
                 <div key={k}>
@@ -786,7 +795,9 @@ export function DraftRoom({
                 </div>
               )}
             <p>{chosen.player.history}</p>
-            <p className="fineprint">{chosen.player.source}</p>
+            <p className="fineprint">
+              Base roster and attribute provenance: {chosen.player.source}
+            </p>
           </>
         )}
       </dialog>

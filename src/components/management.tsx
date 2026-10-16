@@ -79,7 +79,8 @@ export function RosterManagement({ league, data, players, team }: Props) {
                   <td>
                     <strong>{p.name}</strong>
                     <small>
-                      Age {p.age} · Draft round {c?.draft_round || "—"}
+                      Age {p.age} · Draft round {c?.draft_round || "—"} ·{" "}
+                      {p.overall_source ? "Worksheet OVR" : "Estimated OVR"}
                     </small>
                   </td>
                   <td>

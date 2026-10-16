@@ -15,7 +15,7 @@ Next.js / React / TypeScript · Supabase Auth / PostgreSQL / Realtime · Vercel
 - Needs-aware CPU roster completion and durable database worker, plus Realtime notifications with polling recovery.
 - Original plum/coral/mint identity, NFL logos and mobile draft cards with explicit selection controls. Future-phase controls are explicitly unavailable.
 
-**Data:** New leagues use an attributed nflverse 2026 snapshot with 2,532 real players, original provisional ratings/game contracts, and 13 explicitly fictional fullback depth reserves. Existing test leagues keep their original pool and picks. No EA database is scraped or included. See `docs/DATA_SOURCES.md` for provenance, limitations and the authorized Madden import workflow.
+**Data:** New leagues use an attributed nflverse 2026 snapshot with 2,532 real players, worksheet overall ratings where matched, original provisional skill attributes, fantasy draft contracts, and 13 explicitly fictional fullback depth reserves. Existing test leagues keep their original pool and picks. No EA database is scraped or included. See `docs/DATA_SOURCES.md` for provenance, limitations and the authorized Madden import workflow.
 
 ## Franchise management increment
 

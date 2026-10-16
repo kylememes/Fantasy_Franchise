@@ -45,6 +45,8 @@ export type Player = {
   external_id?: string;
   nfl_team?: string | null;
   rating_source?: string;
+  overall_source?: string;
+  overall_source_row?: number;
   is_fictional?: boolean;
   stats?: Record<string, number>;
 };
