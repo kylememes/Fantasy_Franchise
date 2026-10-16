@@ -2,6 +2,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { TeamLogo } from "./identity";
 import { money } from "@/lib/types";
+import { Lineup } from "./lineup";
+import { FreeAgency } from "./free-agency";
 import type {
   Management,
   League,
@@ -9,7 +11,7 @@ import type {
   Franchise,
   RookiePick,
 } from "@/lib/types";
-type Props = {
+export type ManagementProps = {
   league: League;
   data: Management;
   players: Player[];
@@ -18,7 +20,9 @@ type Props = {
   busy: boolean;
   mutate: (fn: string, args: Record<string, unknown>) => Promise<boolean>;
 };
-export function RosterManagement({ league, data, players, team }: Props) {
+type Props = ManagementProps;
+export function RosterManagement(props: Props) {
+  const { league, data, players, team } = props;
   const ids = new Set(
     data.ownership
       .filter((o) => o.franchise_id === team)
@@ -35,80 +39,87 @@ export function RosterManagement({ league, data, players, team }: Props) {
     0,
   );
   return (
-    <section className="panel management-panel">
-      <div className="panel-heading">
-        <h2>
-          <TeamLogo id={team} /> Your roster & contracts
-        </h2>
-        <span>{roster.length} players</span>
-      </div>
-      <div className="cap-summary">
-        <div>
-          <small>Annual payroll</small>
-          <strong>{money(payroll)}</strong>
+    <>
+      <Lineup key={`lineup:${league.id}:${team}`} {...props} />
+      <section className="panel management-panel">
+        <div className="panel-heading">
+          <h2>
+            <TeamLogo id={team} /> Your roster & contracts
+          </h2>
+          <span>{roster.length} players</span>
         </div>
-        <div>
-          <small>Fantasy salary cap</small>
-          <strong>{money(league.salary_cap || 275000000)}</strong>
+        <div className="cap-summary">
+          <div>
+            <small>Annual payroll</small>
+            <strong>{money(payroll)}</strong>
+          </div>
+          <div>
+            <small>Fantasy salary cap</small>
+            <strong>{money(league.salary_cap || 275000000)}</strong>
+          </div>
+          <div>
+            <small>Available cap space</small>
+            <strong>{money((league.salary_cap || 275000000) - payroll)}</strong>
+          </div>
         </div>
-        <div>
-          <small>Available cap space</small>
-          <strong>{money((league.salary_cap || 275000000) - payroll)}</strong>
-        </div>
-      </div>
-      <p className="panel-copy">
-        Contracts follow the original draft round and travel with each player in
-        trades. Equal annual cap hits; no bonuses or dead money in this version.
-        Payroll grows as picks are made.
-      </p>
-      <div className="table-wrap">
-        <table className="contract-table">
-          <thead>
-            <tr>
-              <th>Player</th>
-              <th>Position / OVR</th>
-              <th>Annual salary</th>
-              <th>Contract</th>
-            </tr>
-          </thead>
-          <tbody>
-            {roster.map((p) => {
-              const c = contracts.get(p.id);
-              return (
-                <tr key={p.id}>
-                  <td>
-                    <strong>{p.name}</strong>
-                    <small>
-                      Age {p.age} · Draft round {c?.draft_round || "—"} ·{" "}
-                      {p.overall_source ? "Worksheet OVR" : "Estimated OVR"}
-                    </small>
-                  </td>
-                  <td>
-                    {p.position} <span className="rating">{p.overall}</span>
-                  </td>
-                  <td>{c ? money(c.annual_salary) : "Pending"}</td>
-                  <td>
-                    {c
-                      ? `${Math.max(0, c.start_season + c.years - league.season)} years remaining`
-                      : "—"}
-                    <small>
-                      {c
-                        ? `Seasons ${c.start_season}–${c.start_season + c.years - 1}`
-                        : ""}
-                    </small>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-      {!roster.length && (
-        <p className="empty">
-          Draft your first player to begin building your roster.
+        <p className="panel-copy">
+          Draft contracts follow their original round and travel in trades. Free
+          agents sign one-year deals. Equal annual cap hits; no bonuses or dead
+          money in this version. Payroll grows as picks are made.
         </p>
-      )}
-    </section>
+        <div className="table-wrap">
+          <table className="contract-table">
+            <thead>
+              <tr>
+                <th>Player</th>
+                <th>Position / OVR</th>
+                <th>Annual salary</th>
+                <th>Contract</th>
+              </tr>
+            </thead>
+            <tbody>
+              {roster.map((p) => {
+                const c = contracts.get(p.id);
+                return (
+                  <tr key={p.id}>
+                    <td>
+                      <strong>{p.name}</strong>
+                      <small>
+                        Age {p.age} ·{" "}
+                        {c?.origin === "free_agency"
+                          ? "Free-agent contract"
+                          : `Draft round ${c?.draft_round || "—"}`}{" "}
+                        · {p.overall_source ? "Worksheet OVR" : "Estimated OVR"}
+                      </small>
+                    </td>
+                    <td>
+                      {p.position} <span className="rating">{p.overall}</span>
+                    </td>
+                    <td>{c ? money(c.annual_salary) : "Pending"}</td>
+                    <td>
+                      {c
+                        ? `${Math.max(0, c.start_season + c.years - league.season)} years remaining`
+                        : "—"}
+                      <small>
+                        {c
+                          ? `Seasons ${c.start_season}–${c.start_season + c.years - 1}`
+                          : ""}
+                      </small>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        {!roster.length && (
+          <p className="empty">
+            Draft your first player to begin building your roster.
+          </p>
+        )}
+      </section>
+      <FreeAgency key={`agency:${league.id}:${team}`} {...props} />
+    </>
   );
 }
 const pickLabel = (p: RookiePick) =>

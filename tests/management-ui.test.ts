@@ -119,7 +119,7 @@ test("trade review, current ownership, contract display and coaching save surviv
       },
     }),
   );
-  assert.ok(screen.getByText("Away Quarterback"));
+  assert.ok(screen.getAllByText("Away Quarterback").length > 0);
   assert.equal(screen.queryByText("Home Quarterback"), null);
   assert.ok(screen.getAllByText(/^\$20(?:\.0)?M$/).length >= 1);
   cleanup();

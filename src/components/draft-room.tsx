@@ -764,7 +764,9 @@ export function DraftRoom({
               {chosen.player.overall_source
                 ? "uploaded Madden NFL 27 workbook."
                 : "original provisional estimate; no reliable worksheet match."}{" "}
-              Individual skill attributes remain original estimates.
+              {chosen.player.attributes_source
+                ? "Individual skills: uploaded worksheet."
+                : "Individual skills: original estimates; no worksheet match."}
             </p>
             <div className="attribute-grid">
               {Object.entries(chosen.player.attributes).map(([k, v]) => (
