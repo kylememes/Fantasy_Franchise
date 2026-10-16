@@ -7,7 +7,6 @@ import {
   Plus,
   LogOut,
   Users,
-  Trophy,
   LayoutDashboard,
   ListOrdered,
   SlidersHorizontal,
@@ -448,28 +447,21 @@ export default function FranchiseApp() {
         </main>
       ) : !selected ? (
         <main className="lobby">
-          <div className="page-heading">
-            <div>
-              <span className="eyebrow">THE FRONT OFFICE</span>
-              <h1>Your next dynasty.</h1>
-              <p>
-                Create a league, bring your friends, and make your first move.
-              </p>
-            </div>
-            <Trophy className="hero-icon" size={68} />
-          </div>
-          <div className="lobby-grid">
-            <section>
-              <h2>
+          <div className="lobby-grid league-home-stack">
+            <section
+              className="league-library"
+              aria-labelledby="your-leagues-heading"
+            >
+              <h1 id="your-leagues-heading">
                 Your leagues{" "}
                 <span className="muted">
                   / {leagues.length.toString().padStart(2, "0")}
                 </span>
-              </h2>
+              </h1>
               {leagues.length === 0 ? (
                 <div className="panel empty">
                   <Shield size={40} />
-                  <h3>A clean slate. Endless possibilities.</h3>
+                  <h3>No leagues yet.</h3>
                   <p>
                     Your leagues will appear here after you create one or join a
                     friend.
