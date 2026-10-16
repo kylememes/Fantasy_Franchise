@@ -22,6 +22,7 @@ import {
   weekLabel,
 } from "@/lib/season";
 import { FootballField } from "./football-field";
+import { LeagueStandings } from "./league-standings";
 import { TeamLogo } from "./identity";
 import coachCatalog from "../../data/coaches-2026.json";
 import { headCoachBonuses } from "@/lib/coaches";
@@ -229,8 +230,7 @@ export function SeasonHub({
     [speed, setSpeed] = useState(1),
     [showStats, setShowStats] = useState(false),
     [schedulePhase, setSchedulePhase] = useState(""),
-    [scheduleWeek, setScheduleWeek] = useState(0),
-    [conference, setConference] = useState("All");
+    [scheduleWeek, setScheduleWeek] = useState(0);
   const gameRef = useRef<GameSnapshot | null>(null),
     generation = useRef(0),
     request = useRef(false);
@@ -1083,76 +1083,11 @@ export function SeasonHub({
               ))}
             </div>
           </section>
-          <section className="panel season-standings">
-            <div className="panel-heading">
-              <h2>
-                {w.phase === "preseason" ? "Preseason records" : "Standings"}
-              </h2>
-              <label>
-                Conference
-                <select
-                  aria-label="Standings conference"
-                  value={conference}
-                  onChange={(e) => setConference(e.target.value)}
-                >
-                  <option>All</option>
-                  <option>AFC</option>
-                  <option>NFC</option>
-                </select>
-              </label>
-            </div>
-            <div className="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Team</th>
-                    <th>Division</th>
-                    <th>W</th>
-                    <th>L</th>
-                    <th>T</th>
-                    <th>PF</th>
-                    <th>PA</th>
-                    <th>DIFF</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {season.standings
-                    .filter(
-                      (s) =>
-                        conference === "All" || s.conference === conference,
-                    )
-                    .map((s) => (
-                      <tr key={s.id}>
-                        <td>
-                          <span className="standing-team">
-                            <TeamLogo id={s.id} />
-                            {s.id}
-                            {s.id === team ? " · YOU" : ""}
-                          </span>
-                        </td>
-                        <td>
-                          {s.conference} {s.division}
-                        </td>
-                        <td>{s.wins}</td>
-                        <td>{s.losses}</td>
-                        <td>{s.ties}</td>
-                        <td>{s.points_for}</td>
-                        <td>{s.points_against}</td>
-                        <td>
-                          {s.differential > 0 ? "+" : ""}
-                          {s.differential}
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="fineprint">
-              Preseason results stay separate from regular-season records.
-              Ordering here is by wins, then point differential; postseason
-              tiebreakers arrive with playoffs.
-            </p>
-          </section>
+          <LeagueStandings
+            standings={season.standings}
+            team={team}
+            phase={w.phase}
+          />
         </>
       )}
     </div>

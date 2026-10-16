@@ -23,7 +23,7 @@ test("season UI: commissioner gating, shared readiness/controls, saved independe
   });
   dom.window.HTMLCanvasElement.prototype.getContext = () => null;
   dom.window.confirm = () => true;
-  const { render, screen, fireEvent, act, cleanup } =
+  const { render, screen, fireEvent, act, cleanup, within } =
     await import("@testing-library/react");
   const { SeasonHub, CoachingStaff } =
     await import("../src/components/season-hub");
@@ -187,6 +187,39 @@ test("season UI: commissioner gating, shared readiness/controls, saved independe
   try {
     const v = render(React.createElement(SeasonHub, props));
     await screen.findByRole("button", { name: "Open preseason" });
+    const standings = within(
+      screen.getByRole("region", { name: "League standings" }),
+    );
+    assert.ok(standings.getByRole("table", { name: "AFC North standings" }));
+    assert.ok(standings.getByRole("table", { name: "NFC East standings" }));
+    assert.equal(standings.getAllByRole("table").length, 2);
+    fireEvent.change(
+      standings.getByRole("combobox", { name: "Standings view" }),
+      { target: { value: "league" } },
+    );
+    assert.equal(standings.getAllByRole("table").length, 1);
+    const wholeLeague = within(
+      standings.getByRole("table", { name: "Whole league standings" }),
+    );
+    assert.equal(wholeLeague.getAllByRole("row").length, 3);
+    assert.ok(wholeLeague.getByText("BAL · YOU"));
+    fireEvent.change(
+      standings.getByRole("combobox", { name: "Standings conference" }),
+      { target: { value: "NFC" } },
+    );
+    const nfc = within(standings.getByRole("table", { name: "NFC standings" }));
+    assert.equal(nfc.getAllByRole("row").length, 2);
+    assert.equal(nfc.queryByText("BAL · YOU"), null);
+    fireEvent.change(
+      standings.getByRole("combobox", { name: "Standings view" }),
+      { target: { value: "divisions" } },
+    );
+    assert.equal(standings.getAllByRole("table").length, 1);
+    assert.ok(standings.getByRole("table", { name: "NFC East standings" }));
+    fireEvent.change(
+      standings.getByRole("combobox", { name: "Standings conference" }),
+      { target: { value: "All" } },
+    );
     fireEvent.click(screen.getByRole("button", { name: "Enter game" }));
     assert.equal(chosen, "game");
     assert.equal(navigated, "Game Center");
