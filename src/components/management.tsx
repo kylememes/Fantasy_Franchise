@@ -1,5 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
+import {
+  offensiveSchemes,
+  defensiveSchemes,
+  schemeFit,
+} from "@/lib/coaching-center";
 import { TeamLogo } from "./identity";
 import { money } from "@/lib/types";
 import { Lineup } from "./lineup";
@@ -135,7 +140,14 @@ export const tendencies = [
   ["press", "Press coverage", "Rare", "Frequent"],
   ["prevent_big_plays", "Big-play prevention", "Low", "High"],
 ] as const;
-export function CoachingSettings({ league, data, busy, mutate }: Props) {
+export function CoachingSettings({
+  league,
+  data,
+  players,
+  team,
+  busy,
+  mutate,
+}: Props) {
   const saved = data.coaching;
   const defaults = () =>
     Object.fromEntries(tendencies.map(([key]) => [key, 50]));
@@ -153,6 +165,87 @@ export function CoachingSettings({ league, data, busy, mutate }: Props) {
       setVersion(saved?.version || 0);
     }
   }, [saved, dirty]);
+  const owned = new Set(
+    data.ownership
+      .filter((o) => o.franchise_id === team)
+      .map((o) => o.player_id),
+  );
+  const roster = players.filter((p) => owned.has(p.id));
+  const groups = [
+    {
+      name: "Offense",
+      keys: [
+        "run_pass",
+        "deep_pass",
+        "short_pass",
+        "play_action",
+        "rpo",
+        "red_zone",
+      ],
+      simple: [
+        {
+          key: "run_pass",
+          label: "Play balance",
+          options: ["Run-heavy", "Balanced", "Pass-heavy"],
+        },
+        {
+          key: "deep_pass",
+          label: "Passing depth",
+          options: ["Short-focused", "Balanced", "Deep-focused"],
+        },
+      ],
+    },
+    {
+      name: "Defense",
+      keys: [
+        "blitz",
+        "man_zone",
+        "aggression",
+        "run_defense",
+        "pass_defense",
+        "press",
+        "prevent_big_plays",
+      ],
+      simple: [
+        {
+          key: "blitz",
+          label: "Pressure",
+          options: ["Low blitz", "Balanced", "Frequent blitz"],
+        },
+        {
+          key: "man_zone",
+          label: "Coverage",
+          options: ["Zone-heavy", "Balanced", "Man-heavy"],
+        },
+      ],
+    },
+    {
+      name: "Game Management",
+      keys: ["tempo", "fourth_down", "two_point"],
+      simple: [
+        {
+          key: "tempo",
+          label: "Game tempo",
+          options: ["Deliberate", "Balanced", "Up-tempo"],
+        },
+        {
+          key: "fourth_down",
+          label: "Fourth-down decisions",
+          options: ["Conservative", "Balanced", "Aggressive"],
+        },
+        {
+          key: "two_point",
+          label: "Two-point decisions",
+          options: ["Conservative", "Balanced", "Aggressive"],
+        },
+      ],
+    },
+  ];
+  function change(key: string, value: number) {
+    setValues((v) => ({ ...v, [key]: value }));
+    setDirty(true);
+    setMessage("");
+  }
   const stale = dirty && (saved?.version || 0) !== version;
   return (
     <section className="panel management-panel">
@@ -160,10 +253,10 @@ export function CoachingSettings({ league, data, busy, mutate }: Props) {
         <h2>Your coaching identity</h2>
         <span>
           {dirty
-            ? "UNSAVED CHANGES"
+            ? "Unsaved changes"
             : version
-              ? "SAVED · VERSION " + version
-              : "DEFAULTS · NOT SAVED"}
+              ? "Saved"
+              : "Defaults · not saved"}
         </span>
       </div>
       <p className="panel-copy">
@@ -178,79 +271,146 @@ export function CoachingSettings({ league, data, busy, mutate }: Props) {
           Reload saved settings before making a new change.
         </p>
       )}
-      <div className="trade-tools">
-        <label>
-          Offensive scheme
-          <select
-            disabled={busy}
-            value={offense}
-            onChange={(e) => {
-              setOffense(e.target.value);
-              setDirty(true);
-            }}
-          >
-            {[
-              "West Coast",
-              "Spread",
-              "Power Run",
-              "Air Raid",
-              "Balanced",
-              "Option",
-            ].map((s) => (
-              <option key={s}>{s}</option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Defensive scheme
-          <select
-            disabled={busy}
-            value={defense}
-            onChange={(e) => {
-              setDefense(e.target.value);
-              setDirty(true);
-            }}
-          >
-            {[
-              "4–3",
-              "3–4",
-              "Nickel-heavy",
-              "Multiple",
-              "Man-heavy",
-              "Zone-heavy",
-            ].map((s) => (
-              <option key={s}>{s}</option>
-            ))}
-          </select>
-        </label>
+      <div className="playbook-columns">
+        {[
+          {
+            title: "Offensive scheme",
+            selected: offense,
+            set: setOffense,
+            schemes: offensiveSchemes,
+          },
+          {
+            title: "Defensive scheme",
+            selected: defense,
+            set: setDefense,
+            schemes: defensiveSchemes,
+          },
+        ].map((side) => (
+          <div key={side.title}>
+            <label>
+              {side.title}
+              <select
+                disabled={busy}
+                value={side.selected}
+                onChange={(e) => {
+                  side.set(e.target.value);
+                  setDirty(true);
+                  setMessage("");
+                }}
+              >
+                {side.schemes.map((s) => (
+                  <option key={s.name}>{s.name}</option>
+                ))}
+              </select>
+            </label>
+            {side.schemes
+              .filter((s) => s.name === side.selected)
+              .map((s) => {
+                const fit = schemeFit(s, roster);
+                return (
+                  <article className="playbook-card" key={s.name}>
+                    <h3>{s.name}</h3>
+                    <p>{s.strength}</p>
+                    <dl>
+                      <dt>Preferred personnel</dt>
+                      <dd>{s.personnel}</dd>
+                      <dt>Typical plays</dt>
+                      <dd>{s.plays}</dd>
+                    </dl>
+                    <div className="fit-heading">
+                      <strong>Team fit</strong>
+                      <span>
+                        {fit.score === null
+                          ? "Awaiting roster"
+                          : `${fit.score}/100`}
+                      </span>
+                    </div>
+                    {fit.score !== null && (
+                      <meter
+                        min={0}
+                        max={100}
+                        low={60}
+                        high={80}
+                        optimum={100}
+                        value={fit.score}
+                        aria-label={`${s.name} team fit`}
+                      />
+                    )}
+                    <p>{fit.reason}</p>
+                    <small>
+                      Roster-rating estimate, not a predicted win rate.
+                    </small>
+                  </article>
+                );
+              })}
+          </div>
+        ))}
       </div>
-      <div className="coaching-grid">
-        {tendencies.map(([key, label, low, high], i) => (
-          <label className="tendency" key={key}>
-            <span>
-              <strong>{label}</strong>
-              <output>{values[key]}</output>
-            </span>
-            <input
-              type="range"
-              aria-label={label}
-              min={0}
-              max={100}
-              step={1}
-              value={values[key]}
-              disabled={busy}
-              onChange={(e) => {
-                setValues((v) => ({ ...v, [key]: Number(e.target.value) }));
-                setDirty(true);
-                setMessage("");
-              }}
-            />
-            <small>
-              <span>{low}</span>
-              <span>{high}</span>
-            </small>
-            {i === 9 && <span className="sr-only">Defense settings</span>}
-          </label>
+      <div className="tendency-groups">
+        {groups.map((group) => (
+          <section className="tendency-group" key={group.name}>
+            <h3>{group.name}</h3>
+            <div className="coaching-simple">
+              {group.simple.map((control) => {
+                const value = values[control.key] ?? 50;
+                const preset = [25, 50, 75].includes(value)
+                  ? String(value)
+                  : "custom";
+                return (
+                  <label key={control.key}>
+                    {control.label}
+                    <select
+                      disabled={busy}
+                      value={preset}
+                      onChange={(e) =>
+                        change(control.key, Number(e.target.value))
+                      }
+                    >
+                      {preset === "custom" && (
+                        <option value="custom" disabled>
+                          Custom ({value})
+                        </option>
+                      )}
+                      {control.options.map((label, i) => (
+                        <option key={label} value={[25, 50, 75][i]}>
+                          {label}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                );
+              })}
+            </div>
+            <details className="advanced-coaching">
+              <summary>Advanced {group.name.toLowerCase()} sliders</summary>
+              <div className="coaching-grid">
+                {tendencies
+                  .filter(([key]) => group.keys.includes(key))
+                  .map(([key, label, low, high]) => (
+                    <label className="tendency" key={key}>
+                      <span>
+                        <strong>{label}</strong>
+                        <output>{values[key] ?? 50}</output>
+                      </span>
+                      <input
+                        type="range"
+                        aria-label={label}
+                        min={0}
+                        max={100}
+                        step={1}
+                        value={values[key] ?? 50}
+                        disabled={busy}
+                        onChange={(e) => change(key, Number(e.target.value))}
+                      />
+                      <small>
+                        <span>{low}</span>
+                        <span>{high}</span>
+                      </small>
+                    </label>
+                  ))}
+              </div>
+            </details>
+          </section>
         ))}
       </div>
       <div className="dialog-actions">
@@ -269,6 +429,10 @@ export function CoachingSettings({ league, data, busy, mutate }: Props) {
             ) {
               setDirty(false);
               setMessage("Coaching philosophy saved.");
+            } else {
+              setMessage(
+                "Could not save. Your unsaved changes are preserved; try again.",
+              );
             }
           }}
         >
