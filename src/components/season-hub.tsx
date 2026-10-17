@@ -121,6 +121,20 @@ export function CoachingStaff({
             <div key={role} className="staff-slot">
               <span className="eyebrow">{label}</span>
               <strong>{current?.name || "Position vacant"}</strong>
+              <dl className="coach-contract">
+                <div>
+                  <dt>Cap charge</dt>
+                  <dd>{current ? "$0" : "—"}</dd>
+                </div>
+                <div>
+                  <dt>Contract term</dt>
+                  <dd>{current ? "Open-ended" : "—"}</dd>
+                </div>
+                <div>
+                  <dt>Salary / years remaining</dt>
+                  <dd>Not tracked</dd>
+                </div>
+              </dl>
               <label>
                 Available coaches
                 <select

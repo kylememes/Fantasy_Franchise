@@ -28,6 +28,8 @@ import { RosterManagement, Trades, CoachingSettings } from "./management";
 import { DraftRoom } from "./draft-room";
 import { FranchiseMark, TeamLogo } from "./identity";
 import { SeasonHub, CoachingStaff } from "./season-hub";
+import { NavigationArt } from "./navigation-art";
+import { CoachingResults } from "./coaching-results";
 const navigation = [
   ["Dashboard", LayoutDashboard],
   ["Roster", Users],
@@ -656,7 +658,11 @@ export default function FranchiseApp() {
                     className={view === label ? "active" : ""}
                     onClick={() => setView(label)}
                   >
-                    <Icon size={18} />
+                    {label === "Scouting" ? (
+                      <Icon size={18} />
+                    ) : (
+                      <NavigationArt name={label} />
+                    )}
                     {label}
                     {label === "Trades" &&
                       !!management?.unread_trade_ids?.length && (
@@ -903,7 +909,15 @@ export default function FranchiseApp() {
                             league={snapshot.league}
                             team={me.franchise_id}
                           />
-                          <CoachingSettings {...props} />
+                          <CoachingSettings
+                            key={`coaching:${snapshot.league.id}:${me.franchise_id}`}
+                            {...props}
+                          />
+                          <CoachingResults
+                            key={`results:${snapshot.league.id}:${me.franchise_id}`}
+                            league={snapshot.league}
+                            team={me.franchise_id}
+                          />
                         </>
                       );
                     })()

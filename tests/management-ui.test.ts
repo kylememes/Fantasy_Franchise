@@ -147,5 +147,62 @@ test("trade review, current ownership, contract display and coaching save surviv
   assert.equal((calls[1].args.settings as Record<string, number>).blitz, 72);
   assert.equal(calls[1].args.expected_version, 0);
   cleanup();
+  const failing = render(
+    React.createElement(CoachingSettings, {
+      ...props,
+      mutate: async () => false,
+    }),
+  );
+  fireEvent.change(screen.getByLabelText("Play balance"), {
+    target: { value: "75" },
+  });
+  assert.ok(screen.getByText("Unsaved changes"));
+  fireEvent.change(screen.getByLabelText("Offensive scheme"), {
+    target: { value: "West Coast" },
+  });
+  assert.ok(
+    screen.getByText(
+      "Quick throws, crossing routes, screens, and play action.",
+    ),
+  );
+  await act(async () => {
+    fireEvent.click(
+      screen.getByRole("button", { name: "Save coaching philosophy" }),
+    );
+  });
+  assert.ok(screen.getByText(/Could not save/));
+  assert.equal(
+    (screen.getByLabelText("Play balance") as HTMLSelectElement).value,
+    "75",
+  );
+  failing.rerender(
+    React.createElement(CoachingSettings, {
+      ...props,
+      data: {
+        ...data,
+        coaching: {
+          offense: "Balanced",
+          defense: "Multiple",
+          version: 2,
+          tendencies: { run_pass: 25 },
+        },
+      },
+      mutate: async () => false,
+    }),
+  );
+  assert.ok(screen.getByText(/Another session saved a newer version/));
+  assert.equal(
+    (
+      screen.getByRole("button", {
+        name: "Save coaching philosophy",
+      }) as HTMLButtonElement
+    ).disabled,
+    true,
+  );
+  assert.equal(
+    (screen.getByLabelText("Play balance") as HTMLSelectElement).value,
+    "75",
+  );
+  cleanup();
   dom.window.close();
 });
