@@ -5796,3 +5796,85 @@ select:focus-visible {
     grid-column: auto;
   }
 }
+
+/* Let the chrome artwork sit in one continuous midnight-navy surface. */
+.topbar {
+  background:
+    radial-gradient(ellipse at 7% 85%, #103a604d, transparent 48%),
+    linear-gradient(180deg, #040e2c, #030c24);
+  border-bottom: 1px solid #00c9ee26;
+  box-shadow: 0 6px 24px #00c9ee06;
+}
+.brand--art .brand-mark {
+  overflow: visible;
+}
+.brand--art .brand-mark .franchise-mark {
+  border-radius: 0;
+  filter: drop-shadow(0 0 9px #00dfff18);
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 12%, #000 88%, transparent),
+    linear-gradient(to bottom, transparent, #000 12%, #000 82%, transparent);
+  mask-image:
+    linear-gradient(to right, transparent, #000 12%, #000 88%, transparent),
+    linear-gradient(to bottom, transparent, #000 12%, #000 82%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.sidebar {
+  background: #030c24;
+  border-right-color: #00c9ee26;
+}
+.sidebar nav {
+  background: #030c24;
+}
+.navigation-art {
+  border-radius: 0;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 7%, #000 93%, transparent),
+    linear-gradient(to bottom, transparent, #000 8%, #000 86%, transparent);
+  mask-image:
+    linear-gradient(to right, transparent, #000 7%, #000 93%, transparent),
+    linear-gradient(to bottom, transparent, #000 8%, #000 86%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.sidebar nav button {
+  position: relative;
+  color: #64def2;
+  border-color: transparent;
+  background: transparent;
+}
+.sidebar nav button:hover:not(:disabled),
+.sidebar nav button:focus-visible {
+  color: #9af5ff;
+  background: #00dfff08;
+}
+.sidebar nav button.active {
+  color: #00e5ff;
+  border-color: transparent;
+  background: radial-gradient(ellipse at 30% 50%, #00c9ee18, transparent 75%);
+  box-shadow: none;
+  text-shadow: 0 0 12px #00e5ff36;
+}
+.sidebar nav button.active::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 1px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #00e5ff 25%,
+    #00e5ff 75%,
+    transparent
+  );
+  box-shadow: 0 2px 9px #00e5ff33;
+}
+@media (max-width: 850px) {
+  .sidebar nav {
+    border-bottom-color: #00c9ee26;
+  }
+}
